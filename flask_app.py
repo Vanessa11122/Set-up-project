@@ -123,6 +123,11 @@ def index():
     db_write("INSERT INTO todos (user_id, content, due) VALUES (%s, %s, %s)", (current_user.id, content, due, ))
     return redirect(url_for("index"))
 
+@app.route("/test")
+def test():
+    return "Hallo Reiseplaner"
+
+
 @app.post("/complete")
 @login_required
 def complete():
