@@ -123,7 +123,7 @@ def index():
     db_write("INSERT INTO todos (user_id, content, due) VALUES (%s, %s, %s)", (current_user.id, content, due, ))
     return redirect(url_for("index"))
 
-@app.route("/test")
+@app.route("/Test1")
 def test():
     return render_template("Test1.html") 
 
