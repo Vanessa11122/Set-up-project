@@ -127,6 +127,10 @@ def index():
 def test(): 
     return render_template("Test1.html") 
 
+@app.route("/")
+def home():
+    return render_template("main_page.html")
+
 @app.post("/complete")
 @login_required
 def complete():
