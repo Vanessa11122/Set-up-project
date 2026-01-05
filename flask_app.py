@@ -126,9 +126,6 @@ def index():
 @app.route("/Test1")
 def test():
     return render_template("Test1.html") 
-@app.route("/main_page") 
-def home():
-    return render_template("main_page.html") 
 
 @app.post("/complete")
 @login_required
