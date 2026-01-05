@@ -124,7 +124,7 @@ def index():
     return redirect(url_for("index"))
 
 @app.route("/Test1")
-def test():
+def test(): 
     return render_template("Test1.html") 
 
 @app.post("/complete")
