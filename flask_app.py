@@ -126,7 +126,7 @@ def index():
 @app.route("/Test1")
 def test():
     return render_template("Test1.html") 
-@app.route("/home") 
+@app.route("/main_page") 
 def home():
     return render_template("main_page.html") 
 
