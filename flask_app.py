@@ -125,7 +125,7 @@ def index():
 
 @app.route("/test")
 def test():
-    return "Hallo Reiseplaner"
+    return render_template("Test1.html") 
 
 
 @app.post("/complete")
