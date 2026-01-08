@@ -163,7 +163,7 @@ db = pymysql.connect(
 # ----------------------
 
 # Startseite: Liste aller Trips
-@app.route('/')
+@app.route('/Reisen')
 def index():
     with db.cursor() as cursor:
         cursor.execute("SELECT * FROM trips ORDER BY start_date")
