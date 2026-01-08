@@ -140,3 +140,86 @@ def complete():
 
 if __name__ == "__main__":
     app.run()
+
+
+from flask import Flask, render_template, request, redirect, url_for
+import pymysql
+
+app = Flask(__name__)
+
+# ----------------------
+# MySQL Verbindung
+# ----------------------
+db = pymysql.connect(
+    host='DEIN_USERNAME.mysql.pythonanywhere-services.com',  # MySQL Host auf PythonAnywhere
+    user='DEIN_USERNAME',                                     # Dein Benutzername
+    password='DEIN_PASSWORT',                                 # Dein Passwort
+    database='DEIN_USERNAME$reise',                           # Name der DB
+    cursorclass=pymysql.cursors.DictCursor                   # Ergebnisse als dict
+)
+
+# ----------------------
+# Routen
+# ----------------------
+
+# Startseite: Liste aller Trips
+@app.route('/')
+def index():
+    with db.cursor() as cursor:
+        cursor.execute("SELECT * FROM trips ORDER BY start_date")
+        trips = cursor.fetchall()
+    return render_template('index.html', trips=trips)
+
+# Neue Reise erstellen
+@app.route('/add_trip', methods=['GET', 'POST'])
+def add_trip():
+    if request.method == 'POST':
+        destination = request.form['destination']
+        start_date = request.form['start_date']
+        end_date = request.form['end_date']
+        total_budget = request.form['total_budget']
+
+        with db.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO trips (destination, start_date, end_date, total_budget) VALUES (%s, %s, %s, %s)",
+                (destination, start_date, end_date, total_budget)
+            )
+            db.commit()
+        return redirect(url_for('index'))
+
+    return render_template('add_trip.html')
+
+# Trip Details
+@app.route('/trip/<int:trip_id>')
+def trip_detail(trip_id):
+    with db.cursor() as cursor:
+        cursor.execute("SELECT * FROM trips WHERE id = %s", (trip_id,))
+        trip = cursor.fetchone()
+
+        cursor.execute("SELECT * FROM hotels WHERE trip_id = %s", (trip_id,))
+        hotels = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM transports WHERE trip_id = %s", (trip_id,))
+        transports = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM sights WHERE trip_id = %s", (trip_id,))
+        sights = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM restaurants WHERE trip_id = %s", (trip_id,))
+        restaurants = cursor.fetchall()
+
+    return render_template(
+        'trip_detail.html',
+        trip=trip,
+        hotels=hotels,
+        transports=transports,
+        sights=sights,
+        restaurants=restaurants
+    )
+
+# ----------------------
+# App starten
+# ----------------------
+if __name__ == '__main__':
+    app.run(debug=True)
+
