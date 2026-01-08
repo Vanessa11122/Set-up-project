@@ -34,7 +34,7 @@ login_manager.login_view = "login"
 DB_CONFIG = {
     "host": "Vanessa1.mysql.pythonanywhere-services.com",
     "user": "Vanessa1",
-    "password": "376aqk376",
+    "password": "12345654321a",
     "database": "Vanessa1$default"
 }
 pool = pooling.MySQLConnectionPool(pool_name="pool", pool_size=5, **DB_CONFIG)
