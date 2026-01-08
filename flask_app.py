@@ -151,13 +151,20 @@ app = Flask(__name__)
 # ----------------------
 # MySQL Verbindung
 # ----------------------
-db = pymysql.connect(
-    host='Vanessa1.mysql.pythonanywhere-services.com',  # MySQL Host auf PythonAnywhere
-    user='Vanessa1',                                     # Dein Benutzername
-    password='376aqk376',                                 # Dein Passwort
-    database='Vanessa1$default',                           # Name der DB
-    cursorclass=pymysql.cursors.DictCursor                   # Ergebnisse als dict
-)
+
+
+import mysql.connector
+from mysql.connector import pooling
+
+DB_CONFIG = {
+    "host": "Vanessa1.mysql.pythonanywhere-services.com",
+    "user": "Vanessa1",
+    "password": '376aqk376',  # Das Passwort, das du gerade gesetzt hast
+     "database":'Vanessa1$default',           # Exakt so, wie auf PythonAnywhere
+}
+
+pool = pooling.MySQLConnectionPool(pool_name="pool", pool_size=5, **DB_CONFIG)
+
 
 # ----------------------
 # Routen
