@@ -152,10 +152,10 @@ app = Flask(__name__)
 # MySQL Verbindung
 # ----------------------
 db = pymysql.connect(
-    host='DEIN_USERNAME.mysql.pythonanywhere-services.com',  # MySQL Host auf PythonAnywhere
-    user='DEIN_USERNAME',                                     # Dein Benutzername
+    host='Vanessa1.mysql.pythonanywhere-services.com',  # MySQL Host auf PythonAnywhere
+    user='Vanessa1',                                     # Dein Benutzername
     password='DEIN_PASSWORT',                                 # Dein Passwort
-    database='DEIN_USERNAME$reise',                           # Name der DB
+    database='Vanessa1$reise',                           # Name der DB
     cursorclass=pymysql.cursors.DictCursor                   # Ergebnisse als dict
 )
 
