@@ -5,13 +5,11 @@ from mysql.connector import pooling
 # Load .env variables
 load_dotenv()
 DB_CONFIG = {
-    "host": os.getenv("Vanessa1.mysql.pythonanywhere-services.com"),
-    "user": os.getenv("Vanessa1"),
-    "password": os.getenv("1q1g33j44n9"),
-    "database": os.getenv("Vanessa1$default")
+    "host": os.getenv("DB_HOST"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "database": os.getenv("DB_DATABASE")
 }
-
-
 
 # Init db
 pool = pooling.MySQLConnectionPool(pool_name="pool", pool_size=5, **DB_CONFIG)
