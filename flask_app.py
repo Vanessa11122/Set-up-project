@@ -140,36 +140,6 @@ def complete():
     db_write("DELETE FROM todos WHERE user_id=%s AND id=%s", (current_user.id, todo_id,))
     return redirect(url_for("index"))
 
-if __name__ == "__main__":
-    app.run()
-
-
-from flask import Flask, render_template, request, redirect, url_for
-import pymysql
-
-app = Flask(__name__)
-
-# ----------------------
-# MySQL Verbindung
-# ----------------------
-
-
-import mysql.connector
-from mysql.connector import pooling
-
-DB_CONFIG = {
-    "host": "Vanessa1.mysql.pythonanywhere-services.com",
-    "user": "Vanessa1",
-    "password": '376aqk376',  # Das Passwort, das du gerade gesetzt hast
-     "database":'Vanessa1$default',           # Exakt so, wie auf PythonAnywhere
-}
-
-pool = pooling.MySQLConnectionPool(pool_name="pool", pool_size=5, **DB_CONFIG)
-
-
-# ----------------------
-# Routen
-# ----------------------
 
 # Startseite: Liste aller Trips
 @app.route('/Reisen')
@@ -198,36 +168,8 @@ def add_trip():
 
     return render_template('add_trip.html')
 
-# Trip Details
-@app.route('/trip/<int:trip_id>')
-def trip_detail(trip_id):
-    with db.cursor() as cursor:
-        cursor.execute("SELECT * FROM trips WHERE id = %s", (trip_id,))
-        trip = cursor.fetchone()
+if __name__ == "__main__":
+    app.run()
 
-        cursor.execute("SELECT * FROM hotels WHERE trip_id = %s", (trip_id,))
-        hotels = cursor.fetchall()
 
-        cursor.execute("SELECT * FROM transports WHERE trip_id = %s", (trip_id,))
-        transports = cursor.fetchall()
 
-        cursor.execute("SELECT * FROM sights WHERE trip_id = %s", (trip_id,))
-        sights = cursor.fetchall()
-
-        cursor.execute("SELECT * FROM restaurants WHERE trip_id = %s", (trip_id,))
-        restaurants = cursor.fetchall()
-
-    return render_template(
-        'trip_detail.html',
-        trip=trip,
-        hotels=hotels,
-        transports=transports,
-        sights=sights,
-        restaurants=restaurants
-    )
-
-# ----------------------
-# App starten
-# ----------------------
-if __name__ == '__main__':
-    app.run(debug=True)
