@@ -1,4 +1,3 @@
-
 from flask import Flask, redirect, render_template, request, url_for
 from dotenv import load_dotenv
 import os
@@ -9,7 +8,6 @@ from db import db_read, db_write
 from auth import login_manager, authenticate, register_user
 from flask_login import login_user, logout_user, login_required, current_user
 import logging
-import pymysql
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -127,11 +125,7 @@ def index():
 
 @app.route("/Test1")
 def test(): 
-    return render_template("Test1.html") 
-
-@app.route("/")
-def home():
-    return render_template("main_page.html")
+    return render_template("Test1.html")
 
 @app.post("/complete")
 @login_required
@@ -143,11 +137,9 @@ def complete():
 
 # Startseite: Liste aller Trips
 @app.route('/Reisen')
-def index():
-    with db.cursor() as cursor:
-        cursor.execute("SELECT * FROM trips ORDER BY start_date")
-        trips = cursor.fetchall()
-    return render_template('index.html', trips=trips)
+def reisen():
+    trips = db_read("SELECT * FROM trips ORDER BY start_date")
+    return render_template('Reisen.html', trips=trips)
 
 # Neue Reise erstellen
 @app.route('/add_trip', methods=['GET', 'POST'])
@@ -157,19 +149,10 @@ def add_trip():
         start_date = request.form['start_date']
         end_date = request.form['end_date']
         total_budget = request.form['total_budget']
-
-        with db.cursor() as cursor:
-            cursor.execute(
-                "INSERT INTO trips (destination, start_date, end_date, total_budget) VALUES (%s, %s, %s, %s)",
-                (destination, start_date, end_date, total_budget)
-            )
-            db.commit()
+        db_write("INSERT INTO trips (destination, start_date, end_date, total_budget) VALUES (%s, %s, %s, %s)", (destination, start_date, end_date, total_budget))
         return redirect(url_for('index'))
 
     return render_template('add_trip.html')
 
 if __name__ == "__main__":
     app.run()
-
-
-
