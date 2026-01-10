@@ -139,12 +139,7 @@ def complete():
 # ----------------------
 @app.route('/Reisen')
 def reisen_index():
-    conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM trips ORDER BY start_date")
-    trips = cursor.fetchall()
-    cursor.close()
-    conn.close()
+    trips = db_read("SELECT * FROM trips ORDER BY start_date") 
     return render_template('index.html', trips=trips)
 
 @app.route('/add_trip', methods=['GET', 'POST'])
