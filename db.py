@@ -8,7 +8,7 @@ DB_CONFIG = {
     "host": os.getenv("Vanessa1.mysql.pythonanywhere-services.com"),
     "user": os.getenv("Vanessa1"),
     "password": os.getenv("1q1g33j44n9"),
-    "database": os.getenv("Vanessa1$defaul")
+    "database": os.getenv("Vanessa1$default")
 }
 
 
