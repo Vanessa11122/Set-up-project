@@ -67,17 +67,18 @@ CREATE TABLE restaurants (
 ) ENGINE=InnoDB;
 
 
-INSERT INTO destinations (name, country) VALUES
-('Paris','Frankreich'),
-('Rom','Italien'),
-('Berlin','Deutschland'),
-('Madrid','Spanien'),
-('London','Vereinigtes Königreich'),
-('Wien','Österreich'),
-('Prag','Tschechien'),
-('Amsterdam','Niederlande'),
-('Lissabon','Portugal'),
-('Budapest','Ungarn');
+INSERT INTO destinations (country_id, name, country) VALUES
+(1, 'Paris', 'Frankreich'),
+(2, 'Rom', 'Italien'),
+(3, 'Berlin', 'Deutschland'),
+(4, 'Madrid', 'Spanien'),
+(5, 'London', 'Vereinigtes Königreich'),
+(6, 'Wien', 'Österreich'),
+(7, 'Prag', 'Tschechien'),
+(8, 'Amsterdam', 'Niederlande'),
+(9, 'Lissabon', 'Portugal'),
+(10, 'Budapest', 'Ungarn');
+
 
 -- HOTELS (mehrere Optionen pro Trip / 20)
 INSERT INTO hotels (trip_id, name, price_per_night, nights) VALUES
