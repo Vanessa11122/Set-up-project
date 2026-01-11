@@ -151,7 +151,7 @@ def add_trip():
     
     db_write(
         "INSERT INTO destinations (country_id, country) VALUES (%s, %s)", 
-             (current_user.id, country_id)
+             (current_user2.id, country_id)
         return redirect(url_for('index'))
 
     return render_template('add_trip.html')
