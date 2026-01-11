@@ -143,14 +143,14 @@ def complete():
 @login_required
 def add_trip():
     if request.method == "GET":
-        Reiseziel = db_read("SELECT id, content, due FROM destinations WHERE name NOT NULL ORDER BY name", (current_user.id,))
+        Reiseziel = db_read("SELECT name FROM destinations ORDER BY name", (current_user.id,))
         return render_template("add_trip", Reiseziel=Reiseziel)
         request.method == 'POST':
         destination = request.form['destination']
         start_date = request.form['start_date']
         end_date = request.form['end_date']
         total_budget = request.form['total_budget']
-        db_write("INSERT INTO trips (destination, start_date, end_date, total_budget) VALUES (%s, %s, %s, %s)", (destination, start_date, end_date, total_budget))
+        db_write("INSERT INTO trips (destinations, start_date, end_date, total_budget) VALUES (%s, %s, %s, %s)", (destinations, start_date, end_date, total_budget))
         return redirect(url_for('index'))
 
     return render_template('add_trip.html')
