@@ -148,9 +148,10 @@ def add_trip():
         total_budget = request.form['total_budget']
         db_write("INSERT INTO trips (destination, start_date, end_date, total_budget) VALUES (%s, %s, %s, %s)", (destination, start_date, end_date, total_budget))
         return redirect(url_for('index'))
+        destinations = db_read("SELECT name FROM destinations")  # db_read gibt z.B. eine Liste von Dicts zurück
+    return render_template('add_trip.html', destinations=destinations)
 
-    return render_template('add_trip.html')
-
+   
 
 if __name__ == "__main__":
     app.run()
