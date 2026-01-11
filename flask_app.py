@@ -156,15 +156,6 @@ def add_trip():
 
     return render_template('add_trip.html')
 
-@app.route('/add_trip/<int:country_id>')
-@login_required
-def add_trip(country_id):
-    db_write(
-        "INSERT INTO user_trips (user_id, country_id) VALUES (%s, %s)",
-        (current_user.id, country_id)
-    )
-    return redirect(url_for('index'))
-
 
 
    
