@@ -14,14 +14,13 @@ CREATE TABLE todos (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE trips (
+CREATE TABLE destinations (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    destination VARCHAR(255) NOT NULL,
-    start_date DATE,
-    end_date DATE,
-    total_budget DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    name VARCHAR(255) NOT NULL UNIQUE,
+    country VARCHAR(255),
+    description TEXT
 ) ENGINE=InnoDB;
+
 
 CREATE TABLE trip_budgets (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,6 +65,19 @@ CREATE TABLE restaurants (
     visit_date DATE,
     FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+
+INSERT INTO destinations (name, country) VALUES
+('Paris','Frankreich'),
+('Rom','Italien'),
+('Berlin','Deutschland'),
+('Madrid','Spanien'),
+('London','Vereinigtes Königreich'),
+('Wien','Österreich'),
+('Prag','Tschechien'),
+('Amsterdam','Niederlande'),
+('Lissabon','Portugal'),
+('Budapest','Ungarn');
 
 -- HOTELS (mehrere Optionen pro Trip / 20)
 INSERT INTO hotels (trip_id, name, price_per_night, nights) VALUES
