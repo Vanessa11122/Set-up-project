@@ -4,15 +4,6 @@
 <h1>Reise hinzufügen</h1>
 <p>TODO: Hier kommt ein Formular</p>
 
-<ul>
-    {% for r in reiseziele %}
-        <li>
-            <a href="{{ url_for('add_trip', country_id=r.country_id) }}">
-                {{ r.country }}
-            </a>
-        </li>
-    {% endfor %}
-</ul>
 
 
 
