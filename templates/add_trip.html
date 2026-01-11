@@ -3,6 +3,25 @@
 {%block content %}
 <h1>Reise hinzufügen</h1>
 <p>TODO: Hier kommt ein Formular</p>
+<form method="post">
+    <label for="destination">Reiseziel:</label>
+    <select name="destination" id="destination">
+        {% for dest in destinations %}
+            <option value="{{ dest.id }}">{{ dest.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="start_date">Startdatum:</label>
+    <input type="date" name="start_date" required>
+
+    <label for="end_date">Enddatum:</label>
+    <input type="date" name="end_date" required>
+
+    <label for="total_budget">Budget:</label>
+    <input type="number" name="total_budget" step="0.01" required>
+
+    <button type="submit">Reise hinzufügen</button>
+</form>
 
 {% endblock %}
 
