@@ -147,14 +147,14 @@ def add_trip():
         )
         return render_template("add_trip.html", reiseziel=reiseziel)
         
-    country_id = request.form["country_id"]
+        country_id = request.form["country_id"]
     
     db_write(
         "INSERT INTO destinations (country_id, country) VALUES (%s, %s)", 
              (current_user2.id, country_id)
         return redirect(url_for('index'))
 
-    return render_template('add_trip.html')
+        return render_template('add_trip.html')
 
 
 
