@@ -140,8 +140,12 @@ def complete():
 
 # Neue Reise erstellen
 @app.route('/add_trip', methods=['GET', 'POST'])
+@login_required
 def add_trip():
-    if request.method == 'POST':
+    if request.method == "GET":
+        Reiseziel = db_read("SELECT id, content, due FROM destinations WHERE name NOT NULL ORDER BY name", (current_user.id,))
+        return render_template("add_trip", Reiseziel=Reiseziel)
+        request.method == 'POST':
         destination = request.form['destination']
         start_date = request.form['start_date']
         end_date = request.form['end_date']
