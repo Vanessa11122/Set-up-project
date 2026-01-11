@@ -3,4 +3,52 @@
 {%block content %}
 <h1>Reise hinzufügen</h1>
 <p>TODO: Hier kommt ein Formular</p>
+
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Trips Übersicht</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+        h1 { margin-bottom: 20px; }
+        table { border-collapse: collapse; width: 100%; background: #fff; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #eee; }
+        a.button { display: inline-block; padding: 6px 12px; margin: 5px 0; background: #4CAF50; color: white; text-decoration: none; border-radius: 4px; }
+        a.button:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Meine Reisen</h1>
+    <a href="{{ url_for('add_trip') }}" class="button">Neue Reise hinzufügen</a>
+
+    {% if trips %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Destination</th>
+                    <th>Startdatum</th>
+                    <th>Enddatum</th>
+                    <th>Budget</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trip in trips %}
+                <tr>
+                    <td>{{ trip.destination }}</td>
+                    <td>{{ trip.start_date }}</td>
+                    <td>{{ trip.end_date }}</td>
+                    <td>{{ trip.total_budget }} €</td>
+                    <td><a href="{{ url_for('trip_detail', trip_id=trip.id) }}" class="button">Ansehen</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Keine Reisen vorhanden.</p>
+    {% endif %}
+</body>
+</html>
+
 {% endblock %}
