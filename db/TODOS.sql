@@ -21,6 +21,17 @@ CREATE TABLE destinations (
     description TEXT
 ) ENGINE=InnoDB;
 
+INSERT INTO destinations (country_id, name, country) VALUES
+(1, 'Paris', 'Frankreich'),
+(2, 'Rom', 'Italien'),
+(3, 'Berlin', 'Deutschland'),
+(4, 'Madrid', 'Spanien'),
+(5, 'London', 'Vereinigtes Königreich'),
+(6, 'Wien', 'Österreich'),
+(7, 'Prag', 'Tschechien'),
+(8, 'Amsterdam', 'Niederlande'),
+(9, 'Lissabon', 'Portugal'),
+(10, 'Budapest', 'Ungarn');
 
 CREATE TABLE trip_budgets (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,48 +50,6 @@ CREATE TABLE hotels (
     FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-CREATE TABLE transports (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    trip_id INT NOT NULL,
-    type ENUM('flight','train','car','bus') NOT NULL,
-    provider VARCHAR(255),
-    price DECIMAL(10,2),
-    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-CREATE TABLE sights (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    trip_id INT NOT NULL,
-    name VARCHAR(255),
-    entrance_fee DECIMAL(10,2),
-    visit_date DATE,
-    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-CREATE TABLE restaurants (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    trip_id INT NOT NULL,
-    name VARCHAR(255),
-    estimated_cost DECIMAL(10,2),
-    visit_date DATE,
-    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-
-INSERT INTO destinations (country_id, name, country) VALUES
-(1, 'Paris', 'Frankreich'),
-(2, 'Rom', 'Italien'),
-(3, 'Berlin', 'Deutschland'),
-(4, 'Madrid', 'Spanien'),
-(5, 'London', 'Vereinigtes Königreich'),
-(6, 'Wien', 'Österreich'),
-(7, 'Prag', 'Tschechien'),
-(8, 'Amsterdam', 'Niederlande'),
-(9, 'Lissabon', 'Portugal'),
-(10, 'Budapest', 'Ungarn');
-
-
--- HOTELS (mehrere Optionen pro Trip / 20)
 INSERT INTO hotels (trip_id, name, price_per_night, nights) VALUES
 (1,'Paris Budget Hotel',90,6),
 (1,'Paris Luxury Stay',180,6),
@@ -103,7 +72,15 @@ INSERT INTO hotels (trip_id, name, price_per_night, nights) VALUES
 (10,'Budapest Budget',65,5),
 (10,'Budapest Spa Hotel',140,5);
 
--- TRANSPORTS (mehrere Optionen / 20)
+CREATE TABLE transports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    trip_id INT NOT NULL,
+    type ENUM('flight','train','car','bus') NOT NULL,
+    provider VARCHAR(255),
+    price DECIMAL(10,2),
+    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 INSERT INTO transports (trip_id, type, provider, price) VALUES
 (1,'flight','Air France',350),
 (1,'train','SNCF',120),
@@ -126,7 +103,16 @@ INSERT INTO transports (trip_id, type, provider, price) VALUES
 (10,'train','MÁV',70),
 (10,'bus','Volánbusz',35);
 
--- SIGHTS (mehrere Optionen / 20)
+
+CREATE TABLE sights (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    trip_id INT NOT NULL,
+    name VARCHAR(255),
+    entrance_fee DECIMAL(10,2),
+    visit_date DATE,
+    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 INSERT INTO sights (trip_id, name, entrance_fee, visit_date) VALUES
 (1,'Eiffelturm',25,'2026-04-02'),
 (1,'Montmartre',0,'2026-04-03'),
@@ -149,7 +135,15 @@ INSERT INTO sights (trip_id, name, entrance_fee, visit_date) VALUES
 (10,'Parlament',10,'2026-09-16'),
 (10,'Thermalbad Széchenyi',20,'2026-09-17');
 
--- RESTAURANTS (mehrere Optionen / 20)
+CREATE TABLE restaurants (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    trip_id INT NOT NULL,
+    name VARCHAR(255),
+    estimated_cost DECIMAL(10,2),
+    visit_date DATE,
+    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 INSERT INTO restaurants (trip_id, name, estimated_cost, visit_date) VALUES
 (1,'Le Bistro',45,'2026-04-02'),
 (1,'Street Crepes',15,'2026-04-03'),
