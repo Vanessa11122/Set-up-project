@@ -4,10 +4,13 @@
 <h1>Reise hinzufügen</h1>
 <p>TODO: Hier kommt ein Formular</p>
 
-<form method="post" action="/add_trip">
-  <label for="country_id">Land-ID:</label>
-  <input type="text" id="country_id" name="country_id" placeholder="Land-ID eingeben" required>
-  <button type="submit">Absenden</button>
+<form method="POST">
+    <select name="country_id" required>
+        {% for r in reiseziele %}
+            <option value="{{ r.country_id }}">{{ r.country }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Reise hinzufügen</button>
 </form>
 
 
