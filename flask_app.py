@@ -136,10 +136,7 @@ def complete():
 
 
 # Startseite: Liste aller Trips
-@app.route('/Reisen')
-def reisen():
-    trips = db_read("SELECT * FROM trips ORDER BY start_date")
-    return render_template('Reisen.html', trips=trips)
+
 
 # Neue Reise erstellen
 @app.route('/add_trip', methods=['GET', 'POST'])
