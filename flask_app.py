@@ -142,11 +142,16 @@ def complete():
 @app.route('/add_trip', methods=['GET', 'POST'])
 def add_trip():
     if request.method == 'POST':
-        destination = request.form['destination']
-        start_date = request.form['start_date']
-        end_date = request.form['end_date']
-        total_budget = request.form['total_budget']
-        db_write("INSERT INTO trips (destination, start_date, end_date, total_budget) VALUES (%s, %s, %s, %s)", (destination, start_date, end_date, total_budget))
+        reiseziel = db_read(
+            "SELECT country_id, country FROM destinations ORDER BY country"
+        )
+        return render_template("add_trip.html", reiseziel=reiseziel)
+        
+    country_id = request.form["country_id"]
+    
+    db_write(
+        "INSERT INTO destinations (country_id, country) VALUES (%s, %s)", 
+             (current_user.id, country_id)
         return redirect(url_for('index'))
 
     return render_template('add_trip.html')
