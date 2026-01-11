@@ -4,4 +4,34 @@
 <h1>Reise hinzufügen</h1>
 <p>TODO: Hier kommt ein Formular</p>
 
+<form method="post">
+
+    <!-- Dropdown für die Reiseziele -->
+    <label>Reiseziel</label><br>
+    <select name="destination_id" required>
+        {% for d in destinations %}
+            <option value="{{ d.id }}">{{ d.name }} ({{ d.country }})</option>
+        {% endfor %}
+    </select><br><br>
+
+    <!-- Startdatum -->
+    <label>Startdatum</label><br>
+    <input type="date" name="start_date" required><br><br>
+
+    <!-- Enddatum -->
+    <label>Enddatum</label><br>
+    <input type="date" name="end_date" required><br><br>
+
+    <!-- Budget -->
+    <label>Budget (€)</label><br>
+    <input type="number" name="total_budget" step="0.01" required><br><br>
+
+    <button type="submit">Reise speichern</button>
+</form>
+
+<a href="{{ url_for('reisen') }}">Zurück zur Übersicht</a>
+
+
+
+
 {% endblock %}
