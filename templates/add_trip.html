@@ -4,14 +4,15 @@
 <h1>Reise hinzufügen</h1>
 <p>TODO: Hier kommt ein Formular</p>
 
-<form method="POST">
-    <select name="country_id" required>
-        {% for r in reiseziele %}
-            <option value="{{ r.country_id }}">{{ r.country }}</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Reise hinzufügen</button>
-</form>
+<ul>
+    {% for r in reiseziele %}
+        <li>
+            <a href="{{ url_for('add_trip', country_id=r.country_id) }}">
+                {{ r.country }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
 
 
 
