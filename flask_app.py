@@ -143,16 +143,16 @@ def complete():
 def add_trip():
     # 1. Wenn der User das Formular abschickt (Speichern):
     if request.method == 'POST':
-        country_id = request.form.get('country_id')
+        dest_id = request.form.get('destination_id')
         
-        if country_id:
+        if dest_id:
             
-            db_write("INSERT INTO trips (user_id, country_id) VALUES (%s, %s)", 
-                     (current_user2.id, country_id))
+            db_write("INSERT INTO trips (user2_id, destination_id) VALUES (%s, %s)", 
+                     (current_user2.id, dest_id))
             return redirect(url_for('index'))
 
 
-    reiseziel = db_read("SELECT country_id, country FROM countries ORDER BY country")
+    reiseziel = db_read("SELECT id, name, country FROM destinations ORDER BY country")
     
     return render_template("add_trip.html", reiseziel=reiseziel)
 
