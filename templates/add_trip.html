@@ -2,13 +2,17 @@
 
 {%block content %}
 <form method="POST">
-    <label for="country_id">Wähle dein Reiseziel:</label>
-    <select name="country_id" id="country_id">
-        {% for land in reiseziel %}
-            <option value="{{ land.country_id }}">{{ land.country }}</option>
+    <label for="destination_id">Wohin soll die Reise gehen?</label>
+    <select name="destination_id" id="destination_id" required>
+        <option value="" disabled selected>Bitte wählen...</option>
+        {% for ort in reiseziel %}
+            {# ort[0] ist die id, ort[1] ist die Stadt (name), ort[2] ist das Land #}
+            <option value="{{ ort[0] }}">{{ ort[2] }}: {{ ort[1] }}</option>
         {% endfor %}
     </select>
-    <button type="submit">Trip hinzufügen</button>
+    
+    <br><br>
+    <button type="submit">Trip speichern</button>
 </form>
 {% endblock %}
 
