@@ -1,19 +1,9 @@
-{% extends "base.html" %}
-
-{%block content %}
-<h1>Reise hinzufügen</h1>
-<p>TODO: Hier kommt ein Formular</p>
-
 <form method="POST">
-    <select name="country_id" required>
-        {% for r in reiseziele %}
-            <option value="{{ country_id }}">{{ country }}</option>
+    <label for="country_id">Wähle dein Reiseziel:</label>
+    <select name="country_id" id="country_id">
+        {% for land in reiseziel %}
+            <option value="{{ land.country_id }}">{{ land.country }}</option>
         {% endfor %}
     </select>
-    <button type="submit">Reise hinzufügen</button>
+    <button type="submit">Trip hinzufügen</button>
 </form>
-
-
-
-
-{% endblock %}
