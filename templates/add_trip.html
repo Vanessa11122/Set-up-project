@@ -1,20 +1,32 @@
-{% extends "base.html" %}
 
-{%block content %}
-<h1>Reise hinzufügen</h1>
-<p>TODO: Hier kommt ein Formular</p>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Reise hinzufügen</title>
+</head>
+<body>
+    <h1>Neue Reise planen</h1>
 
-<form method="POST">
-    <select name="country_id" required>
-        {% for r in reiseziele %}
-            <option value="{{ country_id }}">{{ country }}</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Reise hinzufügen</button>
-</form>
+    <form method="POST">
+        <label for="destination_id">Reiseziel auswählen:</label>
+        <br>
+        <select name="destination_id" id="destination_id" required>
+            <option value="" disabled selected>-- Bitte ein Ziel wählen --</option>
+            
+            {# Hier wird die Liste aus Python durchlaufen #}
+            {% for ziel in reiseziele %}
+                <option value="{{ ziel.id }}">
+                    {{ ziel.country }}: {{ ziel.name }}
+                </option>
+            {% endfor %}
+        </select>
 
+        <br><br>
+        <button type="submit">Reise speichern</button>
+    </form>
 
-
-
-{% endblock %}
+    <br>
+    <a href="{{ url_for('index') }}">Abbrechen</a>
+</body>
+</html>
 
