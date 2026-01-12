@@ -1,10 +1,20 @@
-
+CREATE TABLE trips (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user2_id INT NOT NULL,
+    destination_id INT NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    budget_total DECIMAL(10, 2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (destination_id) REFERENCES destinations(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(250) NOT NULL UNIQUE,
     password VARCHAR(250) NOT NULL
-    user2.id INT NOT NULL,
+    user.id INT NOT NULL,
 );
 
 CREATE TABLE todos (
