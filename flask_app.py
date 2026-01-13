@@ -141,23 +141,18 @@ def complete():
 # Neue Reise erstellen
 @app.route('/add_trip', methods=['GET', 'POST'])
 def add_trip():
-    # 1. Wenn der User das Formular abschickt (Speichern):
     if request.method == 'POST':
         dest_id = request.form.get('destination_id')
-        
         if dest_id:
-            
             db_write(
                 "INSERT INTO trips (user2_id, destination_id) VALUES (%s, %s)", 
-                (current_user2.id, dest_id)
+                (current_user.id, dest_id) # Achte darauf, dass current_user.id existiert
             )
             return redirect(url_for('index'))
 
-
+    # Wichtig: "reiseziel" muss genau so im HTML verwendet werden
     reiseziel = db_read("SELECT id, name, country FROM destinations ORDER BY country")
-    
     return render_template("add_trip.html", reiseziel=reiseziel)
-
    
 
 if __name__ == "__main__":
