@@ -9,6 +9,14 @@
         <option value="" disabled selected>-- Bitte ein Ziel wählen --</option>
         {% for ziel in reiseziel %}
             <option value="{{ ziel.id }}">
+                <div>
+            <label for="costume_size">Grösse wählen:</label>
+              <select name="costume_size" id="costume_size">
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+              </select>
+          </div>
                 {{ ziel.land }}: {{ ziel.name }}
             </option>
         {% endfor %}
