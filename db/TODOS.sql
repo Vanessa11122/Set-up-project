@@ -1,38 +1,40 @@
 
--- 1. Unabhängige Tabellen
+
+-- 1. UNABHÄNGIGE TABELLEN
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(250) NOT NULL UNIQUE,
     password VARCHAR(250) NOT NULL
-);
+) ENGINE=InnoDB;
 
-CREATE TABLE todos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    content VARCHAR(100),
-    due DATETIME,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-CREATE TABLE user_reisen (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    reiseziel_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id)
-);
-
-
+-- 2. REISEZIELE (Muss vor Hotels, Restaurants und user_reisen erstellt werden)
 CREATE TABLE reiseziele (
-    reiseziel_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     land VARCHAR(100) NOT NULL,
     beschreibung TEXT,
     währung VARCHAR(10) DEFAULT 'EUR'
 ) ENGINE=InnoDB;
 
+-- 3. ABHÄNGIGE TABELLEN (Tabellen mit Foreign Keys)
+CREATE TABLE todos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    content VARCHAR(100),
+    due DATETIME,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE user_reisen (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    reiseziel_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 CREATE TABLE hotels (
-    hotel_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     reiseziel_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     sterne INT DEFAULT 3,
@@ -42,7 +44,7 @@ CREATE TABLE hotels (
 ) ENGINE=InnoDB;
 
 CREATE TABLE restaurants (
-    restaurants_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     reiseziel_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     kueche_typ VARCHAR(100),
@@ -51,9 +53,8 @@ CREATE TABLE restaurants (
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- 3. DATENSÄTZE EINFÜGEN
--- 20 Reiseziele
-INSERT INTO reiseziele (reiseziel_id, name, land, beschreibung) VALUES
+-- 4. DATENSÄTZE EINFÜGEN
+INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
 (1, 'Paris', 'Frankreich', 'Stadt der Liebe mit dem Eiffelturm.'),
 (2, 'Berlin', 'Deutschland', 'Historische Hauptstadt mit viel Kultur.'),
 (3, 'Rom', 'Italien', 'Die ewige Stadt mit dem Kolosseum.'),
@@ -75,7 +76,7 @@ INSERT INTO reiseziele (reiseziel_id, name, land, beschreibung) VALUES
 (19, 'Reykjavík', 'Island', 'Nördlichste Hauptstadt, Tor zur Natur.'),
 (20, 'Venedig', 'Italien', 'Einzigartige Lagunenstadt ohne Autos.');
 
--- 20 Hotels (Eines für jedes Reiseziel)
+-- Hotels und Restaurants einfügen
 INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht) VALUES
 (1, 'Eiffel Rivera', 4, 185.00), (2, 'Brandenburger Hof', 5, 220.00),
 (3, 'Colosseo Suites', 4, 160.00), (4, 'Madrid Central', 3, 110.00),
@@ -88,7 +89,6 @@ INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht) VALUES
 (17, 'Table Mountain View', 4, 150.00), (18, 'Harbour Lodge', 5, 320.00),
 (19, 'Aurora Guesthouse', 3, 160.00), (20, 'Laguna Palace', 4, 280.00);
 
--- 20 Restaurants (Eines für jedes Reiseziel)
 INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung) VALUES
 (1, 'Le Bistro', 'Französisch', '€€€', 4.5), (2, 'Curry 36', 'Imbiss', '€', 4.2),
 (3, 'Mamma Mia', 'Italienisch', '€€', 4.8), (4, 'Tapas Bar', 'Spanisch', '€€', 4.6),
