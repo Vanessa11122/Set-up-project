@@ -144,7 +144,7 @@ def complete():
 @app.route('/add_trip')
 def add_trip():
 
-    return render_template("add_trip.html", reiseziel=alle_ziele)
+    return render_template("add_trip.html")
    
 
 if __name__ == "__main__":
