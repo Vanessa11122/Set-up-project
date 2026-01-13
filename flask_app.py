@@ -136,10 +136,8 @@ def complete():
 
 
 
-
-@app.route("/add_trip.html")
-def add_trip():
-   
+@app.route('/add_trip')
+def addtrip():
     return render_template("add_trip.html")
    
 
