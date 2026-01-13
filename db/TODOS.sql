@@ -1,13 +1,12 @@
+-- 1. ALTE TABELLEN LÖSCHEN (Um Fehler bei der Neu-Erstellung zu vermeiden
 
-
--- 1. UNABHÄNGIGE TABELLEN
+-- 2. UNABHÄNGIGE TABELLEN ERSTELLEN
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(250) NOT NULL UNIQUE,
     password VARCHAR(250) NOT NULL
 ) ENGINE=InnoDB;
 
--- 2. REISEZIELE (Muss vor Hotels, Restaurants und user_reisen erstellt werden)
 CREATE TABLE reiseziele (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -16,7 +15,7 @@ CREATE TABLE reiseziele (
     währung VARCHAR(10) DEFAULT 'EUR'
 ) ENGINE=InnoDB;
 
--- 3. ABHÄNGIGE TABELLEN (Tabellen mit Foreign Keys)
+-- 3. ABHÄNGIGE TABELLEN ERSTELLEN (Diese brauchen 'users' oder 'reiseziele')
 CREATE TABLE todos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -53,7 +52,8 @@ CREATE TABLE restaurants (
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- 4. DATENSÄTZE EINFÜGEN
+-- 4. DATEN IN 'reiseziele' EINFÜGEN
+-- WICHTIG: Die Spalte heißt 'id', NICHT 'reiseziel_id'
 INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
 (1, 'Paris', 'Frankreich', 'Stadt der Liebe mit dem Eiffelturm.'),
 (2, 'Berlin', 'Deutschland', 'Historische Hauptstadt mit viel Kultur.'),
@@ -76,7 +76,7 @@ INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
 (19, 'Reykjavík', 'Island', 'Nördlichste Hauptstadt, Tor zur Natur.'),
 (20, 'Venedig', 'Italien', 'Einzigartige Lagunenstadt ohne Autos.');
 
--- Hotels und Restaurants einfügen
+-- 5. DATEN IN 'hotels' EINFÜGEN (Hier ist 'reiseziel_id' der Fremdschlüssel)
 INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht) VALUES
 (1, 'Eiffel Rivera', 4, 185.00), (2, 'Brandenburger Hof', 5, 220.00),
 (3, 'Colosseo Suites', 4, 160.00), (4, 'Madrid Central', 3, 110.00),
@@ -89,6 +89,7 @@ INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht) VALUES
 (17, 'Table Mountain View', 4, 150.00), (18, 'Harbour Lodge', 5, 320.00),
 (19, 'Aurora Guesthouse', 3, 160.00), (20, 'Laguna Palace', 4, 280.00);
 
+-- 6. DATEN IN 'restaurants' EINFÜGEN
 INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung) VALUES
 (1, 'Le Bistro', 'Französisch', '€€€', 4.5), (2, 'Curry 36', 'Imbiss', '€', 4.2),
 (3, 'Mamma Mia', 'Italienisch', '€€', 4.8), (4, 'Tapas Bar', 'Spanisch', '€€', 4.6),
