@@ -143,11 +143,11 @@ def addtrip():
 
 @app.route('/Italien')
 def Italien():
-    return render_template("Italien.html")
+    return render_template("Italien.html") 
 
 @app.route('/Frankreich')
 def Frankreich():
-    return render_template("Frankreich.html")
+    return render_template("Frankreich.html") 
 
 if __name__ == "__main__":
     app.run()
