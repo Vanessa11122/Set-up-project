@@ -4,23 +4,17 @@
 <h2>Neue Reise planen</h2>
 
 <form method="POST">
-    <label for="destination_id">Wohin möchtest du reisen?</label>
     <div>
-            <label for="costume_size">Grösse wählen:</label>
+            <label for="costume_size">Wohin möchtest du reisen?:</label>
               <select name="costume_size" id="costume_size">
                 <option value="S">S</option>
                 <option value="M">M</option>
                 <option value="L">L</option>
               </select>
           </div>
-    <select name="destination_id" id="destination_id" required>
-        <option value="" disabled selected>-- Bitte ein Ziel wählen --</option>
+    
         
-        {% for ziel in reiseziel %}
-            <option value="{{ ziel.id }}">
-
-                {{ ziel.land }}: {{ ziel.name }}
-            </option>
+       
         {% endfor %}
     </select>
 
