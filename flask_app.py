@@ -146,7 +146,7 @@ def add_trip():
         if dest_id:
             db_write(
                 "INSERT INTO trips (user2_id, destination_id) VALUES (%s, %s)", 
-                (current_user.id, dest_id) # Achte darauf, dass current_user.id existiert
+                (current_user2.id, dest_id) # Achte darauf, dass current_user.id existiert
             )
             return redirect(url_for('index'))
 
