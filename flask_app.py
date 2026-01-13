@@ -154,7 +154,7 @@ def plane_reise():
         
         if not destination_id:
             flash("Bitte wählen Sie ein Reiseziel aus.")
-            return redirect(url_for('add_trip'))
+            return redirect(url_for('add_trip.html'))
 
         # 2. Logik zum Speichern (Beispiel)
         # Hier würdest du normalerweise den Eintrag in die Datenbank schreiben
