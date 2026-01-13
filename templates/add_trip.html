@@ -1,25 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Neue Reise planen</h2>
+<div class="container">
+    <h2>Neue Reise planen</h2>
+    <p>Wähle dein nächstes Ziel aus unserer Datenbank:</p>
 
-<form method="POST">
-    <div>
-        <label for="destination_id">Reiseziel:</label>
-        <select name="destination_id" id="destination_id" required>
-            <option value="" disabled selected>-- Bitte wählen --</option>
-            {% for ziel in reiseziel %}
-                <option value="{{ ziel.id }}">
-                    {{ ziel.country }}: {{ ziel.name }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
+    <form method="POST" action="{{ url_for('plane_reise') }}">
+        <div class="form-group">
+            <label for="destination_id"><strong>Reiseziel auswählen:</strong></label>
+            <br>
+            <select name="destination_id" id="destination_id" required style="padding: 8px; width: 100%; max-width: 400px;">
+                <option value="" disabled selected>-- Bitte ein Ziel wählen --</option>
+                
+                {% for ziel in reiseziel %}
+                    {# 'ziel.land' entspricht deiner SQL-Spalte 'land' #}
+                    <option value="{{ ziel.id }}">
+                        {{ ziel.land }}: {{ ziel.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <br>
-    <button type="submit">Reise speichern</button>
-</form>
+        <div style="margin-top: 20px;">
+            <button type="submit" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+                Reise speichern
+            </button>
+            <a href="{{ url_for('index') }}" style="margin-left: 15px; text-decoration: none; color: #666;">Abbrechen</a>
+        </div>
+    </form>
+</div>
 
-<br>
-<a href="{{ url_for('index') }}">Abbrechen</a>
+<hr>
+
+<h3>Verfügbare Informationen</h3>
+<p><small>Nach der Auswahl werden dir passende Hotels und Restaurants für dein Ziel angezeigt.</small></p>
+
 {% endblock %}
