@@ -141,7 +141,7 @@ def complete():
 # Neue Reise erstellen
 
 
-@app.route('/add_trip', methods=['GET', 'POST'])
+@app.route('/add_trip')
 def add_trip():
 
     return render_template("add_trip.html", reiseziel=alle_ziele)
