@@ -140,7 +140,7 @@ def complete():
 @app.route('/add_trip')
 @login_required
 def addtrip():
-    return render_template("Test1.html")
+    return render_template("/add_trip")
    
 
 if __name__ == "__main__":
