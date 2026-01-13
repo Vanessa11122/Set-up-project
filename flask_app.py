@@ -141,10 +141,37 @@ def complete():
 # Neue Reise erstellen
 
 
-@app.route('/add_trip')
-def add_trip():
 
-    return render_template("add_trip.html")
+
+# Ich nehme an, du hast deine Models in einer models.py oder oben definiert
+# from models import db, Reiseziele, UserReise 
+
+@app.route('/add_trip.html', methods=['GET', 'POST'])
+def plane_reise():
+    if request.method == 'POST':
+        # 1. Daten aus dem Formular holen
+        destination_id = request.form.get('destination_id')
+        
+        if not destination_id:
+            flash("Bitte wählen Sie ein Reiseziel aus.")
+            return redirect(url_for('plane_reise'))
+
+        # 2. Logik zum Speichern (Beispiel)
+        # Hier würdest du normalerweise den Eintrag in die Datenbank schreiben
+        # new_trip = Trip(destination_id=destination_id, user_id=current_user.id)
+        # db.session.add(new_trip)
+        # db.session.commit()
+        
+        print(f"Reiseziel mit ID {destination_id} wurde ausgewählt!") # Debug-Log
+        
+        flash("Reise erfolgreich geplant!")
+        return redirect(url_for('index'))
+
+    # GET: Alle Reiseziele aus der DB laden, um sie im Dropdown anzuzeigen
+    # SQL-Entsprechung: SELECT * FROM reiseziele;
+    alle_ziele = Reiseziele.query.all() 
+    
+    return render_template('deine_datei.html', reiseziel=alle_ziele)
    
 
 if __name__ == "__main__":
