@@ -143,25 +143,7 @@ def complete():
 
 @app.route('/add_trip', methods=['GET', 'POST'])
 def add_trip():
-    # 1. Wenn das Formular abgeschickt wird
-    if request.method == 'POST':
-        # Wir holen die ID des ausgewählten Reiseziels aus dem Formular
-        ziel_id = request.form.get('destination_id')
-        
-        if ziel_id:
-            # Hier speichern wir die Reise. 
-            # Falls deine 'trips'-Tabelle noch existiert, achte auf die Spaltennamen!
-            db_write(
-                "INSERT INTO trips (user2_id, destination_id) VALUES (%s, %s)", 
-                (current_user.id, ziel_id)
-            )
-            return redirect(url_for('index'))
 
-    # 2. Daten für das Dropdown-Menü laden
-    # Wir holen 'id', 'name' (Stadt) und 'land' aus deiner neuen Tabelle 'reiseziele'
-    alle_ziele = db_read("SELECT id, name, land FROM reiseziele ORDER BY land, name")
-    
-    # Wir übergeben 'alle_ziele' an das Template unter dem Namen 'reiseziel'
     return render_template("add_trip.html", reiseziel=alle_ziele)
    
 
