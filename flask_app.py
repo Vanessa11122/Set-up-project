@@ -137,28 +137,10 @@ def complete():
 
 
 
-@app.route('/add_trip', methods=["GET", "POST"])
+@app.route('/add_trip')
 @login_required
 def addtrip():
-    if request.method == "POST":
-        # 1. Daten aus dem Formular abrufen
-        reiseziel_id = request.form.get("destination_id")
-        
-        # 2. In die Tabelle 'user_reisen' schreiben
-        # Wir nutzen current_user.id von Flask-Login
-        db_write(
-            "INSERT INTO user_reisen (user_id, reiseziel_id) VALUES (%s, %s)",
-            (current_user.id, reiseziel_id)
-        )
-        
-        # Zurück zur Startseite oder einer Erfolgsseite
-        return redirect(url_for("index"))
-
-    # GET: Alle Reiseziele für das Dropdown-Menü laden
-    # Entspricht genau deiner Tabelle 'reiseziele'
-    reiseziele_liste = db_read("SELECT id, name, land FROM reiseziele ORDER BY land ASC")
-    
-    return render_template("add_trip.html", reiseziel=reiseziele_liste)
+    return render_template("Test1.html")
    
 
 if __name__ == "__main__":
