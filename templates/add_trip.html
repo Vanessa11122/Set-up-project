@@ -1,14 +1,25 @@
 {% extends "base.html" %}
 
-{%block content %}
-<form method="POST">
-    <select name="destination_id" required>
-        <option value="">-- Bitte wählen --</option>
-        {% for ort in reiseziel %}
-            <option value="{{ ort[0] }}">{{ ort[2] }} ({{ ort[1] }})</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Trip hinzufügen</button>
-</form>
-{% endblock %}
+{% block content %}
+<h2>Neue Reise planen</h2>
 
+<form method="POST">
+    <div>
+        <label for="destination_id">Reiseziel:</label>
+        <select name="destination_id" id="destination_id" required>
+            <option value="" disabled selected>-- Bitte wählen --</option>
+            {% for ziel in reiseziel %}
+                <option value="{{ ziel.id }}">
+                    {{ ziel.country }}: {{ ziel.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <br>
+    <button type="submit">Reise speichern</button>
+</form>
+
+<br>
+<a href="{{ url_for('index') }}">Abbrechen</a>
+{% endblock %}
