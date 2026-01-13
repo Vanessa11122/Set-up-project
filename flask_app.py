@@ -154,7 +154,7 @@ def plane_reise():
         
         if not destination_id:
             flash("Bitte wählen Sie ein Reiseziel aus.")
-            return redirect(url_for('plane_reise'))
+            return redirect(url_for('add_trip'))
 
         # 2. Logik zum Speichern (Beispiel)
         # Hier würdest du normalerweise den Eintrag in die Datenbank schreiben
@@ -171,7 +171,7 @@ def plane_reise():
     # SQL-Entsprechung: SELECT * FROM reiseziele;
     alle_ziele = Reiseziele.query.all() 
     
-    return render_template('deine_datei.html', reiseziel=alle_ziele)
+    return render_template('add_trip.html', reiseziel=alle_ziele)
    
 
 if __name__ == "__main__":
