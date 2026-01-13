@@ -141,7 +141,7 @@ def complete():
 def addtrip():
     return render_template("add_trip.html")
 
-@app.route('/add_trip/Italien')
+@app.route('/Italien')
 def addtrip():
     return render_template("Italien.html")
 
