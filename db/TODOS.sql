@@ -24,7 +24,7 @@ CREATE TABLE user_reisen (
 
 
 CREATE TABLE reiseziele (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    reiseziel_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     land VARCHAR(100) NOT NULL,
     beschreibung TEXT,
@@ -32,7 +32,7 @@ CREATE TABLE reiseziele (
 ) ENGINE=InnoDB;
 
 CREATE TABLE hotels (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    hotel_id INT AUTO_INCREMENT PRIMARY KEY,
     reiseziel_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     sterne INT DEFAULT 3,
@@ -42,7 +42,7 @@ CREATE TABLE hotels (
 ) ENGINE=InnoDB;
 
 CREATE TABLE restaurants (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    restaurants_id INT AUTO_INCREMENT PRIMARY KEY,
     reiseziel_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     kueche_typ VARCHAR(100),
