@@ -1,38 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <h2>Neue Reise planen</h2>
-    <p>Wähle dein nächstes Ziel aus unserer Datenbank:</p>
+<h2>Neue Reise planen</h2>
 
-    <form method="POST" action="{{ url_for('add_trip') }}">
-        <div class="form-group">
-            <label for="destination_id"><strong>Reiseziel auswählen:</strong></label>
-            <br>
-            <select name="destination_id" id="destination_id" required style="padding: 8px; width: 100%; max-width: 400px;">
-                <option value="" disabled selected>-- Bitte ein Ziel wählen --</option>
-                
-                {% for ziel in reiseziel %}
-                    {# 'ziel.land' entspricht deiner SQL-Spalte 'land' #}
-                    <option value="{{ ziel.id }}">
-                        {{ ziel.land }}: {{ ziel.name }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
+<form method="POST">
+    <label for="destination_id">Wohin möchtest du reisen?</label>
+    <select name="destination_id" id="destination_id" required>
+        <option value="" disabled selected>-- Bitte ein Ziel wählen --</option>
+        {% for ziel in reiseziel %}
+            <option value="{{ ziel.id }}">
+                {{ ziel.land }}: {{ ziel.name }}
+            </option>
+        {% endfor %}
+    </select>
 
-        <div style="margin-top: 20px;">
-            <button type="submit" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; cursor: pointer;">
-                Reise speichern
-            </button>
-            <a href="{{ url_for('index') }}" style="margin-left: 15px; text-decoration: none; color: #666;">Abbrechen</a>
-        </div>
-    </form>
-</div>
-
-<hr>
-
-<h3>Verfügbare Informationen</h3>
-<p><small>Nach der Auswahl werden dir passende Hotels und Restaurants für dein Ziel angezeigt.</small></p>
-
+    <br><br>
+    <button type="submit">Reise anlegen</button>
+</form>
 {% endblock %}
