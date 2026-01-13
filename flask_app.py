@@ -137,10 +137,10 @@ def complete():
 
 
 
-@app.route('/add_trip.html')
-def plane_reise():
+@app.route("/add_trip.html")
+def add_trip():
    
-    return render_template('add_trip.html')
+    return render_template("add_trip.html")
    
 
 if __name__ == "__main__":
