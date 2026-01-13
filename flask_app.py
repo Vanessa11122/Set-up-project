@@ -140,7 +140,14 @@ def complete():
 @app.route('/add_trip')
 def addtrip():
     return render_template("add_trip.html")
-   
+
+@app.route('/Italien')
+def addtrip():
+    return render_template("Italien.html")
+
+@app.route('/Frankreich')
+def addtrip():
+    return render_template("Frankreich.html")
 
 if __name__ == "__main__":
     app.run()
