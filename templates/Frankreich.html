@@ -5,9 +5,9 @@
     <h1>Frankreich</h1>
     <p>Bitte wähle einen Ort für deine Planung aus:</p>
     
-    <form action="/addtrip" method="POST">
-        <label for="destination" style="display: block; margin-bottom: 10px; font-weight: bold;">Ort auswählen:</label>
-        <select name="destination" id="destination" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+    <form>
+        <label for="destination">Ort auswählen:</label>
+        <select name="destination" id="destination">
             <option value="paris">Paris</option>
             <option value="nice">Nizza</option>
             <option value="lyon">Lyon</option>
@@ -15,7 +15,7 @@
             <option value="bordeaux">Bordeaux</option>
         </select>
         
-        <button type="submit" style="class: 15px; width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        <button type="submit">
             Reise planen
         </button>
     </form>
