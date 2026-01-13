@@ -1,25 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Neue Reise planen</h2>
+<div style="max-width: 500px; margin: auto; padding: 20px;">
+    <h2>Neue Reise planen</h2>
 
-<form method="POST">
-    <label for="destination_id">Wohin möchtest du reisen?</label>
-    
-    <select name="destination_id" id="destination_id" required>
-        <option value="" disabled selected>-- Bitte ein Ziel wählen --</option>
+    <form method="POST">
+        <label for="destination_id">Wohin möchtest du reisen?</label>
+        <br><br>
         
-        {% for ziel in reiseziel %}
-            <option value="{{ ziel.id }}">
+        <select name="destination_id" id="destination_id" required style="width: 100%; padding: 8px;">
+            <option value="" disabled selected>-- Bitte ein Ziel wählen --</option>
+            
+            {% for ziel in reiseziel %}
+                <option value="{{ ziel[0] }}">
+                    {{ ziel[2] }}: {{ ziel[1] }}
+                </option>
+            {% endfor %}
+        </select>
 
-                {{ ziel.land }}: {{ ziel.name }}
-            </option>
-        {% endfor %}
-    </select>
-
-    <br><br>
-    <button type="submit">Reise anlegen</button>
-</form>
-
-
+        <br><br>
+        <button type="submit" style="background-color: #28a745; color: white; border: none; padding: 10px 20px; cursor: pointer;">
+            Reise anlegen
+        </button>
+        <a href="{{ url_for('index') }}" style="margin-left: 10px;">Abbrechen</a>
+    </form>
+</div>
 {% endblock %}
