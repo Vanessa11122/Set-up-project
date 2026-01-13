@@ -53,7 +53,7 @@ CREATE TABLE restaurants (
 
 -- 3. DATENSÄTZE EINFÜGEN
 -- 20 Reiseziele
-INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
+INSERT INTO reiseziele (reiseziel_id, name, land, beschreibung) VALUES
 (1, 'Paris', 'Frankreich', 'Stadt der Liebe mit dem Eiffelturm.'),
 (2, 'Berlin', 'Deutschland', 'Historische Hauptstadt mit viel Kultur.'),
 (3, 'Rom', 'Italien', 'Die ewige Stadt mit dem Kolosseum.'),
