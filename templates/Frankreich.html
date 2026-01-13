@@ -21,6 +21,21 @@
 </div>
 
 <div>
+    <label for="budget">Budget (€):</label>
+<input 
+    type="range" 
+    id="budget" 
+    name="budget" 
+    min="50" 
+    max="500" 
+    step="10" 
+    value="150"
+    oninput="budgetWert.textContent = this.value"
+>
+<span id="budgetWert">150</span> €
+</div>
+
+<div>
    
     <h2>Hotel</h2>
 
