@@ -78,16 +78,26 @@ INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
 
 -- 5. DATEN IN 'hotels' EINFÜGEN (Hier ist 'reiseziel_id' der Fremdschlüssel)
 INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht) VALUES
-(1, 'Eiffel Rivera', 4, 185.00), (2, 'Brandenburger Hof', 5, 220.00),
-(3, 'Colosseo Suites', 4, 160.00), (4, 'Madrid Central', 3, 110.00),
-(5, 'Hotel Sacher', 5, 450.00), (6, 'Prague Old Town', 4, 95.00),
-(7, 'Alfama Blue', 3, 120.00), (8, 'Canal House', 4, 210.00),
-(9, 'The Thames View', 5, 350.00), (10, 'Vasa Lodge', 4, 180.00),
-(11, 'Acropolis Inn', 3, 85.00), (12, 'Danube Grand', 4, 130.00),
-(13, 'Nordic Stay', 4, 190.00), (14, 'Rambla Suites', 4, 170.00),
-(15, 'Shinjuku Prince', 4, 240.00), (16, 'Times Square Hotel', 5, 400.00),
-(17, 'Table Mountain View', 4, 150.00), (18, 'Harbour Lodge', 5, 320.00),
-(19, 'Aurora Guesthouse', 3, 160.00), (20, 'Laguna Palace', 4, 280.00);
+(1, 'Eiffel Rivera', 4, 185.00), (1, 'Mercure gare de Lyon', 3, 90.00)
+(2, 'Brandenburger Hof', 5, 220.00), (2, 'Jugendherberge Berlin, 2, 40.00)
+(3, 'Colosseo Suites', 4, 160.00), (3, 'Hotel Marina di Paorelli', 4, 120.00)
+(4, 'Madrid Central', 3, 110.00), (4, 'Holiday inn Madrid', 2, 100.00)
+(5, 'Hotel Sacher', 5, 450.00), (5, 'Hotel zum alten Rössle', 4, 170.00)
+(6, 'Prague Old Town', 4, 95.00), (6, 'Hotel Karlova Prag', 5, 84.00)
+(7, 'Alfama Blue', 3, 120.00), (7, 'Suites do Marque', 5, 320.00)
+(8, 'Canal House', 4, 210.00), (8, 'Hotel sevenseven', 5, 340.00)
+(9, 'The Thames View', 5, 350.00), (9, 'Grand hotel Soho', 4, 210.00)
+(10, 'Vasa Lodge', 4, 180.00), (10, 'hotel Frantz', 3, 130.00)
+(11, 'Acropolis Inn', 3, 85.00), (11, 'Hotel Athena', 5, 340.00)
+(12, 'Danube Grand', 4, 130.00), (12, 'three corners avenue', 4, 320.00)
+(13, 'Nordic Stay', 4, 190.00), (13, 'Kanal huset', 3, 150.00)
+(14, 'Rambla Suites', 4, 170.00), (14, 'St. Christophers Inn', 2, 100.00)
+(15, 'Shinjuku Prince', 4, 240.00), (15, 'Hotel Indigo', 3, 170.00)
+(16, 'Times Square Hotel', 5, 400.00), (16, 'Sheraton Brooklyn', 3, 200.00
+(17, 'Table Mountain View', 4, 150.00), (17,'Taj cape town', 5, 130.00)
+(18, 'Harbour Lodge', 5, 320.00), (18, 'View sidney', 1, 123.00)
+(19, 'Aurora Guesthouse', 3, 160.00), (19, 'Hotel Borg', 5, 300.00)
+(20, 'Laguna Palace', 4, 280.00), (20, 'Hotel Torretta, 3, 200.00) 
 
 -- 6. DATEN IN 'restaurants' EINFÜGEN
 INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung) VALUES
