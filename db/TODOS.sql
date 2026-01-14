@@ -54,7 +54,7 @@ CREATE TABLE restaurants (
 
 CREATE TABLE sehenswuerdigkeiten (
     id INT AUTO_INCREMENT PRIMARY KEY, 
-    sehenswürd_id INT NOT NULL,
+    reiseziel_id INT NOT NULL,
     name VARCHAR(255) NOT NULL, 
     beschreibung VARCHAR(255),
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE 
