@@ -48,13 +48,28 @@
     </select>
 
     <button type="submit">Bestätigen</button>
+
+
+<h1>Reiseziele auswählen</h1>
+
+<form method="post">
+  <label for="reiseziel">Reiseziel:</label><br>
+
+  <select name="reiseziel" id="reiseziel" required>
+    <option value="" disabled selected>Bitte auswählen</option>
+
+    {% for ziel in reiseziele %}
+      <option value="{{ ziel.name }}">
+        {{ ziel.name }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <br><br>
+  <button type="submit">Auswählen</button>
 </form>
 
-    
-<form method="POST">
-  <input name="reiseziel">
-  <button>Speichern</button>
-</form>
+
 
 
 </div>
