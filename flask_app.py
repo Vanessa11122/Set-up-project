@@ -137,9 +137,13 @@ def complete():
 
 
 
-@app.route('/add_trip',methods=["GET", "POST"])
+@app.route('/add_trip')
 def addtrip():
-     if request.method == "POST":
+    return render_template("add_trip.html")
+
+@app.route("/Italien", methods=["GET", "POST"])
+def italien():
+    if request.method == "POST":
         reiseziel = request.form["reiseziel"]
 
         db_write(
@@ -148,13 +152,31 @@ def addtrip():
         )
 
         # WICHTIG: Redirect nach POST
-        return redirect("/add_trip")
+        return redirect("/Italien")
 
     # GET: Daten aus DB holen
-        reiseziele = db_read("SELECT name, id FROM reiseziele")
+    reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Italien%'")
 
-    
-    return render_template("add_trip.html", reiseziel=reiseziel)
+    return render_template("Italien.html", reiseziele=reiseziele)
+
+
+@app.route("/Frankreich", methods=["GET", "POST"])
+def frankreich():
+    if request.method == "POST":
+        reiseziel = request.form["reiseziel"]
+
+        db_write(
+            "INSERT INTO reiseziele (name) VALUES (%s)",
+            (reiseziel,)
+        )
+
+        # WICHTIG: Redirect nach POST
+        return redirect("/Frankreich")
+
+    # GET: Daten aus DB holen
+    reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
+
+    return render_template("Frankreich.html", reiseziele=reiseziele)
 
 
     
