@@ -149,15 +149,15 @@ def Italien():
 def Frankreich():
     if request.method == "GET":
         reiseziel = db_read("SELECT name FROM reiseziele")
-        return render_template("Frankreich.html", Ort=Ort) 
+        return render_template("Frankreich.html", reiseziel=reiseziel) 
     
     reiseziel = request.form["reiseziel"]
 
     db_write(
-        "INSERT INTO reiseziele (name) VALES (%s)", (reiseziel)
+        "INSERT INTO reiseziele (name) VALUES (%s)", (reiseziel,)
     )
 
-    return redirect(url_for("index"))
+        return redirect(url_for("index"))
     return render_template("Frankreich.html") 
     
 if __name__ == "__main__":
