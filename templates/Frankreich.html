@@ -87,40 +87,7 @@
   </select>
 
   <!-- Budget -->
-  <label for="budget">Budget (€):</label>
-  <input 
-      type="range" 
-      id="budget" 
-      name="budget" 
-      min="50" 
-      max="500" 
-      step="10" 
-      value="{{ selected_budget if selected_budget else 150 }}"
-      oninput="budgetWert.textContent = this.value"
-  >
-  <div class="budget-display">
-    <span id="budgetWert">{{ selected_budget if selected_budget else 150 }}</span> €
-  </div>
-
-  <!-- Neue Option: Transportmittel -->
-  <label for="transport">Transportmittel:</label>
-  <select name="transport" id="transport" required>
-    <option value="" disabled selected>Bitte auswählen</option>
-    <option value="Auto">Auto</option>
-    <option value="Bahn">Bahn</option>
-    <option value="Flugzeug">Flugzeug</option>
-    <option value="Bus">Bus</option>
-  </select>
-
-  <!-- Neue Option: Reisedauer -->
-  <label for="dauer">Reisedauer:</label>
-  <select name="dauer" id="dauer" required>
-    <option value="" disabled selected>Bitte auswählen</option>
-    <option value="3 Tage">3 Tage</option>
-    <option value="5 Tage">5 Tage</option>
-    <option value="7 Tage">7 Tage</option>
-    <option value="10 Tage">10 Tage</option>
-  </select>
+  
 
   <button type="submit">Reise speichern</button>
 </form>
