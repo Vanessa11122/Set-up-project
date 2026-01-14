@@ -178,7 +178,7 @@ def frankreich():
 
     return render_template("Frankreich.html", reiseziele=reiseziele)
     
-@app.route("/reise_speichern", methods=["POST"])
+@app.route("/main_page.html", methods=["POST"])
 def reise_speichern():
     user_id = session.get("user_id")  # Angenommen, du hast Login
     if not user_id:
