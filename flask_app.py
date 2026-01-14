@@ -162,21 +162,28 @@ def italien():
 
 @app.route("/Frankreich", methods=["GET", "POST"])
 def frankreich():
-    if request.method == "POST":
-        reiseziel = request.form["reiseziel"]
-        
-        db_write(
-            "INSERT INTO reiseziele (name) VALUES (%s)",
-            (reiseziel,)
-        )
-        
-        # WICHTIG: Redirect nach POST
-        return redirect("/Frankreich")
+    # Alle Reiseziele für Frankreich laden
+    reiseziele = db_read("SELECT id, name FROM reiseziele WHERE land='Frankreich'")
 
-    # GET: Daten aus DB holen
-    reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
-    
-    return render_template("Frankreich.html", reiseziele=reiseziele,)
+    selected_reiseziel_id = None
+    hotels = []
+
+    if request.method == "POST":
+        selected_reiseziel_id = request.form.get("reiseziel")
+
+        if selected_reiseziel_id:
+            # Hotels für das gewählte Reiseziel laden
+            hotels = db_read(
+                "SELECT id, name FROM hotels WHERE reiseziel_id=%s",
+                (selected_reiseziel_id,)
+            )
+
+    return render_template(
+        "Frankreich.html",
+        reiseziele=reiseziele,
+        hotels=hotels,
+        selected_reiseziel=selected_reiseziel_id
+    )
 
     
 if __name__ == "__main__":
