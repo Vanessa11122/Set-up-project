@@ -68,5 +68,22 @@
   <br><br>
   <button type="submit">Auswählen</button>
 </form>
+
+<form method="post">
+  <label for="hotel">Hotel:</label><br>
+
+  <select name="hotel" id="hotel" required>
+    <option value="" disabled selected>Bitte auswählen</option>
+
+    {% for ziel in reiseziele %}
+      <option value="{{ ziel.name }}">
+        {{ ziel.name }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <br><br>
+  <button type="submit">Auswählen</button>
+</form>
     
 {% endblock %}
