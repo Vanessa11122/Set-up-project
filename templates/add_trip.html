@@ -86,16 +86,7 @@
   </select>
 
   <!-- Hotel -->
-  <label for="hotels">Hotel:</label>
-  <select name="hotels" id="hotels" required>
-    <option value="" disabled selected>Bitte auswählen</option>
-    {% for hotel in hotels %}
-      <option value="{{ hotel.name }}" {% if hotel.name == selected_hotel %}selected{% endif %}>
-        {{ hotel.name }}
-      </option>
-    {% endfor %}
-  </select>
-
+ 
   <!-- Budget -->
   <label for="budget">Budget (€):</label>
   <input 
