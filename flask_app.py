@@ -148,28 +148,36 @@ def Italien():
 
 @app.route("/Frankreich", methods=["GET", "POST"])
 def frankreich():
+    user_id = session.get("user_id")
+
     if request.method == "POST":
         reiseziel_name = request.form["reiseziel"]
 
-        # 1. ID des Reiseziels abfragen
+        # ID des Reiseziels holen
         reiseziel = db_read("SELECT id FROM reiseziele WHERE name = %s", (reiseziel_name,))
-        if reiseziel:
+        if reiseziel and user_id:
             reiseziel_id = reiseziel[0]["id"]
-
-            # 2. User-ID aus Session
-            user_id = session.get("user_id")
-            if user_id:
-                # 3. Eintrag in user_reisen
-                db_write(
-                    "INSERT INTO user_reisen (user_id, reiseziel_id) VALUES (%s, %s)",
-                    (user_id, reiseziel_id)
-                )
+            db_write(
+                "INSERT INTO user_reisen (user_id, reiseziel_id) VALUES (%s, %s)",
+                (user_id, reiseziel_id)
+            )
 
         return redirect("/Frankreich")
 
-    # GET: Alle Reiseziele holen
+    # Alle Reiseziele für Dropdown
     reiseziele = db_read("SELECT name FROM reiseziele")
-    return render_template("Frankreich.html", reiseziele=reiseziele)
+
+    # Gewählte Reiseziele des Users
+    user_reiseziele = []
+    if user_id:
+        user_reiseziele = db_read(
+            "SELECT r.name FROM reiseziele r "
+            "JOIN user_reisen ur ON r.id = ur.reiseziel_id "
+            "WHERE ur.user_id = %s",
+            (user_id,)
+        )
+
+    return render_template("Frankreich.html", reiseziele=reiseziele, user_reiseziele=user_reiseziele)
 
 
     
