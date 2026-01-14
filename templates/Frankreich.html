@@ -1,65 +1,128 @@
 {% extends "base.html" %}
 
-
-
 {% block content %}
 
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+  }
 
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+  }
 
-<h1>Frankreich</h1>
+  form {
+    background-color: #fff;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+  }
+
+  select, input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background-color: #2980b9;
+  }
+
+  .budget-display {
+    text-align: right;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+</style>
+
+<h1>Frankreich Reiseplaner</h1>
 
 <form method="post">
-  <label for="reiseziel">Reiseziel:</label><br>
 
+  <!-- Reiseziel -->
+  <label for="reiseziel">Reiseziel:</label>
   <select name="reiseziel" id="reiseziel" required>
     <option value="" disabled selected>Bitte auswählen</option>
-
     {% for ziel in reiseziele %}
-      <option value="{{ ziel.name }}">
+      <option value="{{ ziel.name }}" {% if ziel.name == selected_reiseziel %}selected{% endif %}>
         {{ ziel.name }}
       </option>
     {% endfor %}
   </select>
 
-  <br><br>
-  <button type="submit">Auswählen</button>
-</form>
-<div>
-
-<form method="post">
-  <label for="hotels">Hotel:</label><br>
-
+  <!-- Hotel -->
+  <label for="hotels">Hotel:</label>
   <select name="hotels" id="hotels" required>
     <option value="" disabled selected>Bitte auswählen</option>
-
-    {% for ziel in hotels %}
-      <option value="{{ ziel.name }}">
-        {{ ziel.name }}
+    {% for hotel in hotels %}
+      <option value="{{ hotel.name }}" {% if hotel.name == selected_hotel %}selected{% endif %}>
+        {{ hotel.name }}
       </option>
     {% endfor %}
   </select>
 
-  <br><br>
-  <button type="submit">Auswählen</button>
+  <!-- Budget -->
+  <label for="budget">Budget (€):</label>
+  <input 
+      type="range" 
+      id="budget" 
+      name="budget" 
+      min="50" 
+      max="500" 
+      step="10" 
+      value="{{ selected_budget if selected_budget else 150 }}"
+      oninput="budgetWert.textContent = this.value"
+  >
+  <div class="budget-display">
+    <span id="budgetWert">{{ selected_budget if selected_budget else 150 }}</span> €
+  </div>
 
-<div>
-    <label for="budget">Budget (€):</label>
-<input 
-    type="range" 
-    id="budget" 
-    name="budget" 
-    min="50" 
-    max="500" 
-    step="10" 
-    value="150"
-    oninput="budgetWert.textContent = this.value"
->
-<span id="budgetWert">150</span> €
-</div>
+  <!-- Neue Option: Transportmittel -->
+  <label for="transport">Transportmittel:</label>
+  <select name="transport" id="transport" required>
+    <option value="" disabled selected>Bitte auswählen</option>
+    <option value="Auto">Auto</option>
+    <option value="Bahn">Bahn</option>
+    <option value="Flugzeug">Flugzeug</option>
+    <option value="Bus">Bus</option>
+  </select>
 
+  <!-- Neue Option: Reisedauer -->
+  <label for="dauer">Reisedauer:</label>
+  <select name="dauer" id="dauer" required>
+    <option value="" disabled selected>Bitte auswählen</option>
+    <option value="3 Tage">3 Tage</option>
+    <option value="5 Tage">5 Tage</option>
+    <option value="7 Tage">7 Tage</option>
+    <option value="10 Tage">10 Tage</option>
+  </select>
 
-  
-    
+  <button type="submit">Reise speichern</button>
+</form>
 
-    
 {% endblock %}
