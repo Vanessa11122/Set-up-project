@@ -6,17 +6,26 @@
 
 
 
-<h1>Frankreich</h1>
-
 <form method="post">
-  <label for="reiseziel">Reiseziel:</label><br>
-
-  <select name="reiseziel" id="reiseziel" required>
-    <option value="" disabled selected>Bitte auswählen</option>
-
+  <label for="reiseziel">Reiseziel:</label>
+  <select name="reiseziel" id="reiseziel" required onchange="this.form.submit()">
+    <option value="" disabled {% if not selected_reiseziel %}selected{% endif %}>Bitte auswählen</option>
     {% for ziel in reiseziele %}
-      <option value="{{ ziel.name }}">
+      <option value="{{ ziel.id }}" {% if ziel.id == selected_reiseziel|int %}selected{% endif %}>
         {{ ziel.name }}
+      </option>
+    {% endfor %}
+  </select>
+</form>
+
+{% if hotels %}
+<form method="post">
+  <label for="hotel">Hotel:</label>
+  <select name="hotel" id="hotel" required>
+    <option value="" disabled {% if not selected_hotel %}selected{% endif %}>Bitte auswählen</option>
+    {% for hotel in hotels %}
+      <option value="{{ hotel.id }}" {% if hotel.id == selected_hotel|int %}selected{% endif %}>
+        {{ hotel.name }}
       </option>
     {% endfor %}
   </select>
@@ -24,42 +33,7 @@
   <br><br>
   <button type="submit">Auswählen</button>
 </form>
-<div>
-
-<form method="post">
-  <label for="hotels">Hotel:</label><br>
-
-  <select name="hotels" id="hotels" required>
-    <option value="" disabled selected>Bitte auswählen</option>
-
-    {% for ziel in hotels %}
-      <option value="{{ ziel.name }}">
-        {{ ziel.name }}
-      </option>
-    {% endfor %}
-  </select>
-
-  <br><br>
-  <button type="submit">Auswählen</button>
-
-<div>
-    <label for="budget">Budget (€):</label>
-<input 
-    type="range" 
-    id="budget" 
-    name="budget" 
-    min="50" 
-    max="500" 
-    step="10" 
-    value="150"
-    oninput="budgetWert.textContent = this.value"
->
-<span id="budgetWert">150</span> €
-</div>
-
-
-  
-    
+{% endif %}
 
     
 {% endblock %}
