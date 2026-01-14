@@ -145,31 +145,28 @@ def addtrip():
 def Italien():
     return render_template("Italien.html") 
 
-
 @app.route("/Frankreich", methods=["GET", "POST"])
 def frankreich():
     if request.method == "POST":
-        reiseziel = request.form["reiseziel"]
-        hotels = request.form["hotels"]
-        db_write(
-            "INSERT INTO reiseziele (name, land) VALUES (%s, %s)",
-            (reiseziel,)
-        )
-        db_write(
-            "INSERT INTO hotels (name, land) VALUES (%s,%s)",
-            (hotels,)
-        )
-
-        # WICHTIG: Redirect nach POST
+        reiseziel = request.form.get("reiseziel")
+        hotel = request.form.get("hotels")
+        if reiseziel:
+            db_write("INSERT INTO reiseziele (name, land) VALUES (%s, %s)", (reiseziel, "Frankreich"))
+        if hotel:
+            # Angenommen reiseziel_id = 1 für Test, besser ID aus DB holen
+            db_write("INSERT INTO hotels (reiseziel_id, name, sterne, land) VALUES (%s, %s, %s, %s)",
+                     (1, hotel, 3, "Frankreich"))
         return redirect("/Frankreich")
 
-    # GET: Daten aus DB holen
-    reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
-    hotels = db_read("SELECT name FROM hotels WHERE land LIKE '%Frankreich%'")
-    
+    reiseziele = db_read("SELECT name FROM reiseziele WHERE land='Frankreich'")
+    hotels = db_read("""
+        SELECT h.name FROM hotels h
+        JOIN reiseziele r ON h.reiseziel_id = r.id
+        WHERE r.land='Frankreich'
+    """)
     return render_template("Frankreich.html", reiseziele=reiseziele, hotels=hotels)
 
-
+    
     
     
 if __name__ == "__main__":
