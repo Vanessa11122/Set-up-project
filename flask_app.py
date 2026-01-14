@@ -162,44 +162,26 @@ def italien():
 
 @app.route("/Frankreich", methods=["GET", "POST"])
 def frankreich():
-    # Alle Reiseziele für Frankreich laden
-    reiseziele = db_read("SELECT id, name FROM reiseziele WHERE land='Frankreich'")
-
-    hotels = []
-    selected_reiseziel_id = None
-    selected_hotel_id = None
-    selected_budget = 150
-
     if request.method == "POST":
-        selected_reiseziel_id = request.form.get("reiseziel")
-        selected_hotel_id = request.form.get("hotel")
-        selected_budget = request.form.get("budget", 150)
-
-        # Optional: Auswahl in DB speichern
-        if selected_reiseziel_id and selected_hotel_id:
-            db_write(
-                "INSERT INTO user_reisen (user_id, reiseziel_id) VALUES (%s, %s)",
-                (current_user.id, selected_reiseziel_id)
-            )
-            db_write(
-                "INSERT INTO hotels (reiseziel_id, name, land) VALUES (%s, %s, 'Frankreich')",
-                (selected_reiseziel_id, selected_hotel_id)
-            )
-
-        # Hotels für das ausgewählte Reiseziel laden
-        hotels = db_read(
-            "SELECT id, name FROM hotels WHERE reiseziel_id=%s",
-            (selected_reiseziel_id,)
+        reiseziel = request.form["reiseziel"]
+        hotels = request.form["hotels"]
+        db_write(
+            "INSERT INTO reiseziele (name) VALUES (%s)",
+            (reiseziel,)
+        )
+        db_write(
+            "INSERT INTO hotels (name) VALUES (%s)",
+            (hotels,)
         )
 
-    return render_template(
-        "Frankreich.html",
-        reiseziele=reiseziele,
-        hotels=hotels,
-        selected_reiseziel=selected_reiseziel_id,
-        selected_hotel=selected_hotel_id,
-        selected_budget=selected_budget
-    )
+        # WICHTIG: Redirect nach POST
+        return redirect("/Frankreich")
+
+    # GET: Daten aus DB holen
+    reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
+    hotels = db_read("SELECT name FROM hotels WHERE land LIKE '%Frankreich%'")
+
+    return render_template("Frankreich.html", reiseziele=reiseziele, hotels=hotels,)
 
     
 if __name__ == "__main__":
