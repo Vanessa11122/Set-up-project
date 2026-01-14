@@ -145,38 +145,9 @@ def addtrip():
 def Italien():
     return render_template("Italien.html") 
 
-@app.route('/Frankreich'), methods=['GET', 'POST'])
-def reise_planen():
-    # 1. Prüfen, ob der User eingeloggt ist
-    user_id = session.get('user_id')
-    if not user_id:
-        return redirect(url_for('login')) # Falls nicht eingeloggt, zum Login
-
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-
-    if request.method == 'POST':
-        # 2. Daten aus dem Formular abgreifen
-        selected_destination_id = request.form.get('destination')
-        
-        if selected_destination_id and selected_destination_id != "auswählen":
-            # 3. Auswahl in 'user_reisen' speichern
-            query = "INSERT INTO user_reisen (user_id, reiseziel_id) VALUES (%s, %s)"
-            cursor.execute(query, (user_id, selected_destination_id))
-            conn.commit()
-            
-            # Nach dem Speichern zum Profil oder einer Erfolgsseite leiten
-            cursor.close()
-            conn.close()
-            return redirect(url_for('profil'))
-
-    # 4. Alle Reiseziele für das Dropdown laden
-    cursor.execute("SELECT id, name, land FROM reiseziele ORDER BY name ASC")
-    alle_ziele = cursor.fetchall()
-
-    cursor.close()
-    conn.close()
+@app.route('/Frankreich')
+def Frankreich():
+    return render_template("Frankreich.html") 
     
-    return render_template('frankreich.html', ziele=alle_ziele)
 if __name__ == "__main__":
     app.run()
