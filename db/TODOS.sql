@@ -101,13 +101,93 @@ INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht) VALUES
 
 -- 6. DATEN IN 'restaurants' EINFÜGEN
 INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung) VALUES
-(1, 'Le Bistro', 'Französisch', '€€€', 4.5), (2, 'Curry 36', 'Imbiss', '€', 4.2),
-(3, 'Mamma Mia', 'Italienisch', '€€', 4.8), (4, 'Tapas Bar', 'Spanisch', '€€', 4.6),
-(5, 'Figlmüller', 'Österreichisch', '€€€', 4.7), (6, 'U Fleků', 'Böhmisch', '€€', 4.4),
-(7, 'Bacalhau Grill', 'Portugiesisch', '€€€', 4.6), (8, 'Pancake House', 'Holländisch', '€€', 4.3),
-(9, 'The Pub', 'Britisch', '€€', 4.1), (10, 'Meatball Shop', 'Schwedisch', '€€', 4.5),
-(11, 'Olympos', 'Griechisch', '€€', 4.7), (12, 'Gulasch Bistro', 'Ungarisch', '€€', 4.4),
-(13, 'Hygge Kitchen', 'Dänisch', '€€€', 4.6), (14, 'Paella Place', 'Spanisch', '€€€', 4.5),
-(15, 'Sushi Zen', 'Japanisch', '€€€€', 4.9), (16, 'Joe’s Pizza', 'Amerikanisch', '€', 4.7),
-(17, 'Safari Grill', 'Südafrikanisch', '€€€', 4.4), (18, 'Opera Cafe', 'Modern', '€€€', 4.2),
-(19, 'Lava Soup', 'Isländisch', '€€€', 4.5), (20, 'Trattoria Canal', 'Italienisch', '€€€', 4.3);
+-- Reiseziel 1
+(1, 'Chez Marie', 'Französisch', '€€€', 4.4),
+(1, 'Café Parisien', 'Französisch', '€€', 4.2),
+(1, 'Le Bistro', 'Französisch', '€€€', 4.5),
+
+-- Reiseziel 2
+(2, 'Berlin Döner', 'Imbiss', '€', 4.3),
+(2, 'Street Bites', 'Fast Food', '€', 4.1),
+(2, 'Curry 36', 'Imbiss', '€', 4.2),
+
+-- Reiseziel 3
+(3, 'Trattoria Roma', 'Italienisch', '€€', 4.6),
+(3, 'Pasta Fresca', 'Italienisch', '€€€', 4.7),
+(3, 'Mamma Mia', 'Italienisch', '€€', 4.8),
+
+
+-- Reiseziel 4
+(4, 'El Toro', 'Spanisch', '€€€', 4.5),
+(4, 'Casa Tapas', 'Spanisch', '€€', 4.4),
+(4, 'Tapas Bar', 'Spanisch', '€€', 4.6),
+
+-- Reiseziel 5
+(5, 'Gasthaus Mozart', 'Österreichisch', '€€', 4.3),
+(5, 'Wiener Stube', 'Österreichisch', '€€€', 4.6),
+(5, 'Gasthaus Mozart', 'Österreichisch', '€€', 4.3),
+
+-- Reiseziel 6
+(6, 'Prague Cellar', 'Böhmisch', '€€', 4.3),
+(6, 'Old Town Brewery', 'Tschechisch', '€€', 4.5),
+(6, 'U Fleků', 'Böhmisch', '€€', 4.4),
+-- Reiseziel 7
+(7, 'Lisboa Seafood', 'Portugiesisch', '€€€', 4.7),
+(7, 'Algarve Taste', 'Portugiesisch', '€€', 4.4),
+(7, 'Bacalhau Grill', 'Portugiesisch', '€€€', 4.6), 
+
+-- Reiseziel 8
+(8, 'Dutch Delight', 'Holländisch', '€€', 4.2),
+(8, 'Canal Brunch', 'International', '€€', 4.3),
+(8, 'Pancake House', 'Holländisch', '€€', 4.3),
+
+-- Reiseziel 9
+(9, 'The Crown', 'Britisch', '€€', 4.2),
+(9, 'Fish & Chips Co.', 'Britisch', '€', 4.1),
+(9, 'The Pub', 'Britisch', '€€', 4.1),
+-- Reiseziel 10
+(10, 'Nordic Bites', 'Schwedisch', '€€', 4.4),
+(10, 'Stockholm Kitchen', 'Skandinavisch', '€€€', 4.6),
+(10, 'Meatball Shop', 'Schwedisch', '€€', 4.5),
+-- Reiseziel 11
+(11, 'Athena Grill', 'Griechisch', '€€', 4.6),
+(11, 'Santorini Taverna', 'Griechisch', '€€€', 4.8),
+(11, 'Olympos', 'Griechisch', '€€', 4.7),
+-- Reiseziel 12
+(12, 'Paprika Haus', 'Ungarisch', '€€', 4.3),
+(12, 'Danube Kitchen', 'Ungarisch', '€€€', 4.5),
+(12, 'Gulasch Bistro', 'Ungarisch', '€€', 4.4),
+
+-- Reiseziel 13
+(13, 'Nordic Table', 'Dänisch', '€€€', 4.5),
+(13, 'Copenhagen Eatery', 'Skandinavisch', '€€€', 4.7),
+(13, 'Hygge Kitchen', 'Dänisch', '€€€', 4.6),
+-- Reiseziel 14
+(14, 'Valencia Rice', 'Spanisch', '€€€', 4.6),
+(14, 'Costa Paella', 'Spanisch', '€€', 4.4),
+(14, 'Paella Place', 'Spanisch', '€€€', 4.5),
+-- Reiseziel 15
+(15, 'Tokyo Ramen', 'Japanisch', '€€', 4.6),
+(15, 'Sakura Fine Dining', 'Japanisch', '€€€€', 4.9),
+(15, 'Sushi Zen', 'Japanisch', '€€€€', 4.9), 
+-- Reiseziel 16
+(16, 'Burger Joint', 'Amerikanisch', '€', 4.4),
+(16, 'Route 66 Diner', 'Amerikanisch', '€€', 4.5),
+(16, 'Joe’s Pizza', 'Amerikanisch', '€', 4.7),
+-- Reiseziel 17
+(17, 'Cape Town Braai', 'Südafrikanisch', '€€€', 4.5),
+(17, 'Savanna Kitchen', 'Afrikanisch', '€€', 4.3),
+(17, 'Safari Grill', 'Südafrikanisch', '€€€', 4.4),
+-- Reiseziel 18
+(18, 'City Lounge', 'Modern', '€€€', 4.3),
+(18, 'Urban Plate', 'Fusion', '€€€', 4.4),
+(18, 'Opera Cafe', 'Modern', '€€€', 4.2),
+-- Reiseziel 19
+(19, 'Nordic Fire', 'Isländisch', '€€€', 4.6),
+(19, 'Reykjavik Bistro', 'Nordisch', '€€€', 4.5),
+(19, 'Lava Soup', 'Isländisch', '€€€', 4.5),
+-- Reiseziel 20
+(20, 'Veneto Cucina', 'Italienisch', '€€€', 4.4),
+(20, 'Canal Grande', 'Italienisch', '€€', 4.3),
+(20, 'Trattoria Canal', 'Italienisch', '€€€', 4.3);
+INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung) VALUES
