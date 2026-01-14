@@ -150,14 +150,19 @@ def Italien():
 def frankreich():
     if request.method == "POST":
         reiseziel = request.form["reiseziel"]
-        hotels = request.form["hotels"]
+        hotel = request.form["hotels"]  # Singular, weil man vermutlich ein Hotel pro Eintrag speichert
 
+        # Korrektes INSERT-Statement
         db_write(
-            "INSERT INTO reiseziele (name), hotels (name) VALUES (%s, %s)",
-            (reiseziel, hotels)
+            "INSERT INTO reiseziele (name) VALUES (%s)",
+            (reiseziel,)
+        )
+        db_write(
+            "INSERT INTO hotels (name) VALUES (%s)",
+            (hotel,)
         )
 
-        # WICHTIG: Redirect nach POST
+        # Redirect nach POST
         return redirect("/Frankreich")
 
     # GET: Daten aus DB holen
