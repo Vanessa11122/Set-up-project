@@ -145,19 +145,24 @@ def addtrip():
 def Italien():
     return render_template("Italien.html") 
 
-@app.route('/Frankreich', methods=["GET", "POST"])
-def Frankreich():
-    if request.method == "GET":
-        reiseziel = db_read("SELECT name FROM reiseziele")
-        return render_template("Frankreich.html", reiseziel=reiseziel) 
-    
-    reiseziel = request.form["reiseziel"]
+@app.route("/Frankreich", methods=["GET", "POST"])
+def frankreich():
+    if request.method == "POST":
+        reiseziel = request.form["reiseziel"]
 
-    db_write(
-        "INSERT INTO reiseziele (name) VALUES (%s)", (reiseziel,)
-    )
+        db_write(
+            "INSERT INTO reiseziele (name) VALUES (%s)",
+            (reiseziel,)
+        )
 
-    return render_template("Frankreich.html")
+        # WICHTIG: Redirect nach POST
+        return redirect("/Frankreich")
+
+    # GET: Daten aus DB holen
+    reiseziele = db_read("SELECT name FROM reiseziele")
+
+    return render_template("Frankreich.html", reiseziele=reiseziele)
+
     
     
 if __name__ == "__main__":
