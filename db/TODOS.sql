@@ -39,7 +39,7 @@ CREATE TABLE hotels (
     sterne INT DEFAULT 3,
     adresse VARCHAR(255),
     preis_pro_nacht DECIMAL(10, 2),
-     land VARCHAR(100) NOT NULL,
+    land VARCHAR(100) NOT NULL,
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
