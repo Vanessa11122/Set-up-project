@@ -70,12 +70,12 @@
 </form>
 
 <form method="post">
-  <label for="hotel">Hotel:</label><br>
+  <label for="hotels">Hotel:</label><br>
 
-  <select name="hotel" id="hotel" required>
+  <select name="hotels" id="hotels" required>
     <option value="" disabled selected>Bitte auswählen</option>
 
-    {% for ziel in reiseziele %}
+    {% for ziel in hotels %}
       <option value="{{ ziel.name }}">
         {{ ziel.name }}
       </option>
