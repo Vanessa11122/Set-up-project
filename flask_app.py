@@ -152,14 +152,14 @@ def frankreich():
 
         db_write(
             "INSERT INTO reiseziele (name) VALUES (%s)",
-            (reiseziel,current_user.id)
+            (reiseziel)
         )
 
         # WICHTIG: Redirect nach POST
         return redirect("/Frankreich")
 
     # GET: Daten aus DB holen
-    reiseziele = db_read("SELECT name FROM reiseziele"(current_user.id,))
+    reiseziele = db_read("SELECT name FROM reiseziele")
 
     return render_template("Frankreich.html", reiseziele=reiseziele)
 
