@@ -81,7 +81,7 @@ INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
 (16, 'New York', 'USA', 'Die Stadt, die niemals schläft.'),
 (17, 'Kapstadt', 'Südafrika', 'Schönheit am Fuße des Tafelbergs.'),
 (18, 'Sydney', 'Australien', 'Hafenmetropole mit dem Opera House.'),
-(19, 'Reykjavík', 'Island', 'Nördlichste Hauptstadt, Tor zur Natur.'),
+(19, 'Reykjavík', 'Frankreich', 'Nördlichste Hauptstadt, Tor zur Natur.'),
 (20, 'Venedig', 'Italien', 'Einzigartige Lagunenstadt ohne Autos.'),
 (21, 'Florenz', 'Italien', 'historische Stadt'),
 (22, 'Nizza', 'Frankreich', 'Stadt am Meer');
