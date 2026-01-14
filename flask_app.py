@@ -160,7 +160,7 @@ def frankreich():
         return redirect("/Frankreich")
 
     # GET: Daten aus DB holen
-    reiseziele = db_read("SELECT name FROM reiseziele")
+    reiseziele = db_read("SELECT name FROM reiseziele WHERE Land LIKE %Frankreich%")
 
     return render_template("Frankreich.html", reiseziele=reiseziele)
 
