@@ -151,7 +151,7 @@ def addtrip():
         return redirect("/add_trip")
 
     # GET: Daten aus DB holen
-    reiseziele = db_read("SELECT name FROM reiseziele")
+    reiseziele = db_read("SELECT name, id FROM reiseziele")
 
     
     return render_template("add_trip.html", reiseziel=reiseziel)
