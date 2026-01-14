@@ -15,7 +15,7 @@
 
   form {
     background-color: #fff;
-    max-width: 500px;
+    max-width: 600px;
     margin: 20px auto;
     padding: 25px;
     border-radius: 12px;
@@ -66,25 +66,27 @@
 
   <!-- Reiseziel -->
   <label for="reiseziel">Reiseziel:</label>
-  <select name="reiseziel" id="reiseziel" required>
-    <option value="" disabled selected>Bitte auswählen</option>
+  <select name="reiseziel" id="reiseziel" required onchange="this.form.submit()">
+    <option value="" disabled {% if not selected_reiseziel %}selected{% endif %}>Bitte auswählen</option>
     {% for ziel in reiseziele %}
-      <option value="{{ ziel.name }}" {% if ziel.name == selected_reiseziel %}selected{% endif %}>
+      <option value="{{ ziel.id }}" {% if ziel.id == selected_reiseziel|int %}selected{% endif %}>
         {{ ziel.name }}
       </option>
     {% endfor %}
   </select>
 
-  <!-- Hotel -->
-  <label for="hotels">Hotel:</label>
-  <select name="hotels" id="hotels" required>
+  <!-- Hotels nur anzeigen, wenn ein Reiseziel gewählt wurde -->
+  {% if hotels %}
+  <label for="hotel">Hotel:</label>
+  <select name="hotel" id="hotel" required>
     <option value="" disabled selected>Bitte auswählen</option>
     {% for hotel in hotels %}
-      <option value="{{ hotel.name }}" {% if hotel.name == selected_hotel %}selected{% endif %}>
-        {{ hotel.name }}
+      <option value="{{ hotel.id }}" {% if hotel.id == selected_hotel|int %}selected{% endif %}>
+        {{ hotel.name }} ({{ hotel.sterne }} Sterne, {{ hotel.preis_pro_nacht }}€)
       </option>
     {% endfor %}
   </select>
+  {% endif %}
 
   <!-- Budget -->
   <label for="budget">Budget (€):</label>
@@ -102,7 +104,7 @@
     <span id="budgetWert">{{ selected_budget if selected_budget else 150 }}</span> €
   </div>
 
-  <!-- Neue Option: Transportmittel -->
+  <!-- Transportmittel -->
   <label for="transport">Transportmittel:</label>
   <select name="transport" id="transport" required>
     <option value="" disabled selected>Bitte auswählen</option>
@@ -112,7 +114,7 @@
     <option value="Bus">Bus</option>
   </select>
 
-  <!-- Neue Option: Reisedauer -->
+  <!-- Reisedauer -->
   <label for="dauer">Reisedauer:</label>
   <select name="dauer" id="dauer" required>
     <option value="" disabled selected>Bitte auswählen</option>
