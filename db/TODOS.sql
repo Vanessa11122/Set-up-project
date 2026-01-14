@@ -52,6 +52,14 @@ CREATE TABLE restaurants (
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+CREATE TABLE sehenswürdigkeiten (
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    sehenswürd_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL, 
+    beschreibung VARCHAR(255),
+    FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE 
+) ENGINE=InnoDB; 
+
 -- 4. DATEN IN 'reiseziele' EINFÜGEN
 -- WICHTIG: Die Spalte heißt 'id', NICHT 'reiseziel_id'
 INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
@@ -190,4 +198,106 @@ INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung
 (20, 'Veneto Cucina', 'Italienisch', '€€€', 4.4),
 (20, 'Canal Grande', 'Italienisch', '€€', 4.3),
 (20, 'Trattoria Canal', 'Italienisch', '€€€', 4.3);
-INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung) VALUES
+
+
+INSERT INTO sehenswuerdigkeiten (reiseziel_id, name, beschreibung) VALUES
+-- 1 Paris
+(1, 'Eiffelturm', 'Wahrzeichen von Paris mit Aussichtsplattform.'),
+(1, 'Louvre', 'Berühmtes Kunstmuseum mit der Mona Lisa.'),
+(1, 'Notre-Dame', 'Gotische Kathedrale auf der Île de la Cité.'),
+
+-- 2 Berlin
+(2, 'Brandenburger Tor', 'Historisches Symbol der deutschen Einheit.'),
+(2, 'Berliner Mauer', 'Überreste der ehemaligen innerdeutschen Grenze.'),
+(2, 'Museumsinsel', 'UNESCO-Welterbe mit mehreren Museen.'),
+
+-- 3 Rom
+(3, 'Kolosseum', 'Antikes Amphitheater aus der Römerzeit.'),
+(3, 'Forum Romanum', 'Politisches Zentrum des antiken Roms.'),
+(3, 'Vatikan', 'Kleinstaat mit Petersdom und Sixtinischer Kapelle.'),
+
+-- 4 Madrid
+(4, 'Prado Museum', 'Eines der bedeutendsten Kunstmuseen Europas.'),
+(4, 'Plaza Mayor', 'Historischer Hauptplatz im Stadtzentrum.'),
+(4, 'Königspalast', 'Offizielle Residenz der spanischen Könige.'),
+
+-- 5 Wien
+(5, 'Schloss Schönbrunn', 'Ehemalige Sommerresidenz der Habsburger.'),
+(5, 'Stephansdom', 'Gotischer Dom im Herzen Wiens.'),
+(5, 'Belvedere', 'Barockschloss mit Kunstsammlung.'),
+
+-- 6 Prag
+(6, 'Karlsbrücke', 'Berühmte Brücke mit Heiligenstatuen.'),
+(6, 'Prager Burg', 'Größte geschlossene Burganlage der Welt.'),
+(6, 'Altstädter Ring', 'Historischer Marktplatz mit Rathausuhr.'),
+
+-- 7 Lissabon
+(7, 'Torre de Belém', 'Historischer Verteidigungsturm am Tejo.'),
+(7, 'Mosteiro dos Jerónimos', 'Kloster im manuelinischen Stil.'),
+(7, 'Alfama', 'Ältestes Stadtviertel mit engen Gassen.'),
+
+-- 8 Amsterdam
+(8, 'Anne-Frank-Haus', 'Wohnhaus von Anne Frank im Zweiten Weltkrieg.'),
+(8, 'Rijksmuseum', 'Nationalmuseum der Niederlande.'),
+(8, 'Grachten', 'Typische Wasserkanäle der Stadt.'),
+
+-- 9 London
+(9, 'Big Ben', 'Berühmter Glockenturm am Parlament.'),
+(9, 'Tower of London', 'Historische Festung an der Themse.'),
+(9, 'Buckingham Palace', 'Offizielle Residenz des Königs.'),
+
+-- 10 Stockholm
+(10, 'Gamla Stan', 'Historische Altstadt Stockholms.'),
+(10, 'Vasa-Museum', 'Museum mit einem Kriegsschiff aus dem 17. Jh.'),
+(10, 'Schloss Drottningholm', 'Königliches Schloss mit Parkanlage.'),
+
+-- 11 Athen
+(11, 'Akropolis', 'Antike Tempelanlage auf einem Hügel.'),
+(11, 'Parthenon', 'Berühmter Tempel der Athena.'),
+(11, 'Agora', 'Zentraler Platz des antiken Athens.'),
+
+-- 12 Budapest
+(12, 'Parlament', 'Neogotisches Parlamentsgebäude an der Donau.'),
+(12, 'Kettenbrücke', 'Berühmte Brücke zwischen Buda und Pest.'),
+(12, 'Thermalbad Széchenyi', 'Großes historisches Thermalbad.'),
+
+-- 13 Kopenhagen
+(13, 'Nyhavn', 'Hafen mit bunten Häusern.'),
+(13, 'Kleine Meerjungfrau', 'Berühmte Bronzestatue am Wasser.'),
+(13, 'Tivoli', 'Historischer Vergnügungspark.'),
+
+-- 14 Barcelona
+(14, 'Sagrada Família', 'Unvollendete Basilika von Gaudí.'),
+(14, 'Park Güell', 'Bunter Park mit Mosaiken.'),
+(14, 'La Rambla', 'Belebte Flaniermeile.'),
+
+-- 15 Tokio
+(15, 'Shibuya Crossing', 'Weltbekannte Kreuzung.'),
+(15, 'Meiji-Schrein', 'Shinto-Schrein im Stadtzentrum.'),
+(15, 'Tokyo Tower', 'Aussichtsturm mit Stadtblick.'),
+
+-- 16 New York
+(16, 'Freiheitsstatue', 'Symbol für Freiheit und Einwanderung.'),
+(16, 'Central Park', 'Großer Stadtpark in Manhattan.'),
+(16, 'Times Square', 'Belebter Platz mit Leuchtreklamen.'),
+
+-- 17 Kapstadt
+(17, 'Tafelberg', 'Markanter Berg mit Seilbahn.'),
+(17, 'Kap der Guten Hoffnung', 'Berühmte Landspitze.'),
+(17, 'V&A Waterfront', 'Hafenviertel mit Shops und Restaurants.'),
+
+-- 18 Sydney
+(18, 'Opera House', 'Ikonisches Opernhaus am Hafen.'),
+(18, 'Harbour Bridge', 'Große Stahlbogenbrücke.'),
+(18, 'Bondi Beach', 'Beliebter Stadtstrand.'),
+
+-- 19 Reykjavík
+(19, 'Hallgrímskirkja', 'Moderne Kirche mit Aussichtsturm.'),
+(19, 'Harpa', 'Konzerthaus mit Glasfassade.'),
+(19, 'Sun Voyager', 'Skulptur am Meer.'),
+
+-- 20 Venedig
+(20, 'Markusplatz', 'Zentraler Platz von Venedig.'),
+(20, 'Dogenpalast', 'Ehemaliger Regierungssitz.'),
+(20, 'Canal Grande', 'Hauptwasserstraße der Stadt.');
+
