@@ -2,23 +2,24 @@
 
 {% block content %}
 <h1>Frankreich</h1>
-{% extends "base.html" %}
-
-{% block content %}
-<h1>Reise planen</h1>
-
-<form method="POST"> 
-    <div>
-        <h2>Ort auswählen:</h2>
+<div>
+    
+    <h2>Ort:</h2>
+    
+    <form>
         <select name="destination" id="destination">
-            <option value="auswählen">-- Bitte wählen --</option>
-            {% for ziel in ziele %}
-                <option value="{{ ziel.id }}">{{ ziel.name }} ({{ ziel.land }})</option>
-            {% endfor %}
+            <option value="auswählen">auswählen</option>
+            <option value="paris">Paris</option>
+            <option value="nice">Nizza</option>
+            <option value="lyon">Lyon</option>
+            <option value="marseille">Marseille</option>
+            <option value="bordeaux">Bordeaux</option>
         </select>
-    </div>
-
-    <br>
+        
+        <button type="submit">Bestätigen</button>
+    </form>
+</div>
+<br>
 <div>
     <label for="budget">Budget (€):</label>
 <input 
