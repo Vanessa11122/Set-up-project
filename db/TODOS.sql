@@ -113,97 +113,106 @@ INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht) VALUES
 (20, 'Laguna Palace', 4, 280.00, 'Italien'), (20, 'Hotel Torretta', 3, 200.00, 'Italien')
 
 
--- 6. DATEN IN 'restaurants' EINFÜGEN
-INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung) VALUES
--- Reiseziel 1
-(1, 'Chez Marie', 'Französisch', '€€€', 4.4),
-(1, 'Café Parisien', 'Französisch', '€€', 4.2),
-(1, 'Le Bistro', 'Französisch', '€€€', 4.5),
 
--- Reiseziel 2
-(2, 'Berlin Döner', 'Imbiss', '€', 4.3),
-(2, 'Street Bites', 'Fast Food', '€', 4.1),
-(2, 'Curry 36', 'Imbiss', '€', 4.2),
+INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung, land) VALUES
+-- Reiseziel 1 – Frankreich
+(1, 'Chez Marie', 'Französisch', '€€€', 4.4, 'Frankreich'),
+(1, 'Café Parisien', 'Französisch', '€€', 4.2, 'Frankreich'),
+(1, 'Le Bistro', 'Französisch', '€€€', 4.5, 'Frankreich'),
 
--- Reiseziel 3
-(3, 'Trattoria Roma', 'Italienisch', '€€', 4.6),
-(3, 'Pasta Fresca', 'Italienisch', '€€€', 4.7),
-(3, 'Mamma Mia', 'Italienisch', '€€', 4.8),
+-- Reiseziel 2 – Deutschland
+(2, 'Berlin Döner', 'Imbiss', '€', 4.3, 'Deutschland'),
+(2, 'Street Bites', 'Fast Food', '€', 4.1, 'Deutschland'),
+(2, 'Curry 36', 'Imbiss', '€', 4.2, 'Deutschland'),
 
+-- Reiseziel 3 – Italien
+(3, 'Trattoria Roma', 'Italienisch', '€€', 4.6, 'Italien'),
+(3, 'Pasta Fresca', 'Italienisch', '€€€', 4.7, 'Italien'),
+(3, 'Mamma Mia', 'Italienisch', '€€', 4.8, 'Italien'),
 
--- Reiseziel 4
-(4, 'El Toro', 'Spanisch', '€€€', 4.5),
-(4, 'Casa Tapas', 'Spanisch', '€€', 4.4),
-(4, 'Tapas Bar', 'Spanisch', '€€', 4.6),
+-- Reiseziel 4 – Spanien
+(4, 'El Toro', 'Spanisch', '€€€', 4.5, 'Spanien'),
+(4, 'Casa Tapas', 'Spanisch', '€€', 4.4, 'Spanien'),
+(4, 'Tapas Bar', 'Spanisch', '€€', 4.6, 'Spanien'),
 
--- Reiseziel 5
-(5, 'Gasthaus Mozart', 'Österreichisch', '€€', 4.3),
-(5, 'Wiener Stube', 'Österreichisch', '€€€', 4.6),
-(5, 'Gasthaus Mozart', 'Österreichisch', '€€', 4.3),
+-- Reiseziel 5 – Österreich
+(5, 'Gasthaus Mozart', 'Österreichisch', '€€', 4.3, 'Österreich'),
+(5, 'Wiener Stube', 'Österreichisch', '€€€', 4.6, 'Österreich'),
 
--- Reiseziel 6
-(6, 'Prague Cellar', 'Böhmisch', '€€', 4.3),
-(6, 'Old Town Brewery', 'Tschechisch', '€€', 4.5),
-(6, 'U Fleků', 'Böhmisch', '€€', 4.4),
--- Reiseziel 7
-(7, 'Lisboa Seafood', 'Portugiesisch', '€€€', 4.7),
-(7, 'Algarve Taste', 'Portugiesisch', '€€', 4.4),
-(7, 'Bacalhau Grill', 'Portugiesisch', '€€€', 4.6), 
+-- Reiseziel 6 – Tschechien
+(6, 'Prague Cellar', 'Böhmisch', '€€', 4.3, 'Tschechien'),
+(6, 'Old Town Brewery', 'Tschechisch', '€€', 4.5, 'Tschechien'),
+(6, 'U Fleků', 'Böhmisch', '€€', 4.4, 'Tschechien'),
 
--- Reiseziel 8
-(8, 'Dutch Delight', 'Holländisch', '€€', 4.2),
-(8, 'Canal Brunch', 'International', '€€', 4.3),
-(8, 'Pancake House', 'Holländisch', '€€', 4.3),
+-- Reiseziel 7 – Portugal
+(7, 'Lisboa Seafood', 'Portugiesisch', '€€€', 4.7, 'Portugal'),
+(7, 'Algarve Taste', 'Portugiesisch', '€€', 4.4, 'Portugal'),
+(7, 'Bacalhau Grill', 'Portugiesisch', '€€€', 4.6, 'Portugal'),
 
--- Reiseziel 9
-(9, 'The Crown', 'Britisch', '€€', 4.2),
-(9, 'Fish & Chips Co.', 'Britisch', '€', 4.1),
-(9, 'The Pub', 'Britisch', '€€', 4.1),
--- Reiseziel 10
-(10, 'Nordic Bites', 'Schwedisch', '€€', 4.4),
-(10, 'Stockholm Kitchen', 'Skandinavisch', '€€€', 4.6),
-(10, 'Meatball Shop', 'Schwedisch', '€€', 4.5),
--- Reiseziel 11
-(11, 'Athena Grill', 'Griechisch', '€€', 4.6),
-(11, 'Santorini Taverna', 'Griechisch', '€€€', 4.8),
-(11, 'Olympos', 'Griechisch', '€€', 4.7),
--- Reiseziel 12
-(12, 'Paprika Haus', 'Ungarisch', '€€', 4.3),
-(12, 'Danube Kitchen', 'Ungarisch', '€€€', 4.5),
-(12, 'Gulasch Bistro', 'Ungarisch', '€€', 4.4),
+-- Reiseziel 8 – Niederlande
+(8, 'Dutch Delight', 'Holländisch', '€€', 4.2, 'Niederlande'),
+(8, 'Canal Brunch', 'International', '€€', 4.3, 'Niederlande'),
+(8, 'Pancake House', 'Holländisch', '€€', 4.3, 'Niederlande'),
 
--- Reiseziel 13
-(13, 'Nordic Table', 'Dänisch', '€€€', 4.5),
-(13, 'Copenhagen Eatery', 'Skandinavisch', '€€€', 4.7),
-(13, 'Hygge Kitchen', 'Dänisch', '€€€', 4.6),
--- Reiseziel 14
-(14, 'Valencia Rice', 'Spanisch', '€€€', 4.6),
-(14, 'Costa Paella', 'Spanisch', '€€', 4.4),
-(14, 'Paella Place', 'Spanisch', '€€€', 4.5),
--- Reiseziel 15
-(15, 'Tokyo Ramen', 'Japanisch', '€€', 4.6),
-(15, 'Sakura Fine Dining', 'Japanisch', '€€€€', 4.9),
-(15, 'Sushi Zen', 'Japanisch', '€€€€', 4.9), 
--- Reiseziel 16
-(16, 'Burger Joint', 'Amerikanisch', '€', 4.4),
-(16, 'Route 66 Diner', 'Amerikanisch', '€€', 4.5),
-(16, 'Joe’s Pizza', 'Amerikanisch', '€', 4.7),
--- Reiseziel 17
-(17, 'Cape Town Braai', 'Südafrikanisch', '€€€', 4.5),
-(17, 'Savanna Kitchen', 'Afrikanisch', '€€', 4.3),
-(17, 'Safari Grill', 'Südafrikanisch', '€€€', 4.4),
--- Reiseziel 18
-(18, 'City Lounge', 'Modern', '€€€', 4.3),
-(18, 'Urban Plate', 'Fusion', '€€€', 4.4),
-(18, 'Opera Cafe', 'Modern', '€€€', 4.2),
--- Reiseziel 19
-(19, 'Nordic Fire', 'Isländisch', '€€€', 4.6),
-(19, 'Reykjavik Bistro', 'Nordisch', '€€€', 4.5),
-(19, 'Lava Soup', 'Isländisch', '€€€', 4.5),
--- Reiseziel 20
-(20, 'Veneto Cucina', 'Italienisch', '€€€', 4.4),
-(20, 'Canal Grande', 'Italienisch', '€€', 4.3),
-(20, 'Trattoria Canal', 'Italienisch', '€€€', 4.3);
+-- Reiseziel 9 – UK
+(9, 'The Crown', 'Britisch', '€€', 4.2, 'UK'),
+(9, 'Fish & Chips Co.', 'Britisch', '€', 4.1, 'UK'),
+(9, 'The Pub', 'Britisch', '€€', 4.1, 'UK'),
+
+-- Reiseziel 10 – Schweden
+(10, 'Nordic Bites', 'Schwedisch', '€€', 4.4, 'Schweden'),
+(10, 'Stockholm Kitchen', 'Skandinavisch', '€€€', 4.6, 'Schweden'),
+(10, 'Meatball Shop', 'Schwedisch', '€€', 4.5, 'Schweden'),
+
+-- Reiseziel 11 – Griechenland
+(11, 'Athena Grill', 'Griechisch', '€€', 4.6, 'Griechenland'),
+(11, 'Santorini Taverna', 'Griechisch', '€€€', 4.8, 'Griechenland'),
+(11, 'Olympos', 'Griechisch', '€€', 4.7, 'Griechenland'),
+
+-- Reiseziel 12 – Ungarn
+(12, 'Paprika Haus', 'Ungarisch', '€€', 4.3, 'Ungarn'),
+(12, 'Danube Kitchen', 'Ungarisch', '€€€', 4.5, 'Ungarn'),
+(12, 'Gulasch Bistro', 'Ungarisch', '€€', 4.4, 'Ungarn'),
+
+-- Reiseziel 13 – Dänemark
+(13, 'Nordic Table', 'Dänisch', '€€€', 4.5, 'Dänemark'),
+(13, 'Copenhagen Eatery', 'Skandinavisch', '€€€', 4.7, 'Dänemark'),
+(13, 'Hygge Kitchen', 'Dänisch', '€€€', 4.6, 'Dänemark'),
+
+-- Reiseziel 14 – Spanien
+(14, 'Valencia Rice', 'Spanisch', '€€€', 4.6, 'Spanien'),
+(14, 'Costa Paella', 'Spanisch', '€€', 4.4, 'Spanien'),
+(14, 'Paella Place', 'Spanisch', '€€€', 4.5, 'Spanien'),
+
+-- Reiseziel 15 – Italien
+(15, 'Tokyo Ramen', 'Japanisch', '€€', 4.6, 'Japan'),
+(15, 'Sakura Fine Dining', 'Japanisch', '€€€€', 4.9, 'Japan'),
+(15, 'Sushi Zen', 'Japanisch', '€€€€', 4.9, 'Japan'),
+
+-- Reiseziel 16 – USA
+(16, 'Burger Joint', 'Amerikanisch', '€', 4.4, 'USA'),
+(16, 'Route 66 Diner', 'Amerikanisch', '€€', 4.5, 'USA'),
+(16, 'Joe’s Pizza', 'Amerikanisch', '€', 4.7, 'USA'),
+
+-- Reiseziel 17 – Südafrika
+(17, 'Cape Town Braai', 'Südafrikanisch', '€€€', 4.5, 'Südafrika'),
+(17, 'Savanna Kitchen', 'Afrikanisch', '€€', 4.3, 'Südafrika'),
+(17, 'Safari Grill', 'Südafrikanisch', '€€€', 4.4, 'Südafrika'),
+
+-- Reiseziel 18 – Australien
+(18, 'City Lounge', 'Modern', '€€€', 4.3, 'Australien'),
+(18, 'Urban Plate', 'Fusion', '€€€', 4.4, 'Australien'),
+(18, 'Opera Cafe', 'Modern', '€€€', 4.2, 'Australien'),
+
+-- Reiseziel 19 – Island
+(19, 'Nordic Fire', 'Isländisch', '€€€', 4.6, 'Island'),
+(19, 'Reykjavik Bistro', 'Nordisch', '€€€', 4.5, 'Island'),
+(19, 'Lava Soup', 'Isländisch', '€€€', 4.5, 'Island'),
+
+-- Reiseziel 20 – Italien
+(20, 'Veneto Cucina', 'Italienisch', '€€€', 4.4, 'Italien'),
+(20, 'Canal Grande', 'Italienisch', '€€', 4.3, 'Italien'),
+(20, 'Trattoria Canal', 'Italienisch', '€€€', 4.3, 'Italien');
 
 
 INSERT INTO sehenswuerdigkeiten (reiseziel_id, name, beschreibung) VALUES
