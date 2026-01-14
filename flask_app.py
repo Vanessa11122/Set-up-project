@@ -139,6 +139,21 @@ def complete():
 
 @app.route('/add_trip')
 def addtrip():
+     if request.method == "POST":
+        reiseziel = request.form["reiseziel"]
+
+        db_write(
+            "INSERT INTO reiseziele (name) VALUES (%s)",
+            (reiseziel,)
+        )
+
+        # WICHTIG: Redirect nach POST
+        return redirect("/Frankreich")
+
+    # GET: Daten aus DB holen
+    reiseziele = db_read("SELECT name FROM reiseziele")
+
+    return render_template("Frankreich.html", reiseziele=reiseziele)
     return render_template("add_trip.html")
 
 @app.route("/Italien", methods=["GET", "POST"])
