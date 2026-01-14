@@ -178,30 +178,7 @@ def frankreich():
 
     return render_template("Frankreich.html", reiseziele=reiseziele)
     
-@app.route("/main_page.html", methods=["POST"])
-def reise_speichern():
-    user_id = session.get("user_id")  # Angenommen, du hast Login
-    if not user_id:
-        return redirect(url_for("login"))
 
-    ziel = request.form.get("ziel")
-    budget = request.form.get("budget")
-    transport = request.form.get("transport")
-    startdatum = request.form.get("startdatum")
-    enddatum = request.form.get("enddatum")
-
-    neue_reise = Reise(
-        user_id=user_id,
-        ziel=ziel,
-        budget=budget,
-        transport=transport,
-        startdatum=startdatum,
-        enddatum=enddatum
-    )
-    db.session.add(neue_reise)
-    db.session.commit()
-
-    return redirect(url_for("profil"))
 
     
 if __name__ == "__main__":
