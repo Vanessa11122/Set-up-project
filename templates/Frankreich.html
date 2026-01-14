@@ -25,23 +25,23 @@
   <button type="submit">Auswählen</button>
 </form>
 <div>
-    
-    <h2>Ort:</h2>
-    
-    <form>
-        <select name="destination" id="destination">
-            <option value="auswählen">auswählen</option>
-            <option value="paris">Paris</option>
-            <option value="nice">Nizza</option>
-            <option value="lyon">Lyon</option>
-            <option value="marseille">Marseille</option>
-            <option value="bordeaux">Bordeaux</option>
-        </select>
-        
-        <button type="submit">Bestätigen</button>
-    </form>
-</div>
-<br>
+
+<form method="post">
+  <label for="hotels">Hotel:</label><br>
+
+  <select name="hotels" id="hotels" required>
+    <option value="" disabled selected>Bitte auswählen</option>
+
+    {% for ziel in hotels %}
+      <option value="{{ ziel.name }}">
+        {{ ziel.name }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <br><br>
+  <button type="submit">Auswählen</button>
+
 <div>
     <label for="budget">Budget (€):</label>
 <input 
@@ -58,6 +58,25 @@
 </div>
 
 <div>
+</form>
+  
+    <h2>Ort:</h2>
+    
+    <form>
+        <select name="destination" id="destination">
+            <option value="auswählen">auswählen</option>
+            <option value="paris">Paris</option>
+            <option value="nice">Nizza</option>
+            <option value="lyon">Lyon</option>
+            <option value="marseille">Marseille</option>
+            <option value="bordeaux">Bordeaux</option>
+        </select>
+        
+        <button type="submit">Bestätigen</button>
+    </form>
+</div>
+<br>
+
    
     <h2>Hotel</h2>
 
@@ -76,21 +95,6 @@
 
 
 
-<form method="post">
-  <label for="hotels">Hotel:</label><br>
 
-  <select name="hotels" id="hotels" required>
-    <option value="" disabled selected>Bitte auswählen</option>
-
-    {% for ziel in hotels %}
-      <option value="{{ ziel.name }}">
-        {{ ziel.name }}
-      </option>
-    {% endfor %}
-  </select>
-
-  <br><br>
-  <button type="submit">Auswählen</button>
-</form>
     
 {% endblock %}
