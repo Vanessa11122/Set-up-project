@@ -36,6 +36,7 @@ CREATE TABLE hotels (
     id INT AUTO_INCREMENT PRIMARY KEY,
     reiseziel_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
+    land VARCHAR(100) NOT NULL,
     sterne INT DEFAULT 3,
     adresse VARCHAR(255),
     preis_pro_nacht DECIMAL(10, 2),
@@ -46,6 +47,7 @@ CREATE TABLE restaurants (
     id INT AUTO_INCREMENT PRIMARY KEY,
     reiseziel_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
+    land VARCHAR(100) NOT NULL,
     kueche_typ VARCHAR(100),
     preis_niveau ENUM('€', '€€', '€€€', '€€€€'),
     bewertung DECIMAL(2, 1),
@@ -55,7 +57,8 @@ CREATE TABLE restaurants (
 CREATE TABLE sehenswuerdigkeiten (
     id INT AUTO_INCREMENT PRIMARY KEY, 
     reiseziel_id INT NOT NULL,
-    name VARCHAR(255) NOT NULL, 
+    name VARCHAR(255) NOT NULL,
+    land VARCHAR(100) NOT NULL,
     beschreibung VARCHAR(255),
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE 
 ) ENGINE=InnoDB; 
