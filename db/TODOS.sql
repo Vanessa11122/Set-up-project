@@ -90,7 +90,7 @@ INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
 (22, 'Nizza', 'Frankreich', 'Stadt am Meer');
 
 -- 5. DATEN IN 'hotels' EINFÜGEN (Hier ist 'reiseziel_id' der Fremdschlüssel)
-INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht) VALUES
+INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht, land) VALUES
 (1, 'Eiffel Rivera', 4, 185.00, 'Frankreich'), (1, 'Mercure gare de Lyon', 3, 90.00, 'Frankreich')
 (2, 'Brandenburger Hof', 5, 220.00, 'Deutschland'), (2, 'Jugendherberge Berlin', 2, 40.00, 'Deutschland')
 (3, 'Colosseo Suites', 4, 160.00, 'Italien'), (3, 'Hotel Marina di Paorelli', 4, 120.00, 'Italien')
