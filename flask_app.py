@@ -153,7 +153,7 @@ def addtrip():
     # GET: Daten aus DB holen
     reiseziele = db_read("SELECT name FROM reiseziele")
 
-    return render_template("Frankreich.html", reiseziele=reiseziele)
+    
     return render_template("add_trip.html")
 
 @app.route("/Italien", methods=["GET", "POST"])
