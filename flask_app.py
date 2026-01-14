@@ -142,7 +142,7 @@ def addtrip():
     return render_template("add_trip.html")
 
 @app.route("/Italien", methods=["GET", "POST"])
-def frankreich():
+def italien():
     if request.method == "POST":
         reiseziel = request.form["reiseziel"]
 
