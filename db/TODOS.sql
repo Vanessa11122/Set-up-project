@@ -52,7 +52,7 @@ CREATE TABLE restaurants (
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-CREATE TABLE sehenswürdigkeiten (
+CREATE TABLE sehenswuerdigkeiten (
     id INT AUTO_INCREMENT PRIMARY KEY, 
     sehenswürd_id INT NOT NULL,
     name VARCHAR(255) NOT NULL, 
