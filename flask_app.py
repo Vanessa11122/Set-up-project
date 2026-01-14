@@ -150,10 +150,11 @@ def Italien():
 def frankreich():
     if request.method == "POST":
         reiseziel = request.form["reiseziel"]
+        hotels = request.form["hotels"]
 
         db_write(
-            "INSERT INTO reiseziele (name) VALUES (%s)",
-            (reiseziel,)
+            "INSERT INTO reiseziele (name), hotels (name) VALUES (%s, %s)",
+            (reiseziel, hotels)
         )
 
         # WICHTIG: Redirect nach POST
@@ -161,8 +162,8 @@ def frankreich():
 
     # GET: Daten aus DB holen
     reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
-
-    return render_template("Frankreich.html", reiseziele=reiseziele)
+    hotels = db_read("SELECT name FROM hotels WHERE land LIKE '%Frankreich%'")
+    return render_template("Frankreich.html", reiseziele=reiseziele, hotels=hotels)
 
 
     
