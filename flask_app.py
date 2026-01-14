@@ -157,8 +157,8 @@ def Frankreich():
         "INSERT INTO reiseziele (name) VALUES (%s)", (reiseziel,)
     )
 
-        return redirect(url_for("index"))
-    return render_template("Frankreich.html") 
+    return redirect(url_for("index"))
+    
     
 if __name__ == "__main__":
     app.run()
