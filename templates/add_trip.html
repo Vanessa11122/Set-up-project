@@ -8,9 +8,7 @@
 <img src="https://www.nicolos-reiseblog.de/frankreich-sehenswuerdigkeiten/">
 
 
-{% extends "base.html" %}
 
-{% block content %}
 
 <style>
   body {
@@ -74,16 +72,6 @@
 
 <form method="post">
 
-  <!-- Reiseziel -->
-  <label for="reiseziel">Reiseziel:</label>
-  <select name="reiseziel" id="reiseziel" required>
-    <option value="" disabled selected>Bitte auswählen</option>
-    {% for ziel in reiseziele %}
-      <option value="{{ ziel.name }}" {% if ziel.name == selected_reiseziel %}selected{% endif %}>
-        {{ ziel.name }}
-      </option>
-    {% endfor %}
-  </select>
 
   <!-- Hotel -->
  
