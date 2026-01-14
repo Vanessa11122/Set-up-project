@@ -152,11 +152,11 @@ def frankreich():
         reiseziel = request.form["reiseziel"]
         hotels = request.form["hotels"]
         db_write(
-            "INSERT INTO reiseziele (name) VALUES (%s)",
+            "INSERT INTO reiseziele (name, land) VALUES (%s)",
             (reiseziel,)
         )
         db_write(
-            "INSERT INTO hotels (name) VALUES (%s)",
+            "INSERT INTO hotels (name, land) VALUES (%s)",
             (hotels,)
         )
 
