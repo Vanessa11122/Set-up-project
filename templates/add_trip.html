@@ -2,9 +2,6 @@
 
 {% block content %}
 
-
-
-
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -31,7 +28,7 @@
     display: block;
   }
 
-  select, input[type="range"] {
+  select, input[type="range"], input[type="text"], input[type="date"] {
     width: 100%;
     padding: 8px;
     margin-top: 6px;
@@ -65,11 +62,28 @@
 
 <h1>Reiseplaner</h1>
 
+<form method="POST" action="{{ url_for('add_trip') }}">
+  <!-- Reiseziel -->
+  <label for="reiseziel">Reiseziel:</label>
+  <input 
+      type="text" 
+      id="reiseziel" 
+      name="reiseziel" 
+      placeholder="z.B. Rom" 
+      value="{{ selected_reiseziel if selected_reiseziel else '' }}"
+      required
+  >
 
+  <!-- Datum -->
+  <label for="datum">Reisedatum:</label>
+  <input 
+      type="date" 
+      id="datum" 
+      name="datum" 
+      value="{{ selected_datum if selected_datum else '' }}"
+      required
+  >
 
-
-  <!-- Hotel -->
- <form>
   <!-- Budget -->
   <label for="budget">Budget (€):</label>
   <input 
@@ -86,7 +100,7 @@
     <span id="budgetWert">{{ selected_budget if selected_budget else 150 }}</span> €
   </div>
 
-  <!-- Neue Option: Transportmittel -->
+  <!-- Transportmittel -->
   <label for="transport">Transportmittel:</label>
   <select name="transport" id="transport" required>
     <option value="" disabled selected>Bitte auswählen</option>
@@ -96,7 +110,7 @@
     <option value="Bus">Bus</option>
   </select>
 
-  <!-- Neue Option: Reisedauer -->
+  <!-- Reisedauer -->
   <label for="dauer">Reisedauer:</label>
   <select name="dauer" id="dauer" required>
     <option value="" disabled selected>Bitte auswählen</option>
@@ -109,13 +123,10 @@
   <button type="submit">Reise speichern</button>
 </form>
 
-<h1> Reiseziel </h1>
+<h1>Reiseziel</h1>
 <a href="/Italien">Italien</a>
 <br> 
 <a href="/Frankreich">Frankreich</a>
 <img src="https://www.nicolos-reiseblog.de/frankreich-sehenswuerdigkeiten/">
 
-
 {% endblock %}
-
-
