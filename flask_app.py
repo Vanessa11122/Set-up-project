@@ -181,7 +181,7 @@ def frankreich():
     reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
     hotels = db_read("SELECT name FROM hotels WHERE land LIKE '%Frankreich%'")
 
-    return render_template("Frankreich.html", reiseziele=reiseziele)
+    return render_template("Frankreich.html", reiseziele=reiseziele, hotels==hotels,)
 
     
     
