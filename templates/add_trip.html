@@ -2,9 +2,6 @@
 
 {% block content %}
 
-
-
-
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -31,7 +28,7 @@
     display: block;
   }
 
-  select, input[type="range"] {
+  select, input[type="range"], input[type="date"] {
     width: 100%;
     padding: 8px;
     margin-top: 6px;
@@ -65,11 +62,7 @@
 
 <h1>Reiseplaner</h1>
 
-
-
-
-  <!-- Hotel -->
- <form>
+<form>
   <!-- Budget -->
   <label for="budget">Budget (€):</label>
   <input 
@@ -86,7 +79,7 @@
     <span id="budgetWert">{{ selected_budget if selected_budget else 150 }}</span> €
   </div>
 
-  <!-- Neue Option: Transportmittel -->
+  <!-- Transportmittel -->
   <label for="transport">Transportmittel:</label>
   <select name="transport" id="transport" required>
     <option value="" disabled selected>Bitte auswählen</option>
@@ -96,7 +89,7 @@
     <option value="Bus">Bus</option>
   </select>
 
-  <!-- Neue Option: Reisedauer -->
+  <!-- Reisedauer -->
   <label for="dauer">Reisedauer:</label>
   <select name="dauer" id="dauer" required>
     <option value="" disabled selected>Bitte auswählen</option>
@@ -106,15 +99,32 @@
     <option value="10 Tage">10 Tage</option>
   </select>
 
+  <!-- Datumauswahl -->
+  <label for="startdatum">Startdatum:</label>
+  <input type="date" id="startdatum" name="startdatum" required>
+
+  <label for="enddatum">Enddatum:</label>
+  <input type="date" id="enddatum" name="enddatum" required>
+
+  <!-- Reiseziel -->
+  <label for="ziel">Reiseziel:</label>
+  <select name="ziel" id="ziel" required>
+    <option value="" disabled selected>Bitte auswählen</option>
+    <option value="Italien">Italien</option>
+    <option value="Frankreich">Frankreich</option>
+    <option value="Spanien">Spanien</option>
+    <option value="Deutschland">Deutschland</option>
+    <option value="Portugal">Portugal</option>
+  </select>
+
   <button type="submit">Reise speichern</button>
 </form>
 
-<h1> Reiseziel </h1>
-<a href="/Italien">Italien</a>
-<br> 
-<a href="/Frankreich">Frankreich</a>
+<h1>Beliebte Reiseziele</h1>
+<a href="/Italien">Italien</a><br> 
+<a href="/Frankreich">Frankreich</a><br>
+<a href="/Spanien">Spanien</a><br>
+<a href="/Deutschland">Deutschland</a><br>
 <img src="https://www.nicolos-reiseblog.de/frankreich-sehenswuerdigkeiten/">
 
-
 {% endblock %}
-
