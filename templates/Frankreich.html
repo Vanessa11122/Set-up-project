@@ -18,7 +18,6 @@
   </select>
 </form>
 
-{% if hotels %}
 <form method="post">
   <label for="hotel">Hotel:</label>
   <select name="hotel" id="hotel" required>
@@ -27,13 +26,13 @@
       <option value="{{ hotel.id }}" {% if hotel.id == selected_hotel|int %}selected{% endif %}>
         {{ hotel.name }}
       </option>
-    {% endfor %}
+   
   </select>
 
   <br><br>
   <button type="submit">Auswählen</button>
 </form>
-{% endif %}
+
 
     
 {% endblock %}
