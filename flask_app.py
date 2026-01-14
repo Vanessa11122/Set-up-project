@@ -171,7 +171,7 @@ def frankreich():
 
         # WICHTIG: Redirect nach POST
         return redirect("/Frankreich")
-
+return render_template("Frankreich.html", reiseziele=reiseziele)
      
     
     
