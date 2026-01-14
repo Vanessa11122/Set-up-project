@@ -52,22 +52,29 @@
 
 <h1>Reiseziele auswählen</h1>
 
-<form method="post">
+<form method="POST" action="/Frankreich">
   <label for="reiseziel">Reiseziel:</label><br>
 
   <select name="reiseziel" id="reiseziel" required>
     <option value="" disabled selected>Bitte auswählen</option>
-
     {% for ziel in reiseziele %}
-      <option value="{{ ziel.name }}">
-        {{ ziel.name }}
-      </option>
+      <option value="{{ ziel.name }}">{{ ziel.name }}</option>
     {% endfor %}
   </select>
 
   <br><br>
   <button type="submit">Auswählen</button>
 </form>
+
+{% if session.user_id %}
+<h2>Deine gewählten Reiseziele:</h2>
+<ul>
+  {% for ziel in user_reiseziele %}
+    <li>{{ ziel.name }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
 
 
 
