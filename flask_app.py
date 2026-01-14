@@ -148,7 +148,7 @@ def addtrip():
         )
 
         # WICHTIG: Redirect nach POST
-        return redirect("/Frankreich")
+        return redirect("/add_trip")
 
     # GET: Daten aus DB holen
     reiseziele = db_read("SELECT name FROM reiseziele")
