@@ -209,7 +209,7 @@ def add_trip():
             INSERT INTO user_reisen (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
             VALUES (%s,%s,%s,%s,%s,%s,%s)
         """, (
-            current_user.id, 0, start, end, transport, hotel_budget, restaurant_budget
+            current_user.id, land , start, end, transport, hotel_budget, restaurant_budget
         ))
         db.connection.commit()
         trip_id = cursor.lastrowid
