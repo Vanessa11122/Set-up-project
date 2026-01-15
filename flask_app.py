@@ -199,6 +199,7 @@ def add_trip():
         # 4. Erfolg melden
         success_message = "Deine Reise wurde erfolgreich gespeichert!"
 
+        return redirect("/add_trip")
     # WICHTIG: Die success_message muss hier in die Klammer, damit das HTML sie kennt!
     return render_template("add_trip.html", success_message=success_message)
 
