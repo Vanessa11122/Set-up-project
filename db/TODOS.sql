@@ -64,6 +64,20 @@ CREATE TABLE sehenswuerdigkeiten (
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE 
 ) ENGINE=InnoDB; 
 
+CREATE TABLE trips (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    land VARCHAR(100),
+    reiseziel_id INT,
+    startdatum DATE,
+    enddatum DATE,
+    transport VARCHAR(50),
+    hotel_budget DECIMAL(10,2),
+    restaurant_budget DECIMAL(10,2),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
+
 -- 4. DATEN IN 'reiseziele' EINFÜGEN
 -- WICHTIG: Die Spalte heißt 'id', NICHT 'reiseziel_id'
 INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
