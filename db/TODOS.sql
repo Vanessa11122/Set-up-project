@@ -39,6 +39,8 @@ CREATE TABLE user_reisen (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     reiseziel_id INT,
+    startdatum DATE, 
+    enddatum DATE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
