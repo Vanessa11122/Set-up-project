@@ -135,12 +135,6 @@ def complete():
     return redirect(url_for("index"))
 
 
-
-
-@app.route('/add_trip')
-def addtrip():
-    return render_template("add_trip.html")
-
 @app.route("/Italien", methods=["GET", "POST"])
 def italien():
     if request.method == "POST":
@@ -202,26 +196,22 @@ def add_trip():
         transport = request.form["transport"]
         hotel_budget = request.form["hotel_budget"]
         restaurant_budget = request.form["restaurant_budget"]
-        interessen = request.form.getlist("interessen")  # wichtig: multiple select
+        # interessen = request.form.getlist("interessen") 
 
-        cursor = db.connection.cursor()
-        cursor.execute("""
+        # Nutze deine vorhandene db_write Funktion
+        # Hinweis: land muss hier die ID des Reiseziels sein
+        db_write("""
             INSERT INTO user_reisen (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
             VALUES (%s,%s,%s,%s,%s,%s,%s)
-        """, (
-            current_user.id, land , start, end, transport, hotel_budget, restaurant_budget
-        ))
-        db.connection.commit()
-        trip_id = cursor.lastrowid
-        cursor.close()
+        """, (current_user.id, land, start, end, transport, hotel_budget, restaurant_budget))
 
-        # Interessen können später in separater Tabelle gespeichert werden
-        # Beispiel: save_interests(trip_id, interessen)
+        # Um die trip_id für den Redirect zu bekommen:
+        result = db_read("SELECT LAST_INSERT_ID() as id")
+        trip_id = result[0][0] if result else None
 
         return redirect(url_for("select_city", trip_id=trip_id))
 
     return render_template("add_trip.html")
-
 
     
 if __name__ == "__main__":
