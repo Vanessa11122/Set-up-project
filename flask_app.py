@@ -177,12 +177,6 @@ def frankreich():
     reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
 
     return render_template("Frankreich.html", reiseziele=reiseziele)
-    
-
-
-    
-if __name__ == "__main__":
-    app.run()
 
 @app.route("/cities/<int:trip_id>")
 @login_required
@@ -197,4 +191,9 @@ def select_city(trip_id):
     cursor.close()
 
     return render_template("trip/cities.html", cities=cities, trip_id=trip_id)
+
+
+    
+if __name__ == "__main__":
+    app.run()
 
