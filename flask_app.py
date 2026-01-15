@@ -178,27 +178,29 @@ def add_trip():
     success_message = None 
     
     if request.method == "POST":
+        # 1. Daten aus dem Formular abrufen
         land = request.form["ziel"]
         start = request.form["startdatum"]
         end = request.form["enddatum"]
         transport = request.form["transport"]
         hotel_budget = request.form["hotel_budget"]
         restaurant_budget = request.form["restaurant_budget"]
-        # interessen = request.form.getlist("interessen") 
 
-        # Nutze deine vorhandene db_write Funktion
-        # Hinweis: land muss hier die ID des Reiseziels sein
+        # 2. Daten speichern
         db_write("""
             INSERT INTO user_reisen (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
-            VALUES (%s,%s,%s,%s,%s,%s,%s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (current_user.id, land, start, end, transport, hotel_budget, restaurant_budget))
 
-        # Um die trip_id für den Redirect zu bekommen:
+        # 3. Optional: Die neue ID abrufen (falls du sie später im HTML anzeigen willst)
         result = db_read("SELECT LAST_INSERT_ID()")
+        trip_id = result[0][0] if result else None
 
+        # 4. Erfolg melden
         success_message = "Deine Reise wurde erfolgreich gespeichert!"
 
-    return render_template("add_trip.html")
+    # WICHTIG: Die success_message muss hier in die Klammer, damit das HTML sie kennt!
+    return render_template("add_trip.html", success_message=success_message)
 
     
 if __name__ == "__main__":
