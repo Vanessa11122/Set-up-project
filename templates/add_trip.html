@@ -126,3 +126,18 @@
 </form>
 
 {% endblock %}
+
+<label for="hotel_budget">Hotelbudget (€):</label>
+<input type="range" name="hotel_budget" min="50" max="5000" step="50" required>
+
+<label for="restaurant_budget">Restaurantbudget (€):</label>
+<input type="range" name="restaurant_budget" min="50" max="5000" step="50" required>
+
+<label>Interessen:</label>
+<select name="interessen" multiple required>
+  <option value="Kultur">Kultur</option>
+  <option value="Natur">Natur</option>
+  <option value="Essen">Essen</option>
+  <option value="Architektur">Architektur</option>
+</select>
+
