@@ -141,3 +141,31 @@
   <option value="Architektur">Architektur</option>
 </select>
 
+@app.route("/add_trip", methods=["GET", "POST"])
+@login_required
+def add_trip():
+    if request.method == "POST":
+        land = request.form["ziel"]
+        start = request.form["startdatum"]
+        end = request.form["enddatum"]
+        transport = request.form["transport"]
+        hotel_budget = request.form["hotel_budget"]
+        restaurant_budget = request.form["restaurant_budget"]
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("""
+            INSERT INTO trips (user_id, land, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
+            VALUES (%s,%s,%s,%s,%s,%s,%s)
+        """, (
+            current_user.id, land, start, end, transport,
+            hotel_budget, restaurant_budget
+        ))
+        mysql.connection.commit()
+
+        trip_id = cursor.lastrowid
+        cursor.close()
+
+        return redirect(url_for("select_city", trip_id=trip_id))
+
+    return render_template("add_trip.html")
+
