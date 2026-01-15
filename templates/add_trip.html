@@ -74,7 +74,61 @@
     <option value="Deutschland">Deutschland</option>
     <option value="Portugal">Portugal</option>
   </select>
-  <!-- Budget -->
+
+  <form method="POST" action="{{ url_for('start_trip') }}">
+
+  
+  <!-- Budget Hotels -->
+  <label for="budget_hotel">Budget Hotels (€):</label>
+  <input 
+      type="range" 
+      id="budget_hotel" 
+      name="budget_hotel" 
+      min="50" 
+      max="5000" 
+      step="10" 
+      value="{{ selected_budget_hotel if selected_budget_hotel else 500 }}"
+      oninput="hotelBudgetDisplay.textContent = this.value"
+  >
+  <div class="budget-display">
+    <span id="hotelBudgetDisplay">{{ selected_budget_hotel if selected_budget_hotel else 500 }}</span> €
+  </div>
+
+  <!-- Budget Restaurants -->
+  <label for="budget_restaurant">Budget Restaurants (€):</label>
+  <input 
+      type="range" 
+      id="budget_restaurant" 
+      name="budget_restaurant" 
+      min="50" 
+      max="5000" 
+      step="10" 
+      value="{{ selected_budget_restaurant if selected_budget_restaurant else 200 }}"
+      oninput="restaurantBudgetDisplay.textContent = this.value"
+  >
+  <div class="budget-display">
+    <span id="restaurantBudgetDisplay">{{ selected_budget_restaurant if selected_budget_restaurant else 200 }}</span> €
+  </div>
+
+  <!-- Transportmittel -->
+  <label for="transport">Transportmittel:</label>
+  <select name="transport" id="transport" required>
+    <option value="" disabled selected>Auswählen</option>
+    <option value="Auto">Auto</option>
+    <option value="Bahn">Bahn</option>
+    <option value="Flugzeug">Flugzeug</option>
+    <option value="Bus">Bus</option>
+  </select>
+
+  <!-- Datum -->
+  <label for="start_date">Startdatum:</label>
+  <input type="date" id="start_date" name="start_date" required>
+  <label for="end_date">Enddatum:</label>
+  <input type="date" id="end_date" name="end_date" required>
+
+  
+
+ <!-- Budget -->
   <label for="budget">Budget (€):</label>
   <input 
       type="range" 
@@ -89,26 +143,9 @@
   <div class="budget-display">
     <span id="budgetWert">{{ selected_budget if selected_budget else 150 }}</span> €
   </div>
-
-  <!-- Transportmittel -->
-  <label for="transport">Transportmittel:</label>
-  <select name="transport" id="transport" required>
-    <option value="" disabled selected>Bitte auswählen</option>
-    <option value="Auto">Auto</option>
-    <option value="Bahn">Bahn</option>
-    <option value="Flugzeug">Flugzeug</option>
-    <option value="Bus">Bus</option>
-  </select>
+  <form method="POST" action="{{ url_for('start_trip') }}">
 
 
-  <!-- Datumauswahl -->
-  <label for="startdatum">Startdatum:</label>
-  <input type="date" id="startdatum" name="startdatum" required>
-
-  <label for="enddatum">Enddatum:</label>
-  <input type="date" id="enddatum" name="enddatum" required>
-
-  
 
   <button type="submit">Reise speichern</button>
 </form>
