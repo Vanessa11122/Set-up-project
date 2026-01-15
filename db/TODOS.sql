@@ -1,3 +1,14 @@
+
+from flask_mysqldb import MySQL
+from flask import Flask
+
+app = Flask(__name__)
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'deinpasswort'
+app.config['MYSQL_DB'] = 'reiseplaner'
+mysql = MySQL(app)
+
 -- 1. ALTE TABELLEN LÖSCHEN (Um Fehler bei der Neu-Erstellung zu vermeiden
 
 -- 2. UNABHÄNGIGE TABELLEN ERSTELLEN
