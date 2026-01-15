@@ -76,32 +76,3 @@
 
 {% endblock %}
 
-@app.route("/add_trip", methods=["GET", "POST"])
-@login_required
-def add_trip():
-    if request.method == "POST":
-        land = request.form["ziel"]
-        start = request.form["startdatum"]
-        end = request.form["enddatum"]
-        transport = request.form["transport"]
-        hotel_budget = request.form["hotel_budget"]
-        restaurant_budget = request.form["restaurant_budget"]
-        interessen = request.form.getlist("interessen")  # wichtig: multiple select
-
-        cursor = mysql.connection.cursor()
-        cursor.execute("""
-            INSERT INTO user_reisen (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
-            VALUES (%s,%s,%s,%s,%s,%s,%s)
-        """, (
-            current_user.id, 0, start, end, transport, hotel_budget, restaurant_budget
-        ))
-        mysql.connection.commit()
-        trip_id = cursor.lastrowid
-        cursor.close()
-
-        # Interessen können später in separater Tabelle gespeichert werden
-        # Beispiel: save_interests(trip_id, interessen)
-
-        return redirect(url_for("select_city", trip_id=trip_id))
-
-    return render_template("add_trip.html")
