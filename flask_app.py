@@ -204,14 +204,14 @@ def add_trip():
         restaurant_budget = request.form["restaurant_budget"]
         interessen = request.form.getlist("interessen")  # wichtig: multiple select
 
-        cursor = mysql.connection.cursor()
+        cursor = db.connection.cursor()
         cursor.execute("""
             INSERT INTO user_reisen (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
             VALUES (%s,%s,%s,%s,%s,%s,%s)
         """, (
             current_user.id, 0, start, end, transport, hotel_budget, restaurant_budget
         ))
-        mysql.connection.commit()
+        db.connection.commit()
         trip_id = cursor.lastrowid
         cursor.close()
 
