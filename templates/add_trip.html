@@ -1,69 +1,22 @@
-{% extends "base.html" %}
 
+{% extends "base.html" %}
 {% block content %}
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-  }
-
-  h1 {
-    text-align: center;
-    color: #2c3e50;
-  }
-
-  form {
-    background-color: #fff;
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  }
-
-  label {
-    font-weight: bold;
-    margin-top: 10px;
-    display: block;
-  }
-
-  select, input[type="range"], input[type="date"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 6px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
-  button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-  }
-
-  button:hover {
-    background-color: #2980b9;
-  }
-
-  .budget-display {
-    text-align: right;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
+  body { font-family: Arial, sans-serif; background-color: #f7f7f7; }
+  h1 { text-align: center; color: #2c3e50; }
+  form { background-color: #fff; max-width: 500px; margin: 20px auto; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+  label { font-weight: bold; margin-top: 10px; display: block; }
+  select, input[type="range"], input[type="date"] { width: 100%; padding: 8px; margin-top: 6px; margin-bottom: 15px; border-radius: 6px; border: 1px solid #ccc; box-sizing: border-box; }
+  button { background-color: #3498db; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; }
+  button:hover { background-color: #2980b9; }
+  .budget-display { text-align: right; font-weight: bold; margin-bottom: 15px; }
 </style>
 
 <h1>Reiseplaner</h1>
 
-<form>
-
+<form method="POST" action="{{ url_for('add_trip') }}">
+  
   <!-- Reiseziel -->
   <label for="ziel">Reiseziel:</label>
   <select name="ziel" id="ziel" required>
@@ -75,37 +28,20 @@
     <option value="Portugal">Portugal</option>
   </select>
 
-  <form method="POST" action="{{ url_for('start_trip') }}">
-
-  
   <!-- Budget Hotels -->
-  <label for="budget_hotel">Budget Hotels (€):</label>
-  <input 
-      type="range" 
-      id="budget_hotel" 
-      name="budget_hotel" 
-      min="50" 
-      max="5000" 
-      step="10" 
-      value="{{ selected_budget_hotel if selected_budget_hotel else 500 }}"
-      oninput="hotelBudgetDisplay.textContent = this.value"
-  >
+  <label for="hotel_budget">Budget Hotels (€):</label>
+  <input type="range" id="hotel_budget" name="hotel_budget" min="50" max="5000" step="10"
+         value="{{ selected_budget_hotel if selected_budget_hotel else 500 }}"
+         oninput="hotelBudgetDisplay.textContent = this.value">
   <div class="budget-display">
     <span id="hotelBudgetDisplay">{{ selected_budget_hotel if selected_budget_hotel else 500 }}</span> €
   </div>
 
   <!-- Budget Restaurants -->
-  <label for="budget_restaurant">Budget Restaurants (€):</label>
-  <input 
-      type="range" 
-      id="budget_restaurant" 
-      name="budget_restaurant" 
-      min="50" 
-      max="5000" 
-      step="10" 
-      value="{{ selected_budget_restaurant if selected_budget_restaurant else 200 }}"
-      oninput="restaurantBudgetDisplay.textContent = this.value"
-  >
+  <label for="restaurant_budget">Budget Restaurants (€):</label>
+  <input type="range" id="restaurant_budget" name="restaurant_budget" min="50" max="5000" step="10"
+         value="{{ selected_budget_restaurant if selected_budget_restaurant else 200 }}"
+         oninput="restaurantBudgetDisplay.textContent = this.value">
   <div class="budget-display">
     <span id="restaurantBudgetDisplay">{{ selected_budget_restaurant if selected_budget_restaurant else 200 }}</span> €
   </div>
@@ -121,62 +57,24 @@
   </select>
 
   <!-- Datum -->
-  <label for="start_date">Startdatum:</label>
-  <input type="date" id="start_date" name="start_date" required>
-  <label for="end_date">Enddatum:</label>
-  <input type="date" id="end_date" name="end_date" required>
+  <label for="startdatum">Startdatum:</label>
+  <input type="date" id="startdatum" name="startdatum" required>
+  <label for="enddatum">Enddatum:</label>
+  <input type="date" id="enddatum" name="enddatum" required>
 
-  
+  <!-- Interessen -->
+  <label>Interessen:</label>
+  <select name="interessen" id="interessen" multiple required>
+    <option value="Kultur">Kultur</option>
+    <option value="Natur">Natur</option>
+    <option value="Essen">Essen</option>
+    <option value="Architektur">Architektur</option>
+  </select>
 
- <!-- Budget -->
-  <label for="budget">Budget (€):</label>
-  <input 
-      type="range" 
-      id="budget" 
-      name="budget" 
-      min="50" 
-      max="500" 
-      step="10" 
-      value="{{ selected_budget if selected_budget else 150 }}"
-      oninput="budgetWert.textContent = this.value"
-  >
-  <div class="budget-display">
-    <span id="budgetWert">{{ selected_budget if selected_budget else 150 }}</span> €
-  </div>
-  <form method="POST" action="{{ url_for('start_trip') }}">
-
-
-
-  <button type="submit">Reise speichern</button>
-</form>
-
-<h1>Beliebte Reiseziele</h1>
-<a href="/Italien">Italien</a><br> 
-<a href="/Frankreich">Frankreich</a><br>
-<a href="/Spanien">Spanien</a><br>
-<a href="/Deutschland">Deutschland</a><br>
-<img src="https://www.nicolos-reiseblog.de/frankreich-sehenswuerdigkeiten/">
-
-<form method="POST" action="/reise_speichern">
- 
   <button type="submit">Reise speichern</button>
 </form>
 
 {% endblock %}
-
-<label for="hotel_budget">Hotelbudget (€):</label>
-<input type="range" name="hotel_budget" min="50" max="5000" step="50" required>
-
-<label for="restaurant_budget">Restaurantbudget (€):</label>
-<input type="range" name="restaurant_budget" min="50" max="5000" step="50" required>
-
-<label>Interessen:</label>
-<select name="interessen" multiple required>
-  <option value="Kultur">Kultur</option>
-  <option value="Natur">Natur</option>
-  <option value="Essen">Essen</option>
-  <option value="Architektur">Architektur</option>
-</select>
 
 @app.route("/add_trip", methods=["GET", "POST"])
 @login_required
@@ -188,21 +86,22 @@ def add_trip():
         transport = request.form["transport"]
         hotel_budget = request.form["hotel_budget"]
         restaurant_budget = request.form["restaurant_budget"]
+        interessen = request.form.getlist("interessen")  # wichtig: multiple select
 
         cursor = mysql.connection.cursor()
         cursor.execute("""
-            INSERT INTO trips (user_id, land, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
+            INSERT INTO user_reisen (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
             VALUES (%s,%s,%s,%s,%s,%s,%s)
         """, (
-            current_user.id, land, start, end, transport,
-            hotel_budget, restaurant_budget
+            current_user.id, 0, start, end, transport, hotel_budget, restaurant_budget
         ))
         mysql.connection.commit()
-
         trip_id = cursor.lastrowid
         cursor.close()
+
+        # Interessen können später in separater Tabelle gespeichert werden
+        # Beispiel: save_interests(trip_id, interessen)
 
         return redirect(url_for("select_city", trip_id=trip_id))
 
     return render_template("add_trip.html")
-
