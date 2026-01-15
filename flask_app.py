@@ -172,20 +172,6 @@ def frankreich():
 
     return render_template("Frankreich.html", reiseziele=reiseziele)
 
-@app.route("/cities/<int:trip_id>")
-@login_required
-def select_city(trip_id):
-    cursor = mysql.connection.cursor(dictionary=True)
-
-    cursor.execute("SELECT land FROM trips WHERE id=%s", (trip_id,))
-    land = cursor.fetchone()["land"]
-
-    cursor.execute("SELECT * FROM reiseziele WHERE land=%s", (land,))
-    cities = cursor.fetchall()
-    cursor.close()
-
-    return render_template("trip/cities.html", cities=cities, trip_id=trip_id)
-
 @app.route("/add_trip", methods=["GET", "POST"])
 @login_required
 def add_trip():
@@ -206,8 +192,8 @@ def add_trip():
         """, (current_user.id, land, start, end, transport, hotel_budget, restaurant_budget))
 
         # Um die trip_id für den Redirect zu bekommen:
-        result = db_read("SELECT LAST_INSERT_ID() as id")
-        trip_id = result[0][0] if result else None
+        result = db_read("SELECT LAST_INSERT_ID()")
+        new_id= result[0][0] if result else None
 
         return redirect(url_for("select_city", trip_id=trip_id))
 
