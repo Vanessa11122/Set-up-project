@@ -183,3 +183,18 @@ def frankreich():
     
 if __name__ == "__main__":
     app.run()
+
+@app.route("/cities/<int:trip_id>")
+@login_required
+def select_city(trip_id):
+    cursor = mysql.connection.cursor(dictionary=True)
+
+    cursor.execute("SELECT land FROM trips WHERE id=%s", (trip_id,))
+    land = cursor.fetchone()["land"]
+
+    cursor.execute("SELECT * FROM reiseziele WHERE land=%s", (land,))
+    cities = cursor.fetchall()
+    cursor.close()
+
+    return render_template("trip/cities.html", cities=cities, trip_id=trip_id)
+
