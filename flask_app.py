@@ -175,6 +175,8 @@ def frankreich():
 @app.route("/add_trip", methods=["GET", "POST"])
 @login_required
 def add_trip():
+    success_message = None 
+    
     if request.method == "POST":
         land = request.form["ziel"]
         start = request.form["startdatum"]
@@ -193,9 +195,8 @@ def add_trip():
 
         # Um die trip_id für den Redirect zu bekommen:
         result = db_read("SELECT LAST_INSERT_ID()")
-        new_id= result[0][0] if result else None
 
-        return redirect(url_for("select_city", trip_id=trip_id))
+        success_message = "Deine Reise wurde erfolgreich gespeichert!"
 
     return render_template("add_trip.html")
 
