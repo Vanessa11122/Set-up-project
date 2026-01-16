@@ -178,7 +178,10 @@ from flask_login import login_required, current_user
 @app.route("/add_trip", methods=["GET", "POST"])
 @login_required
 def add_trip():
+    success_message = None 
+    
     if request.method == "POST":
+        # 1. Daten aus dem Formular abrufen
         land = request.form["ziel"]
         start = request.form["startdatum"]
         end = request.form["enddatum"]
@@ -186,24 +189,22 @@ def add_trip():
         hotel_budget = request.form["hotel_budget"]
         restaurant_budget = request.form["restaurant_budget"]
 
+        # 2. Daten speichern
         db_write("""
-            INSERT INTO user_reisen 
-            (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
+            INSERT INTO user_reisen (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (current_user.id, land, start, end, transport, hotel_budget, restaurant_budget))
 
-        flash("Deine Reise wurde erfolgreich gespeichert!")
+        # 3. Optional: Die neue ID abrufen (falls du sie später im HTML anzeigen willst)
+        result = db_read("SELECT LAST_INSERT_ID()")
+        trip_id = result[0][0] if result else None
+
+        # 4. Erfolg melden
+        success_message = "Deine Reise wurde erfolgreich gespeichert!"
+
         return redirect("/add_trip")
-
-    # Reisen des Users laden
-    trips = db_read("""
-        SELECT startdatum, enddatum, transport, hotel_budget, restaurant_budget
-        FROM user_reisen
-        WHERE user_id = %s
-        ORDER BY startdatum DESC
-    """, (current_user.id,))
-
-    return render_template("add_trip.html", trips=trips)
+    # WICHTIG: Die success_message muss hier in die Klammer, damit das HTML sie kennt!
+    return render_template("add_trip.html", success_message=success_message)
 
     
 if __name__ == "__main__":
