@@ -112,7 +112,7 @@ INSERT INTO reiseziele (id, name, land, beschreibung) VALUES
 (16, 'New York', 'USA', 'Die Stadt, die niemals schläft.'),
 (17, 'Kapstadt', 'Südafrika', 'Schönheit am Fuße des Tafelbergs.'),
 (18, 'Sydney', 'Australien', 'Hafenmetropole mit dem Opera House.'),
-(19, 'Reykjavík', 'Frankreich', 'Nördlichste Hauptstadt, Tor zur Natur.'),
+(19, 'Reykjavík', 'Island', 'Nördlichste Hauptstadt, Tor zur Natur.'),
 (20, 'Venedig', 'Italien', 'Einzigartige Lagunenstadt ohne Autos.'),
 (21, 'Florenz', 'Italien', 'historische Stadt'),
 (22, 'Nizza', 'Frankreich', 'Stadt am Meer');
@@ -138,7 +138,11 @@ INSERT INTO hotels (reiseziel_id, name, sterne, preis_pro_nacht, land) VALUES
 (17, 'Table Mountain View', 4, 150.00, 'Südafrika'), (17, 'Taj cape town', 5, 130.00, 'Südafrika'),
 (18, 'Harbour Lodge', 5, 320.00, 'Australien'), (18, 'View sidney', 1, 123.00, 'Australien'),
 (19, 'Aurora Guesthouse', 3, 160.00, 'Island'), (19, 'Hotel Borg', 5, 300.00, 'Island'),
-(20, 'Laguna Palace', 4, 280.00, 'Italien'), (20, 'Hotel Torretta', 3, 200.00, 'Italien');
+(20, 'Laguna Palace', 4, 280.00, 'Italien'), (20, 'Hotel Torretta', 3, 200.00, 'Italien'),
+(21, 'Hotel Duomo Firenze', 4, 195.00, 'Italien'),
+(21, 'Palazzo Vecchio B&B', 3, 120.00, 'Italien'),
+(22, 'Negresco Nice', 5, 350.00, 'Frankreich'),
+(22, 'Ibis Styles Nice Centre', 3, 95.00, 'Frankreich');
 
 
 
