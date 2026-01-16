@@ -81,6 +81,13 @@ CREATE TABLE user_sehenswuerdigkeiten (
     FOREIGN KEY (sehenswuerdigkeit_id) REFERENCES sehenswuerdigkeiten(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+CREATE TABLE user_hotels (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    reise_id INT NOT NULL,
+    hotel_id INT NOT NULL,
+    FOREIGN KEY (reise_id) REFERENCES user_reisen(id) ON DELETE CASCADE,
+    FOREIGN KEY (hotel_id) REFERENCES hotels(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
 
 
