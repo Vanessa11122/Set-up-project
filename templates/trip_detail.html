@@ -2,14 +2,5 @@
 {% block content %}
 <h1>Reise Details</h1>
 
-<ul>
-    <li><strong>Reiseziel:</strong> {{ trip[0] }}</li>
-    <li><strong>Startdatum:</strong> {{ trip[1] }}</li>
-    <li><strong>Enddatum:</strong> {{ trip[2] }}</li>
-    <li><strong>Transport:</strong> {{ trip[3] }}</li>
-    <li><strong>Hotel Budget:</strong> {{ trip[4] }} €</li>
-    <li><strong>Restaurant Budget:</strong> {{ trip[5] }} €</li>
-</ul>
 
-<a href="{{ url_for('index') }}" class="btn btn-default">Zurück zur Übersicht</a>
 {% endblock %}
