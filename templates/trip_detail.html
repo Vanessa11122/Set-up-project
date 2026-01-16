@@ -60,6 +60,30 @@
 </body>
 </html>
 
+<h1>Meine Reisen</h1>
+
+{% for reise in reisen %}
+  <div style="border:1px solid #ccc; padding:10px; margin-bottom:15px;">
+    <h2>{{ reise.reiseziel_name }} ({{ reise.land }})</h2>
+    
+    <p>Interesse: {{ reise.interesse or 'Keine Angabe' }}</p>
+
+    <h3>Vorgeschlagene Sehenswürdigkeiten:</h3>
+    {% if reise.sehenswuerdigkeiten %}
+      <ul>
+        {% for s in reise.sehenswuerdigkeiten %}
+          <li>{{ s.name }} – {{ s.beschreibung }} (Interesse: {{ s.interessen }})</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Keine Sehenswürdigkeiten gefunden.</p>
+    {% endif %}
+  </div>
+{% else %}
+  <p>Es wurden keine Reisen gefunden.</p>
+{% endfor %}
+
+
 
 
 
