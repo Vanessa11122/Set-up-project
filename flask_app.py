@@ -199,8 +199,9 @@ def add_trip():
             restaurant_budget
         ))
 
+        result = db_read("SELECT MAX(id) FROM user_reisen WHERE user_id=%s", (current_user.id,))
         # neue ID holen
-        trip_id = db_read("SELECT LAST_INSERT_ID()")[0][0]
+        trip_id = result[0][0]
 
         # weiterleiten zur Detailseite
         return redirect(url_for("trip_detail", trip_id=trip_id))
