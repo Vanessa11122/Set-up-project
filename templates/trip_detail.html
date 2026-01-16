@@ -1,62 +1,116 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Meine Reisen</h1>
+<div style="max-width: 1000px; margin: 40px auto; padding: 0 20px; font-family: 'Segoe UI', Roboto, sans-serif;">
+    
+    <header style="margin-bottom: 40px; text-align: center;">
+        <h1 style="font-size: 2.5rem; color: #2d3436; margin: 0;">Meine Reisepläne</h1>
+        <p style="color: #636e72; font-size: 1.1rem; margin-top: 10px;">Verwalte deine Auswahl an Hotels und Sehenswürdigkeiten.</p>
+    </header>
 
-{% for reise in reisen %}
-<div class="reise-card" style="border:1px solid #ccc; padding:20px; margin-bottom:30px; border-radius:10px;">
-    <h2>{{ reise.reiseziel_name }}, {{ reise.land }}</h2>
-    <p><strong>Zeitraum:</strong> {{ reise.startdatum }} bis {{ reise.enddatum }}</p>
-    <p><strong>Transport:</strong> {{ reise.transport }}</p>
-    <p><strong>Interesse:</strong> {{ reise.interesse }}</p>
-
-    <form method="POST" action="{{ url_for('trip_detail') }}">
-        <input type="hidden" name="reise_id" value="{{ reise.reise_id }}">
-
-        <h3>Sehenswürdigkeiten</h3>
-        <div class="sehenswuerdigkeiten" style="margin-bottom:20px;">
-            {% for s in reise.sehenswuerdigkeiten %}
-            <div style="margin-bottom:10px; padding:10px; border:1px solid #eee; border-radius:5px;">
-                <label style="display: block; cursor: pointer;">
-                    <input type="checkbox" name="sehenswuerdigkeiten" value="{{ s.id }}"
-                        {% if s.id in reise.ausgewaehlte_s %}checked{% endif %}>
-                    <strong>{{ s.name }}</strong> ({{ s.interessen }})
-                </label>
-                <p style="margin:5px 0 0 25px; font-size:0.9em; color:#555;">{{ s.beschreibung }}</p>
+    {% for reise in reisen %}
+    <div class="reise-card" style="background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); padding: 40px; margin-bottom: 50px; border: 1px solid #f1f2f6;">
+        
+        <div style="border-bottom: 2px solid #f1f2f6; padding-bottom: 25px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h2 style="font-size: 2rem; color: #1e90ff; margin: 0;">{{ reise.reiseziel_name }}</h2>
+                <p style="font-size: 1.1rem; color: #636e72; margin: 5px 0 0 0;">{{ reise.land }} | {{ reise.startdatum }} bis {{ reise.enddatum }}</p>
             </div>
-            {% endfor %}
+            <div style="text-align: right;">
+                <span style="display: block; background: #e3f2fd; color: #1e90ff; padding: 6px 15px; border-radius: 50px; font-weight: bold; font-size: 0.9rem;">
+                    {{ reise.transport }}
+                </span>
+                <span style="display: block; margin-top: 8px; color: #a4b0be; font-size: 0.9rem;">Fokus: {{ reise.interesse }}</span>
+            </div>
         </div>
 
-        <h3>Passende Hotels für dieses Reiseziel</h3>
-        <div class="hotels" style="margin-bottom:20px;">
-            {% if reise.hotels %}
-                {% for h in reise.hotels %}
-                <div style="margin-bottom:10px; padding:10px; border:1px solid #eee; border-radius:5px;">
-                    <label style="display: block; cursor: pointer;">
-                        <input type="checkbox" name="hotels" value="{{ h.id }}"
-                            {% if h.id in reise.ausgewaehlte_h %}checked{% endif %}>
-                        <strong>{{ h.name }}</strong> 
-                        <span style="color: #f39c12; margin-left: 10px;">
-                            {{ "★" * h.sterne }}
-                        </span>
-                        <span style="float: right; color: #28a745; font-weight: bold;">
-                            {{ h.preis_pro_nacht }} € / Nacht
-                        </span>
-                    </label>
-                </div>
+        <form method="POST" action="{{ url_for('trip_detail') }}">
+            <input type="hidden" name="reise_id" value="{{ reise.reise_id }}">
+
+            <h3 style="font-size: 1.4rem; color: #2d3436; margin-bottom: 20px; display: flex; align-items: center;">
+                <span style="margin-right: 10px;">📍</span> Sehenswürdigkeiten
+            </h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 40px;">
+                {% for s in reise.sehenswuerdigkeiten %}
+                <label style="display: block; cursor: pointer; position: relative;">
+                    <input type="checkbox" name="sehenswuerdigkeiten" value="{{ s.id }}" 
+                           {% if s.id in reise.ausgewaehlte_s %}checked{% endif %} 
+                           style="display: none;" class="custom-check">
+                    <div class="selection-card" style="padding: 20px; border: 2px solid #f1f2f6; border-radius: 15px; height: 100%; transition: all 0.3s ease;">
+                        <strong style="display: block; font-size: 1.1rem; color: #2d3436;">{{ s.name }}</strong>
+                        <small style="color: #1e90ff; font-weight: 600;">{{ s.interessen }}</small>
+                        <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: #636e72; line-height: 1.4;">{{ s.beschreibung }}</p>
+                    </div>
+                </label>
                 {% endfor %}
-            {% else %}
-                <p style="color: #888; font-style: italic;">Keine Hotels für dieses Ziel verfügbar.</p>
-            {% endif %}
-        </div>
+            </div>
 
-        <button type="submit" style="margin-top:15px; padding:8px 16px; background-color:#007BFF; color:white; border:none; border-radius:5px; cursor:pointer;">
-            Änderungen speichern
-        </button>
-    </form>
+            <h3 style="font-size: 1.4rem; color: #2d3436; margin-bottom: 20px; display: flex; align-items: center;">
+                <span style="margin-right: 10px;">🏨</span> Passende Hotels
+            </h3>
+            <div style="margin-bottom: 30px;">
+                {% if reise.hotels %}
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        {% for h in reise.hotels %}
+                        <label style="display: block; cursor: pointer;">
+                            <input type="checkbox" name="hotels" value="{{ h.id }}" 
+                                   {% if h.id in reise.ausgewaehlte_h %}checked{% endif %} 
+                                   style="display: none;" class="custom-check">
+                            <div class="selection-card" style="padding: 20px; border: 2px solid #f1f2f6; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;">
+                                <div>
+                                    <strong style="font-size: 1.1rem; color: #2d3436;">{{ h.name }}</strong>
+                                    <span style="color: #f39c12; margin-left: 10px;">
+                                        {{ "★" * h.sterne }}
+                                    </span>
+                                </div>
+                                <div style="text-align: right;">
+                                    <span style="color: #2ecc71; font-weight: 800; font-size: 1.1rem;">{{ h.preis_pro_nacht }} €</span>
+                                    <small style="display: block; color: #a4b0be;">pro Nacht</small>
+                                </div>
+                            </div>
+                        </label>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div style="padding: 30px; background: #fafbfc; border-radius: 15px; text-align: center; color: #a4b0be; font-style: italic;">
+                        Keine Hotels für dieses Ziel verfügbar.
+                    </div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="save-btn" style="width: 100%; background: #2d3436; color: white; border: none; padding: 20px; border-radius: 15px; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                Änderungen für {{ reise.reiseziel_name }} speichern
+            </button>
+        </form>
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 80px 20px; background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        <span style="font-size: 4rem;">🌍</span>
+        <h2 style="color: #2d3436;">Noch keine Reise geplant?</h2>
+        <p style="color: #636e72; margin-bottom: 30px;">Erstelle deine erste Reise, um passende Vorschläge zu erhalten.</p>
+        <a href="{{ url_for('add_trip') }}" style="background: #1e90ff; color: white; text-decoration: none; padding: 15px 30px; border-radius: 12px; font-weight: bold;">+ Jetzt Reise planen</a>
+    </div>
+    {% endfor %}
+
 </div>
-{% else %}
-<p>Du hast noch keine Reisen geplant.</p>
-{% endfor %}
 
+<style>
+    /* Interaktive Auswahl-Karten */
+    .custom-check:checked + .selection-card {
+        border-color: #1e90ff !important;
+        background-color: #f0f7ff !important;
+        box-shadow: 0 5px 15px rgba(30, 144, 255, 0.1);
+    }
+
+    .selection-card:hover {
+        border-color: #1e90ff;
+        transform: translateY(-2px);
+    }
+
+    .save-btn:hover {
+        background-color: #1e90ff !important;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(30, 144, 255, 0.2) !important;
+    }
+</style>
 {% endblock %}
