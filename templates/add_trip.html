@@ -67,12 +67,12 @@
 
   <!-- Interessen -->
   <label>Interessen:</label>
-  <select name="interessen" id="interessen" multiple required>
-    <option value="Kultur">Kultur</option>
-    <option value="Natur">Natur</option>
-    <option value="Essen">Essen</option>
-    <option value="Architektur">Architektur</option>
-  </select>
+  <select name="interesse" id="interesse" required>
+  <option value="" disabled selected>Bitte auswählen</option>
+  {% for i in interessen %}
+    <option value="{{ i['interessen'] }}">{{ i['interessen'] }}</option>
+  {% endfor %}
+</select>
 
   <button type="submit" class="btn btn-primary">Hinzufügen</button>
   
