@@ -205,7 +205,7 @@ def add_trip():
 @login_required
 def trip_detail():
 
-    return render_template("trip_detail.html", reisen=reisen)
+    return render_template("trip_detail.html")
 
     
 if __name__ == "__main__":
