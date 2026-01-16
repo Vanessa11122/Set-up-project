@@ -247,33 +247,40 @@ def trip_detail():
     )
 
     for reise in reisen_des_benutzers:
-        # Sehenswürdigkeiten
-        alle_s = db_read(
-            "SELECT id, name, beschreibung, interessen FROM sehenswuerdigkeiten WHERE reiseziel_id = %s",
-            (reise['reiseziel_id'],)
-        )
-        ausgewaehlte_s = db_read(
-            "SELECT sehenswuerdigkeit_id FROM user_sehenswuerdigkeiten WHERE reise_id = %s",
-            (reise['reise_id'],)
-        )
-        reise['sehenswuerdigkeiten'] = alle_s
-        reise['ausgewaehlte_s'] = [s['sehenswuerdigkeit_id'] for s in ausgewaehlte_s]
+        # IDs sicherstellen (falls sie als Strings kommen)
+        r_id = reise['reise_id']
+        z_id = reise['reiseziel_id']
 
-        # Hotels (ohne Budget-Filter)
-        alle_h = db_read(
+        # Sehenswürdigkeiten laden
+        reise['sehenswuerdigkeiten'] = db_read(
+            "SELECT id, name, beschreibung, interessen FROM sehenswuerdigkeiten WHERE reiseziel_id = %s",
+            (z_id,)
+        )
+        s_auswahl = db_read(
+            "SELECT sehenswuerdigkeit_id FROM user_sehenswuerdigkeiten WHERE reise_id = %s",
+            (r_id,)
+        )
+        reise['ausgewaehlte_s'] = [s['sehenswuerdigkeit_id'] for s in s_auswahl]
+
+        # HOTELS LADEN
+        # Wir filtern NUR nach der reiseziel_id
+        hotels_liste = db_read(
             "SELECT id, name, sterne, preis_pro_nacht FROM hotels WHERE reiseziel_id = %s",
-            (reise['reiseziel_id'],)
+            (z_id,)
         )
-        ausgewaehlte_h = db_read(
+        reise['hotels'] = hotels_liste
+
+        # Bereits gespeicherte Hotels für die Checkboxen
+        h_auswahl = db_read(
             "SELECT hotel_id FROM user_hotels WHERE reise_id = %s",
-            (reise['reise_id'],)
+            (r_id,)
         )
-        reise['hotels'] = alle_h
-        reise['ausgewaehlte_h'] = [h['hotel_id'] for h in ausgewaehlte_h]
+        reise['ausgewaehlte_h'] = [h['hotel_id'] for h in h_auswahl]
+        
+        # DEBUG (Prüfe deine Terminal-Konsole!)
+        print(f"Reise: {reise['reiseziel_name']} (Ziel-ID: {z_id}) - Hotels gefunden: {len(hotels_liste)}")
 
     return render_template("trip_detail.html", reisen=reisen_des_benutzers)
-
-
     
 
 
