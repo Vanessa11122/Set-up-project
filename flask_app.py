@@ -204,16 +204,6 @@ def add_trip():
 @app.route("/trip_detail")
 @login_required
 def trip_detail():
-    reisen = db_read("""
-        SELECT
-            startdatum,
-            enddatum,
-            transport,
-            hotel_budget,
-            restaurant_budget
-        FROM user_reisen
-        ORDER BY startdatum
-    """, (current_user.id,))
 
     return render_template("trip_detail.html", reisen=reisen)
 
