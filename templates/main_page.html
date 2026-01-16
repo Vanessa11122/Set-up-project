@@ -1,66 +1,106 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="home-container" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f7f6;">
     
-    <header class="hero" style="background: linear-gradient(135deg, #007BFF 0%, #00d4ff 100%); padding: 60px 20px; text-align: center; border-radius: 15px; color: white; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-        <h1 style="font-size: 3rem; margin-bottom: 10px;">Hallo, {{ current_user.username }}! 🌍</h1>
-        <p style="font-size: 1.2rem; opacity: 0.9;">Wo geht dein nächstes Abenteuer hin?</p>
-        <a href="{{ url_for('add_trip') }}" style="display: inline-block; margin-top: 20px; padding: 12px 25px; background: white; color: #007BFF; text-decoration: none; border-radius: 50px; font-weight: bold; transition: transform 0.2s;">
-            + Neue Reise planen
-        </a>
-    </header>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+    <div style="position: relative; border-radius: 24px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
+        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1400&q=80" 
+             alt="Travel Hero" 
+             style="width: 100%; height: 400px; object-fit: cover; filter: brightness(0.7);">
         
-        <section class="card" style="background: white; padding: 25px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-            <h3 style="border-bottom: 2px solid #007BFF; padding-bottom: 10px; margin-bottom: 20px;">Schnellzugriff</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li style="margin-bottom: 15px;">
-                    <a href="{{ url_for('trip_detail') }}" style="text-decoration: none; color: #444; display: flex; align-items: center;">
-                        <span style="font-size: 1.5rem; margin-right: 15px;">📅</span> 
-                        <strong>Meine Reise-Details</strong>
-                    </a>
-                </li>
-                <li style="margin-bottom: 15px;">
-                    <a href="/Italien" style="text-decoration: none; color: #444; display: flex; align-items: center;">
-                        <span style="font-size: 1.5rem; margin-right: 15px;">🇮🇹</span> 
-                        Entdecke Italien
-                    </a>
-                </li>
-                <li style="margin-bottom: 15px;">
-                    <a href="/Frankreich" style="text-decoration: none; color: #444; display: flex; align-items: center;">
-                        <span style="font-size: 1.5rem; margin-right: 15px;">🇫🇷</span> 
-                        Entdecke Frankreich
-                    </a>
-                </li>
-            </ul>
-        </section>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%;">
+            <h1 style="font-size: 3.5rem; margin: 0; font-weight: 800; letter-spacing: -1px;">Hallo, {{ current_user.username }}!</h1>
+            <p style="font-size: 1.4rem; margin-top: 10px; font-weight: 300; opacity: 0.9;">Entdecke die Welt, plane deine Momente.</p>
+            <a href="{{ url_for('add_trip') }}" 
+               style="display: inline-block; margin-top: 30px; padding: 16px 40px; background: #ffffff; color: #1e90ff; text-decoration: none; border-radius: 100px; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+                + Neue Reise planen
+            </a>
+        </div>
+    </div>
 
-        <section class="card" style="background: white; padding: 25px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-            <h3 style="border-bottom: 2px solid #28a745; padding-bottom: 10px; margin-bottom: 20px;">Reise-Checkliste</h3>
-            
-            <form action="{{ url_for('index') }}" method="POST" style="margin-bottom: 20px; display: flex; gap: 10px;">
-                <input type="text" name="contents" placeholder="z.B. Reisepass prüfen" required style="flex-grow: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
-                <input type="date" name="due_at" required style="padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
-                <button type="submit" style="background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Hinzufügen</button>
-            </form>
-
-            <div class="todo-list">
-                {% for todo in todos %}
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #f9f9f9;">
-                    <span>{{ todo.content }} <small style="color: #888;">({{ todo.due }})</small></span>
-                    <form action="{{ url_for('complete') }}" method="POST" style="display: inline;">
-                        <input type="hidden" name="id" value="{{ todo.id }}">
-                        <button type="submit" style="background: none; border: none; cursor: pointer; color: #dc3545;">✕</button>
-                    </form>
+    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px;">
+        
+        <aside>
+            <div style="background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <h3 style="margin-top: 0; color: #2d3436; font-size: 1.5rem; border-bottom: 2px solid #f1f2f6; padding-bottom: 15px;">Dashboard</h3>
+                <nav style="margin-top: 20px;">
+                    <a href="{{ url_for('trip_detail') }}" style="display: flex; align-items: center; padding: 15px; text-decoration: none; color: #636e72; border-radius: 12px; transition: background 0.2s; margin-bottom: 5px;">
+                        <span style="font-size: 1.5rem; margin-right: 15px;">🗺️</span> 
+                        <span style="font-weight: 600;">Meine Reise-Details</span>
+                    </a>
+                    <a href="#" style="display: flex; align-items: center; padding: 15px; text-decoration: none; color: #636e72; border-radius: 12px; transition: background 0.2s; margin-bottom: 5px;">
+                        <span style="font-size: 1.5rem; margin-right: 15px;">📸</span> 
+                        <span style="font-weight: 600;">Galerie</span>
+                    </a>
+                    <a href="#" style="display: flex; align-items: center; padding: 15px; text-decoration: none; color: #636e72; border-radius: 12px; transition: background 0.2s;">
+                        <span style="font-size: 1.5rem; margin-right: 15px;">⚙️</span> 
+                        <span style="font-weight: 600;">Einstellungen</span>
+                    </a>
+                </nav>
+                
+                <hr style="border: 0; border-top: 1px solid #f1f2f6; margin: 25px 0;">
+                
+                <h4 style="color: #b2bec3; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 15px;">Beliebte Ziele</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <span style="padding: 8px 15px; background: #e3f2fd; color: #1e90ff; border-radius: 50px; font-size: 0.9rem; font-weight: 600;">🇮🇹 Italien</span>
+                    <span style="padding: 8px 15px; background: #fce4ec; color: #d81b60; border-radius: 50px; font-size: 0.9rem; font-weight: 600;">🇫🇷 Frankreich</span>
+                    <span style="padding: 8px 15px; background: #e8f5e9; color: #2e7d32; border-radius: 50px; font-size: 0.9rem; font-weight: 600;">🇪🇸 Spanien</span>
                 </div>
-                {% else %}
-                <p style="color: #888; font-style: italic;">Alles erledigt! Keine Aufgaben offen.</p>
-                {% endfor %}
             </div>
-        </section>
+        </aside>
 
+        <main>
+            <div style="background: white; padding: 35px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); min-height: 400px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h3 style="margin: 0; color: #2d3436; font-size: 1.5rem;">Vorstehende Aufgaben</h3>
+                    <span style="background: #1e90ff; color: white; padding: 4px 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 700;">
+                        {{ todos|length }} Offen
+                    </span>
+                </div>
+
+                <form action="{{ url_for('index') }}" method="POST" style="display: flex; gap: 10px; margin-bottom: 30px;">
+                    <input type="text" name="contents" placeholder="z.B. Hotel buchen..." required 
+                           style="flex-grow: 1; padding: 14px; border: 2px solid #f1f2f6; border-radius: 15px; outline: none; font-size: 1rem; transition: border-color 0.3s;">
+                    <input type="date" name="due_at" required 
+                           style="padding: 14px; border: 2px solid #f1f2f6; border-radius: 15px; outline: none; color: #636e72;">
+                    <button type="submit" style="background: #2d3436; color: white; border: none; padding: 0 25px; border-radius: 15px; font-weight: 600; cursor: pointer; transition: 0.3s;">
+                        Hinzufügen
+                    </button>
+                </form>
+
+                <div class="task-list" style="display: flex; flex-direction: column; gap: 15px;">
+                    {% for todo in todos %}
+                    <div style="display: flex; align-items: center; padding: 20px; background: #fafbfc; border-radius: 18px; transition: transform 0.2s;">
+                        <div style="width: 45px; height: 45px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); font-size: 1.2rem;">
+                            📌
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <div style="font-weight: 700; color: #2d3436;">{{ todo.content }}</div>
+                            <div style="font-size: 0.85rem; color: #a4b0be; margin-top: 3px;">Bis zum {{ todo.due }}</div>
+                        </div>
+                        <form action="{{ url_for('complete') }}" method="POST">
+                            <input type="hidden" name="id" value="{{ todo.id }}">
+                            <button type="submit" style="background: #ffffff; border: 2px solid #f1f2f6; color: #ff7675; padding: 8px 15px; border-radius: 12px; cursor: pointer; font-weight: 700; transition: all 0.2s;">
+                                Erledigt
+                            </button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div style="text-align: center; padding: 60px 20px; color: #b2bec3;">
+                        <span style="font-size: 3rem; display: block; margin-bottom: 10px;">🏝️</span>
+                        <p>Keine Aufgaben offen. Zeit zum Entspannen!</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
     </div>
 </div>
+
+<style>
+    /* Kleine Hover-Effekte ohne externe CSS-Datei */
+    nav a:hover { background: #f1f2f6; color: #1e90ff !important; }
+    button:hover { opacity: 0.9; transform: translateY(-2px); }
+    input:focus { border-color: #1e90ff !important; }
+</style>
 {% endblock %}
