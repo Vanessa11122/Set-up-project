@@ -211,19 +211,9 @@ def add_trip():
 @login_required
 def trip_detail(trip_id):
     # Abfrage ohne Abkürzungen (u. und r. wurden durch volle Namen ersetzt)
-    reise_daten = db_read("""
-        SELECT reiseziele.name, user_reisen.startdatum, user_reisen.enddatum, 
-               user_reisen.transport, user_reisen.hotel_budget, user_reisen.restaurant_budget
-        FROM user_reisen
-        JOIN reiseziele ON user_reisen.reiseziel_id = reiseziele.id
-        WHERE user_reisen.id = %s AND user_reisen.user_id = %s
-    """, (trip_id, current_user.id))
-
-    if not reise_daten:
-        abort(404) 
-
+    
     # Wir übergeben die erste Zeile des Ergebnisses (Index 0) an das HTML
-    return render_template("trip_detail.html", trip=reise_daten[0])
+    return render_template("trip_detail.html")
     
 if __name__ == "__main__":
     app.run()
