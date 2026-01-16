@@ -209,7 +209,7 @@ def add_trip():
 
 @app.route("/trip_detail")
 @login_required
-def trip_detail(trip_id):
+def trip_detail:
     # Abfrage ohne Abkürzungen (u. und r. wurden durch volle Namen ersetzt)
     
     # Wir übergeben die erste Zeile des Ergebnisses (Index 0) an das HTML
