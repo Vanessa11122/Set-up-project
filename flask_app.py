@@ -206,21 +206,32 @@ def add_trip():
     
 
 
-@app.route("/trip_detail", methods=["GET", "POST"])
+@app.route("/trip_detail", methods=["GET"])
 @login_required
 def trip_detail():
+    # Alle Reisen des aktuellen Benutzers abrufen
     reisen_des_benutzers = db_read(
-    """SELECT user_reisen.id AS reise_id, reiseziele.name AS reiseziel_name, reiseziele.land,
-              user_reisen.startdatum, user_reisen.enddatum,
-              user_reisen.transport, user_reisen.hotel_budget,
-              user_reisen.restaurant_budget, user_reisen.interesse
-       FROM user_reisen
-       JOIN reiseziele ON user_reisen.reiseziel_id = reiseziele.id
-       WHERE user_reisen.user_id = %s
-       ORDER BY user_reisen.startdatum""",
-    (current_user.id,)
-)
+        """SELECT user_reisen.id AS reise_id, reiseziele.name AS reiseziel_name, reiseziele.land,
+                  user_reisen.startdatum, user_reisen.enddatum,
+                  user_reisen.transport, user_reisen.hotel_budget,
+                  user_reisen.restaurant_budget, user_reisen.interesse,
+                  user_reisen.reiseziel_id
+           FROM user_reisen
+           JOIN reiseziele ON user_reisen.reiseziel_id = reiseziele.id
+           WHERE user_reisen.user_id = %s
+           ORDER BY user_reisen.startdatum""",
+        (current_user.id,)
+    )
 
+    # Für jede Reise passende Sehenswürdigkeiten abrufen
+    for reise in reisen_des_benutzers:
+        sehenswuerdigkeiten = db_read(
+            """SELECT name, beschreibung, interessen
+               FROM sehenswuerdigkeiten
+               WHERE reiseziel_id = %s""",
+            (reise['reiseziel_id'],)
+        )
+        reise['sehenswuerdigkeiten'] = sehenswuerdigkeiten
 
     return render_template("trip_detail.html", reisen=reisen_des_benutzers)
 
