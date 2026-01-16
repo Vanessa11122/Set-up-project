@@ -242,7 +242,7 @@ def trip_detail():
            FROM user_reisen
            JOIN reiseziele ON user_reisen.reiseziel_id = reiseziele.id
            WHERE user_reisen.user_id = %s
-           ORDER BY user_reisen.startdatum""",
+           ORDER BY user_reisen.startdatum DESC""",
         (current_user.id,)
     )
 
