@@ -261,10 +261,10 @@ def trip_detail():
 
        # In der Route /trip_detail innerhalb der for-schleife:
         alle_h = db_read(
-            "SELECT id, name, sterne, preis_pro_nacht FROM hotels WHERE reiseziel_id = %s AND preis_pro_nacht <= %s",        
+            "SELECT hotel_id, name, sterne, preis_pro_nacht FROM hotels WHERE reiseziel_id = %s AND preis_pro_nacht <= %s",        
             (reise['reiseziel_id'], reise['hotel_budget'])
         )
-        )
+        
         ausgewaehlte_h = db_read(
             "SELECT hotel_id FROM user_hotels WHERE reise_id = %s",
             (reise['reise_id'],)
