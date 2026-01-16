@@ -216,13 +216,19 @@ def trip_detail():
         ausgewaehlte_s = request.form.getlist("sehenswuerdigkeiten")
         db_write("DELETE FROM user_sehenswuerdigkeiten WHERE reise_id = %s", (reise_id,))
         for s_id in ausgewaehlte_s:
-            db_write("INSERT INTO user_sehenswuerdigkeiten (reise_id, sehenswuerdigkeit_id) VALUES (%s, %s)", (reise_id, s_id))
+            db_write(
+                "INSERT INTO user_sehenswuerdigkeiten (reise_id, sehenswuerdigkeit_id) VALUES (%s, %s)",
+                (reise_id, s_id)
+            )
 
         # 2. Hotels speichern
         ausgewaehlte_h = request.form.getlist("hotels")
         db_write("DELETE FROM user_hotels WHERE reise_id = %s", (reise_id,))
         for h_id in ausgewaehlte_h:
-            db_write("INSERT INTO user_hotels (reise_id, hotel_id) VALUES (%s, %s)", (reise_id, h_id))
+            db_write(
+                "INSERT INTO user_hotels (reise_id, hotel_id) VALUES (%s, %s)",
+                (reise_id, h_id)
+            )
 
         return redirect(url_for("trip_detail"))
 
@@ -242,17 +248,26 @@ def trip_detail():
 
     for reise in reisen_des_benutzers:
         # Sehenswürdigkeiten
-        alle_s = db_read("SELECT id, name, beschreibung, interessen FROM sehenswuerdigkeiten WHERE reiseziel_id = %s", (reise['reiseziel_id'],))
-        ausgewaehlte_s = db_read("SELECT sehenswuerdigkeit_id FROM user_sehenswuerdigkeiten WHERE reise_id = %s", (reise['reise_id'],))
+        alle_s = db_read(
+            "SELECT id, name, beschreibung, interessen FROM sehenswuerdigkeiten WHERE reiseziel_id = %s",
+            (reise['reiseziel_id'],)
+        )
+        ausgewaehlte_s = db_read(
+            "SELECT sehenswuerdigkeit_id FROM user_sehenswuerdigkeiten WHERE reise_id = %s",
+            (reise['reise_id'],)
+        )
         reise['sehenswuerdigkeiten'] = alle_s
         reise['ausgewaehlte_s'] = [s['sehenswuerdigkeit_id'] for s in ausgewaehlte_s]
 
-        # Hotels passend zum Budget
+        # Hotels passend zum Reiseziel und Budget
         alle_h = db_read(
             "SELECT id, name, sterne, preis_pro_nacht FROM hotels WHERE reiseziel_id = %s AND preis_pro_nacht <= %s",
             (reise['reiseziel_id'], reise['hotel_budget'])
         )
-        ausgewaehlte_h = db_read("SELECT hotel_id FROM user_hotels WHERE reise_id = %s", (reise['reise_id'],))
+        ausgewaehlte_h = db_read(
+            "SELECT hotel_id FROM user_hotels WHERE reise_id = %s",
+            (reise['reise_id'],)
+        )
         reise['hotels'] = alle_h
         reise['ausgewaehlte_h'] = [h['hotel_id'] for h in ausgewaehlte_h]
 
