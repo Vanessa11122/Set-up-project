@@ -207,7 +207,7 @@ def add_trip():
     return render_template("add_trip.html", ziele=alle_ziele)
 
 
-@app.route("/trip/<int:trip_id>")
+@app.route("/trip_detail")
 @login_required
 def trip_detail(trip_id):
     # Abfrage ohne Abkürzungen (u. und r. wurden durch volle Namen ersetzt)
