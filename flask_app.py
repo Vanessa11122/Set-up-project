@@ -177,21 +177,25 @@ def frankreich():
 @login_required
 def add_trip():
     if request.method == "POST":
-        # Daten aus dem Formular abrufen
-        
-        alle_ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
-        return render_template("add_trip.html", ziele=alle_ziele)
+        reiseziel_id = request.form.get("ziel")
+        startdatum = request.form.get("startdatum")
+        enddatum = request.form.get("enddatum")
+        transport = request.form.get("transport")
+        hotel_budget = request.form.get("hotel_budget")
+        restaurant_budget = request.form.get("restaurant_budget")
 
-    reiseziel_id = request.form.get("ziel")
-    startdatum = request.form.get("startdatum")
-    enddatum = request.form.get("enddatum")
-    transport = request.form.get("transport")
-    hotel_budget = request.form.get("hotel_budget")
-    restaurant_budget = request.form.get("restaurant_budget")
+        db_write(
+            """INSERT INTO user_reisen 
+            (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+            (current_user.id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
+        )
+        return redirect(url_for("index"))
 
-        # In die Datenbank schreiben
-    db_write("""INSERT INTO user_reisen (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget) VALUES (%s, %s, %s, %s, %s, %s, %s)""", (current_user.id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget))
-    return redirect(url_for("index"))
+    # GET
+    alle_ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
+    return render_template("add_trip.html", ziele=alle_ziele)
+
 
    
     
