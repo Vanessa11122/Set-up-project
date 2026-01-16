@@ -194,18 +194,18 @@ def add_trip():
             INSERT INTO user_reisen (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (current_user.id, land, start, end, transport, hotel_budget, restaurant_budget))
-
+        return redirect(url_for("index"))
         # 3. Optional: Die neue ID abrufen (falls du sie später im HTML anzeigen willst)
         result = db_read("SELECT LAST_INSERT_ID()")
         trip_id = result[0][0] if result else None
 
+        return render_template("add_trip.html", success_message=success_message)
         # 4. Erfolg melden
-        success_message = "Deine Reise wurde erfolgreich gespeichert!"
+    
 
-        return redirect("/add_trip")
+        
     # WICHTIG: Die success_message muss hier in die Klammer, damit das HTML sie kennt!
-    return render_template("add_trip.html", success_message=success_message)
-
+    
     
 if __name__ == "__main__":
     app.run()
