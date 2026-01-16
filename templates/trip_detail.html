@@ -65,7 +65,10 @@
 {% for reise in reisen %}
   <div style="border:1px solid #ccc; padding:10px; margin-bottom:15px;">
     <h2>{{ reise.reiseziel_name }} ({{ reise.land }})</h2>
-    
+    <p>Von {{ reise.startdatum }} bis {{ reise.enddatum }}</p>
+    <p>Transportmittel: {{ reise.transport }}</p>
+    <p>Hotelbudget: {{ reise.hotel_budget }} €</p>
+    <p>Restaurantbudget: {{ reise.restaurant_budget }} €</p>
     <p>Interesse: {{ reise.interesse or 'Keine Angabe' }}</p>
 
     <h3>Vorgeschlagene Sehenswürdigkeiten:</h3>
