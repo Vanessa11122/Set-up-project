@@ -32,22 +32,27 @@
 
         <!-- Hotels -->
         <h3>Hotels</h3>
-        <div class="hotels">
-            {% for h in reise.hotels %}
-            <div style="margin-bottom:10px; padding:10px; border:1px solid #eee; border-radius:5px;">
-                <label>
-                    <input type="checkbox" name="hotels" value="{{ h.id }}"
-                        {% if h.id in reise.ausgewaehlte_h %}checked{% endif %}>
-                    <strong>{{ h.name }}</strong> - {{ h.sterne }} Sterne - Preis pro Nacht: {{ h.preis_pro_nacht }} €
-                </label>
-            </div>
-            {% endfor %}
+        
+<div class="hotels" style="margin-bottom:20px;">
+    {% if reise.hotels %}
+        {% for h in reise.hotels %}
+        <div style="margin-bottom:10px; padding:10px; border:1px solid #eee; border-radius:5px;">
+            <label style="display: block; cursor: pointer;">
+                <input type="checkbox" name="hotels" value="{{ h.id }}"
+                    {% if h.id in reise.ausgewaehlte_h %}checked{% endif %}>
+                <strong>{{ h.name }}</strong> 
+                <span style="color: #f39c12; margin-left: 10px;">
+                    {{ "★" * h.sterne }}
+                </span>
+                <span style="float: right; color: #28a745; font-weight: bold;">
+                    {{ h.preis_pro_nacht }} € / Nacht
+                </span>
+            </label>
         </div>
-
-        <button type="submit" style="margin-top:15px; padding:8px 16px; background-color:#007BFF; color:white; border:none; border-radius:5px; cursor:pointer;">
-            Änderungen speichern
-        </button>
-    </form>
+        {% endfor %}
+    {% else %}
+        <p style="color: #888; font-style: italic;">Keine Hotels für dieses Ziel verfügbar.</p>
+    {% endif %}
 </div>
 {% else %}
 <p>Du hast noch keine Reisen geplant.</p>
