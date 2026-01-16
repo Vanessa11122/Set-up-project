@@ -164,14 +164,17 @@ def frankreich():
             (reiseziel,)
         )
 
-        # WICHTIG: Redirect nach POST
         return redirect("/Frankreich")
 
-    # GET: Daten aus DB holen
-    reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
+    reiseziele = db_read(
+        "SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'"
+    )
 
     return render_template("Frankreich.html", reiseziele=reiseziele)
 
+
+
+#ab hier neu
 @app.route("/add_trip", methods=["GET", "POST"])
 @login_required
 def add_trip():
@@ -206,4 +209,165 @@ def add_trip():
     
 if __name__ == "__main__":
     app.run()
+
+@app.route("/add_trip", methods=["GET", "POST"])
+@login_required
+def add_trip():
+    cursor = mysql.connection.cursor()
+
+    if request.method == "POST":
+        land = request.form["ziel"]
+        startdatum = request.form["startdatum"]
+        enddatum = request.form["enddatum"]
+        transport = request.form["transport"]
+        hotel_budget = request.form["hotel_budget"]
+        restaurant_budget = request.form["restaurant_budget"]
+
+        # Reiseziel-ID holen
+        cursor.execute(
+            "SELECT id FROM reiseziele WHERE land = %s LIMIT 1",
+            (land,)
+        )
+        ziel = cursor.fetchone()
+
+        if not ziel:
+            return "Reiseziel nicht gefunden", 400
+
+        reiseziel_id = ziel["id"]
+
+        cursor.execute("""
+            INSERT INTO user_reisen 
+            (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
+            VALUES (%s,%s,%s,%s,%s,%s,%s)
+        """, (
+            current_user.id,
+            reiseziel_id,
+            startdatum,
+            enddatum,
+            transport,
+            hotel_budget,
+            restaurant_budget
+        ))
+
+        mysql.connection.commit()
+        cursor.close()
+
+        return redirect(url_for("reisen"))
+
+    cursor.close()
+    return render_template("add_trip.html")
+
+@app.route("/reisen")
+@login_required
+def reisen():
+    cursor = mysql.connection.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT ur.*, rz.name, rz.land
+        FROM user_reisen ur
+        JOIN reiseziele rz ON ur.reiseziel_id = rz.id
+        WHERE ur.user_id = %s
+    """, (current_user.id,))
+    trips = cursor.fetchall()
+    cursor.close()
+
+    return render_template("reisen.html", trips=trips)
+
+@app.route("/reisen")
+@login_required
+def reisen():
+    trips = db_read("""
+        SELECT ur.id, rz.land, ur.startdatum, ur.enddatum,
+               ur.hotel_budget + ur.restaurant_budget AS total_budget
+        FROM user_reisen ur
+        JOIN reiseziele rz ON ur.reiseziel_id = rz.id
+        WHERE ur.user_id = %s
+    """, (current_user.id,))
+
+    return render_template("reisen.html", trips=trips)
+
+
+@app.route("/reisen")
+@login_required
+def reisen():
+    cursor = mysql.connection.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT ur.*, rz.name, rz.land
+        FROM user_reisen ur
+        JOIN reiseziele rz ON ur.reiseziel_id = rz.id
+        WHERE ur.user_id = %s
+    """, (current_user.id,))
+    trips = cursor.fetchall()
+    cursor.close()
+
+    return render_template("reisen.html", trips=trips)
+
+@app.route("/trip/<int:trip_id>")
+@login_required
+def trip_detail(trip_id):
+    cursor = mysql.connection.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT * FROM user_reisen WHERE id=%s AND user_id=%s
+    """, (trip_id, current_user.id))
+    trip = cursor.fetchone()
+
+    if not trip:
+        return "Reise nicht gefunden", 404
+
+    cursor.execute("""
+        SELECT * FROM hotels
+        WHERE reiseziel_id=%s
+        AND preis_pro_nacht BETWEEN %s*0.8 AND %s*1.2
+    """, (
+        trip["reiseziel_id"],
+        trip["hotel_budget"],
+        trip["hotel_budget"]
+    ))
+    hotels = cursor.fetchall()
+
+    cursor.close()
+    return render_template("trip_detail.html", trip=trip, hotels=hotels)
+
+@app.route("/add_trip", methods=["GET", "POST"])
+@login_required
+def add_trip():
+    if request.method == "POST":
+        land = request.form["ziel"]
+        startdatum = request.form["startdatum"]
+        enddatum = request.form["enddatum"]
+        transport = request.form["transport"]
+        hotel_budget = request.form["hotel_budget"]
+        restaurant_budget = request.form["restaurant_budget"]
+
+        # Reiseziel-ID holen
+        ziel = db_read(
+            "SELECT id FROM reiseziele WHERE land=%s LIMIT 1",
+            (land,)
+        )
+
+        if not ziel:
+            return "Reiseziel nicht gefunden", 400
+
+        reiseziel_id = ziel[0]["id"]
+
+        db_write("""
+            INSERT INTO user_reisen
+            (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
+            VALUES (%s,%s,%s,%s,%s,%s,%s)
+        """, (
+            current_user.id,
+            reiseziel_id,
+            startdatum,
+            enddatum,
+            transport,
+            hotel_budget,
+            restaurant_budget
+        ))
+
+        return redirect(url_for("reisen"))
+
+    return render_template("add_trip.html")
+
+
+
 
