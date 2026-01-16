@@ -207,55 +207,8 @@ def add_trip():
     return render_template("add_trip.html", success_message=success_message)
 
     
-if __name__ == "__main__":
-    app.run()
 
-@app.route("/add_trip", methods=["GET", "POST"])
-@login_required
-def add_trip():
-    cursor = mysql.connection.cursor()
 
-    if request.method == "POST":
-        land = request.form["ziel"]
-        startdatum = request.form["startdatum"]
-        enddatum = request.form["enddatum"]
-        transport = request.form["transport"]
-        hotel_budget = request.form["hotel_budget"]
-        restaurant_budget = request.form["restaurant_budget"]
-
-        # Reiseziel-ID holen
-        cursor.execute(
-            "SELECT id FROM reiseziele WHERE land = %s LIMIT 1",
-            (land,)
-        )
-        ziel = cursor.fetchone()
-
-        if not ziel:
-            return "Reiseziel nicht gefunden", 400
-
-        reiseziel_id = ziel["id"]
-
-        cursor.execute("""
-            INSERT INTO user_reisen 
-            (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
-            VALUES (%s,%s,%s,%s,%s,%s,%s)
-        """, (
-            current_user.id,
-            reiseziel_id,
-            startdatum,
-            enddatum,
-            transport,
-            hotel_budget,
-            restaurant_budget
-        ))
-
-        mysql.connection.commit()
-        cursor.close()
-
-        return redirect(url_for("reisen"))
-
-    cursor.close()
-    return render_template("add_trip.html")
 
 @app.route("/reisen")
 @login_required
@@ -367,6 +320,9 @@ def add_trip():
         return redirect(url_for("reisen"))
 
     return render_template("add_trip.html")
+
+if __name__ == "__main__":
+    app.run()
 
 
 
