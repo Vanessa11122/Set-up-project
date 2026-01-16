@@ -1,10 +1,66 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="home-container" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
     
-    <h1>Willkommen</h1>
+    <header class="hero" style="background: linear-gradient(135deg, #007BFF 0%, #00d4ff 100%); padding: 60px 20px; text-align: center; border-radius: 15px; color: white; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h1 style="font-size: 3rem; margin-bottom: 10px;">Hallo, {{ current_user.username }}! 🌍</h1>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Wo geht dein nächstes Abenteuer hin?</p>
+        <a href="{{ url_for('add_trip') }}" style="display: inline-block; margin-top: 20px; padding: 12px 25px; background: white; color: #007BFF; text-decoration: none; border-radius: 50px; font-weight: bold; transition: transform 0.2s;">
+            + Neue Reise planen
+        </a>
+    </header>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        
+        <section class="card" style="background: white; padding: 25px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <h3 style="border-bottom: 2px solid #007BFF; padding-bottom: 10px; margin-bottom: 20px;">Schnellzugriff</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 15px;">
+                    <a href="{{ url_for('trip_detail') }}" style="text-decoration: none; color: #444; display: flex; align-items: center;">
+                        <span style="font-size: 1.5rem; margin-right: 15px;">📅</span> 
+                        <strong>Meine Reise-Details</strong>
+                    </a>
+                </li>
+                <li style="margin-bottom: 15px;">
+                    <a href="/Italien" style="text-decoration: none; color: #444; display: flex; align-items: center;">
+                        <span style="font-size: 1.5rem; margin-right: 15px;">🇮🇹</span> 
+                        Entdecke Italien
+                    </a>
+                </li>
+                <li style="margin-bottom: 15px;">
+                    <a href="/Frankreich" style="text-decoration: none; color: #444; display: flex; align-items: center;">
+                        <span style="font-size: 1.5rem; margin-right: 15px;">🇫🇷</span> 
+                        Entdecke Frankreich
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="card" style="background: white; padding: 25px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <h3 style="border-bottom: 2px solid #28a745; padding-bottom: 10px; margin-bottom: 20px;">Reise-Checkliste</h3>
+            
+            <form action="{{ url_for('index') }}" method="POST" style="margin-bottom: 20px; display: flex; gap: 10px;">
+                <input type="text" name="contents" placeholder="z.B. Reisepass prüfen" required style="flex-grow: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
+                <input type="date" name="due_at" required style="padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
+                <button type="submit" style="background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Hinzufügen</button>
+            </form>
+
+            <div class="todo-list">
+                {% for todo in todos %}
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #f9f9f9;">
+                    <span>{{ todo.content }} <small style="color: #888;">({{ todo.due }})</small></span>
+                    <form action="{{ url_for('complete') }}" method="POST" style="display: inline;">
+                        <input type="hidden" name="id" value="{{ todo.id }}">
+                        <button type="submit" style="background: none; border: none; cursor: pointer; color: #dc3545;">✕</button>
+                    </form>
+                </div>
+                {% else %}
+                <p style="color: #888; font-style: italic;">Alles erledigt! Keine Aufgaben offen.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+    </div>
+</div>
 {% endblock %}
-   
-
-
-      
