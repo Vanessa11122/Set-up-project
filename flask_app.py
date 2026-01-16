@@ -188,7 +188,7 @@ def add_trip():
         db_write("""
             INSERT INTO user_reisen
             (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, DATE, DATE, %s, %s, %s)
         """, (
             current_user.id,
             land,
