@@ -60,18 +60,52 @@
   <p>Es wurden keine Reisen gefunden.</p>
 {% endfor %}
 
-<h3>Hotels passend zum Budget auswählen:</h3>
-{% if reise.hotels %}
-    {% for h in reise.hotels %}
-      <div>
-        <input type="checkbox" name="hotels" value="{{ h.id }}"
-               {% if h.id in reise.ausgewaehlte_h %}checked{% endif %}>
-        {{ h.name }} – {{ h.sterne }} Sterne – {{ h.preis_pro_nacht }} €
-      </div>
+
+
+<h1>Meine Reisen</h1>
+
+{% if reisen %}
+    {% for reise in reisen %}
+        <div class="reise">
+            <h2>{{ reise.reiseziel_name }} ({{ reise.land }})</h2>
+            <p>Start: {{ reise.startdatum }} | Ende: {{ reise.enddatum }}</p>
+            <p>Transport: {{ reise.transport }}</p>
+            <p>Hotelbudget: {{ reise.hotel_budget }} € | Restaurantbudget: {{ reise.restaurant_budget }} €</p>
+            <p>Interesse: {{ reise.interesse }}</p>
+
+            {% if reise.hotels %}
+                <h3>Hotels passend zum Budget:</h3>
+                <ul>
+                {% for hotel in reise.hotels %}
+                    <li>{{ hotel.name }} - {{ hotel.preis_pro_nacht }} € pro Nacht - {{ hotel.sterne }} Sterne</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>Keine Hotels verfügbar oder Budget überschritten.</p>
+            {% endif %}
+
+            {% if reise.sehenswuerdigkeiten %}
+                <h3>Sehenswürdigkeiten:</h3>
+                <form method="POST" action="{{ url_for('trip_detail') }}">
+                    {% for s in reise.sehenswuerdigkeiten %}
+                        <label>
+                            <input type="checkbox" name="sehenswuerdigkeiten_{{ reise.reise_id }}" value="{{ s.id }}"
+                                {% if s.ausgewaehlt %}checked{% endif %}>
+                            {{ s.name }}
+                        </label><br>
+                    {% endfor %}
+                    <input type="hidden" name="reise_id" value="{{ reise.reise_id }}">
+                    <button type="submit">Speichern</button>
+                </form>
+            {% endif %}
+
+            <hr>
+        </div>
     {% endfor %}
 {% else %}
-    <p>Keine Hotels in dieser Preiskategorie verfügbar.</p>
+    <p>Du hast noch keine Reisen eingetragen.</p>
 {% endif %}
+
 
 
 
