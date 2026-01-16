@@ -211,13 +211,16 @@ def add_trip():
 @app.route("/trip/<int:trip_id>")
 @login_required
 def trip_detail(trip_id):
+    # Abfrage der Reise plus den Namen des Reiseziels über einen JOIN
     trip = db_read("""
-        SELECT *
-        FROM user_reisen
-        WHERE id = %s AND user_id = %s
+        SELECT r.name, u.startdatum, u.enddatum, u.transport, u.hotel_budget, u.restaurant_budget
+        FROM user_reisen u
+        JOIN reiseziele r ON u.reiseziel_id = r.id
+        WHERE u.id = %s AND u.user_id = %s
     """, (trip_id, current_user.id))
 
-   
+    if not trip:
+        abort(404) 
 
     return render_template("trip_detail.html", trip=trip[0])
 
