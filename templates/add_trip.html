@@ -15,11 +15,13 @@
 
 <h1>Reiseplaner</h1>
 
-<select name="ziel">
-  {% for ziel in ziele %}
-    <option value="{{ ziel[0] }}">{{ ziel[1] }}</option>
-  {% endfor %}
-</select>
+<label for="ziel">Reiseziel:</label>
+  <select name="ziel" id="ziel" required>
+    <option value="" disabled selected>Bitte auswählen</option>
+    {% for ziel in ziele %}
+      <option value="{{ ziel[0] }}">{{ ziel[1] }}</option>
+    {% endfor %}
+  </select>
 
 <form method="POST" action="{{ url_for('add_trip') }}">
   
