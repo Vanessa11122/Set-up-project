@@ -227,106 +227,103 @@ INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung
 (20, 'Trattoria Canal', 'Italienisch', '€€€', 4.3, 'Italien');
 
 
-INSERT INTO sehenswuerdigkeiten (reiseziel_id, name, beschreibung, land) VALUES
+INSERT INTO sehenswuerdigkeiten (reiseziel_id, name, land, beschreibung, interessen) VALUES
 -- 1 Paris – Frankreich
-(1, 'Eiffelturm', 'Wahrzeichen von Paris mit Aussichtsplattform.', 'Frankreich', 'Architektur'),
-(1, 'Louvre', 'Berühmtes Kunstmuseum mit der Mona Lisa.', 'Frankreich', 'Museen'),
-(1, 'Notre-Dame', 'Gotische Kathedrale auf der Île de la Cité.', 'Frankreich', 'Kirchen und Kathedralen'),
-
+(1, 'Eiffelturm', 'Frankreich', 'Wahrzeichen von Paris mit Aussichtsplattform.', 'Architektur'),
+(1, 'Louvre', 'Frankreich', 'Berühmtes Kunstmuseum mit der Mona Lisa.', 'Museen'),
+(1, 'Notre-Dame', 'Frankreich', 'Gotische Kathedrale auf der Île de la Cité.', 'Kirchen und Kathedralen'),
 
 -- 2 Berlin – Deutschland
-(2, 'Brandenburger Tor', 'Historisches Symbol der deutschen Einheit.', 'Deutschland', 'Geschichte' ),
-(2, 'Berliner Mauer', 'Überreste der ehemaligen innerdeutschen Grenze.', 'Deutschland', 'Geschichte'),
-(2, 'Museumsinsel', 'UNESCO-Welterbe mit mehreren Museen.', 'Deutschland', 'Museen'),
+(2, 'Brandenburger Tor', 'Deutschland', 'Historisches Symbol der deutschen Einheit.', 'Geschichte'),
+(2, 'Berliner Mauer', 'Deutschland', 'Überreste der ehemaligen innerdeutschen Grenze.', 'Geschichte'),
+(2, 'Museumsinsel', 'Deutschland', 'UNESCO-Welterbe mit mehreren Museen.', 'Museen'),
 
 -- 3 Rom – Italien
-(3, 'Kolosseum', 'Antikes Amphitheater aus der Römerzeit.', 'Italien', 'Architektur'),
-(3, 'Forum Romanum', 'Politisches Zentrum des antiken Roms.', 'Italien', 'Geschichte'),
-(3, 'Vatikan', 'Kleinstaat mit Petersdom und Sixtinischer Kapelle.', 'Italien', 'Kirchen und Kathedralen'),
+(3, 'Kolosseum', 'Italien', 'Antikes Amphitheater aus der Römerzeit.', 'Architektur'),
+(3, 'Forum Romanum', 'Italien', 'Politisches Zentrum des antiken Roms.', 'Geschichte'),
+(3, 'Vatikan', 'Italien', 'Kleinstaat mit Petersdom und Sixtinischer Kapelle.', 'Kirchen und Kathedralen'),
 
 -- 4 Madrid – Spanien
-(4, 'Prado Museum', 'Eines der bedeutendsten Kunstmuseen Europas.', 'Spanien', 'Museen'),
-(4, 'Plaza Mayor', 'Historischer Hauptplatz im Stadtzentrum.', 'Spanien', 'Geschichte'),
-(4, 'Königspalast', 'Offizielle Residenz der spanischen Könige.', 'Spanien', 'Schlösser'),
+(4, 'Prado Museum', 'Spanien', 'Eines der bedeutendsten Kunstmuseen Europas.', 'Museen'),
+(4, 'Plaza Mayor', 'Spanien', 'Historischer Hauptplatz im Stadtzentrum.', 'Geschichte'),
+(4, 'Königspalast', 'Spanien', 'Offizielle Residenz der spanischen Könige.', 'Schlösser'),
 
 -- 5 Wien – Österreich
-(5, 'Schloss Schönbrunn', 'Ehemalige Sommerresidenz der Habsburger.', 'Österreich', 'Schlösser'),
-(5, 'Stephansdom', 'Gotischer Dom im Herzen Wiens.', 'Österreich', 'Kirchen und Kathedralen'),
-(5, 'Belvedere', 'Barockschloss mit Kunstsammlung.', 'Österreich', 'Schlösser'),
+(5, 'Schloss Schönbrunn', 'Österreich', 'Ehemalige Sommerresidenz der Habsburger.', 'Schlösser'),
+(5, 'Stephansdom', 'Österreich', 'Gotischer Dom im Herzen Wiens.', 'Kirchen und Kathedralen'),
+(5, 'Belvedere', 'Österreich', 'Barockschloss mit Kunstsammlung.', 'Schlösser'),
 
 -- 6 Prag – Tschechien
-(6, 'Karlsbrücke', 'Berühmte Brücke mit Heiligenstatuen.', 'Tschechien', 'Architektur'),
-(6, 'Prager Burg', 'Größte geschlossene Burganlage der Welt.', 'Tschechien', 'Schlösser'),
-(6, 'Altstädter Ring', 'Historischer Marktplatz mit Rathausuhr.', 'Tschechien', 'Städtetrip'),
+(6, 'Karlsbrücke', 'Tschechien', 'Berühmte Brücke mit Heiligenstatuen.', 'Architektur'),
+(6, 'Prager Burg', 'Tschechien', 'Größte geschlossene Burganlage der Welt.', 'Schlösser'),
+(6, 'Altstädter Ring', 'Tschechien', 'Historischer Marktplatz mit Rathausuhr.', 'Städtetrip'),
 
 -- 7 Lissabon – Portugal
-(7, 'Torre de Belém', 'Historischer Verteidigungsturm am Tejo.', 'Portugal', 'Geschichte'),
-(7, 'Mosteiro dos Jerónimos', 'Kloster im manuelinischen Stil.', 'Portugal', 'Schlösser'),
-(7, 'Alfama', 'Ältestes Stadtviertel mit engen Gassen.', 'Portugal', 'Städtetrip'),
+(7, 'Torre de Belém', 'Portugal', 'Historischer Verteidigungsturm am Tejo.', 'Geschichte'),
+(7, 'Mosteiro dos Jerónimos', 'Portugal', 'Kloster im manuelinischen Stil.', 'Schlösser'),
+(7, 'Alfama', 'Portugal', 'Ältestes Stadtviertel mit engen Gassen.', 'Städtetrip'),
 
 -- 8 Amsterdam – Niederlande
-(8, 'Anne-Frank-Haus', 'Wohnhaus von Anne Frank im Zweiten Weltkrieg.', 'Niederlande', 'Geschichte'),
-(8, 'Rijksmuseum', 'Nationalmuseum der Niederlande.', 'Niederlande', 'Museen'),
-(8, 'Grachten', 'Typische Wasserkanäle der Stadt.', 'Niederlande', 'Städtetrip'),
+(8, 'Anne-Frank-Haus', 'Niederlande', 'Wohnhaus von Anne Frank im Zweiten Weltkrieg.', 'Geschichte'),
+(8, 'Rijksmuseum', 'Niederlande', 'Nationalmuseum der Niederlande.', 'Museen'),
+(8, 'Grachten', 'Niederlande', 'Typische Wasserkanäle der Stadt.', 'Städtetrip'),
 
 -- 9 London – UK
-(9, 'Big Ben', 'Berühmter Glockenturm am Parlament.', 'UK', 'Architektur'),
-(9, 'Tower of London', 'Historische Festung an der Themse.', 'UK', 'Architektur'),
-(9, 'Buckingham Palace', 'Offizielle Residenz des Königs.', 'UK', 'Schlösser'),
+(9, 'Big Ben', 'UK', 'Berühmter Glockenturm am Parlament.', 'Architektur'),
+(9, 'Tower of London', 'UK', 'Historische Festung an der Themse.', 'Architektur'),
+(9, 'Buckingham Palace', 'UK', 'Offizielle Residenz des Königs.', 'Schlösser'),
 
 -- 10 Stockholm – Schweden
-(10, 'Gamla Stan', 'Historische Altstadt Stockholms.', 'Schweden', 'Städtetrip'),
-(10, 'Vasa-Museum', 'Museum mit einem Kriegsschiff aus dem 17. Jh.', 'Schweden', 'Museum'),
-(10, 'Schloss Drottningholm', 'Königliches Schloss mit Parkanlage.', 'Schweden', 'Schlösser'),
+(10, 'Gamla Stan', 'Schweden', 'Historische Altstadt Stockholms.', 'Städtetrip'),
+(10, 'Vasa-Museum', 'Schweden', 'Museum mit einem Kriegsschiff aus dem 17. Jh.', 'Museen'),
+(10, 'Schloss Drottningholm', 'Schweden', 'Königliches Schloss mit Parkanlage.', 'Schlösser'),
 
 -- 11 Athen – Griechenland
-(11, 'Akropolis', 'Antike Tempelanlage auf einem Hügel.', 'Griechenland', 'Architektur'),
-(11, 'Parthenon', 'Berühmter Tempel der Athena.', 'Griechenland', 'Architektur'),
-(11, 'Agora', 'Zentraler Platz des antiken Athens.', 'Griechenland', 'Städtetrip'),
+(11, 'Akropolis', 'Griechenland', 'Antike Tempelanlage auf einem Hügel.', 'Architektur'),
+(11, 'Parthenon', 'Griechenland', 'Berühmter Tempel der Athena.', 'Architektur'),
+(11, 'Agora', 'Griechenland', 'Zentraler Platz des antiken Athens.', 'Städtetrip'),
 
 -- 12 Budapest – Ungarn
-(12, 'Parlament', 'Neogotisches Parlamentsgebäude an der Donau.', 'Ungarn', 'Architektur'),
-(12, 'Kettenbrücke', 'Berühmte Brücke zwischen Buda und Pest.', 'Ungarn', 'Architektur'),
-(12, 'Thermalbad Széchenyi', 'Großes historisches Thermalbad.', 'Ungarn', 'Geschichte'),
+(12, 'Parlament', 'Ungarn', 'Neogotisches Parlamentsgebäude an der Donau.', 'Architektur'),
+(12, 'Kettenbrücke', 'Ungarn', 'Berühmte Brücke zwischen Buda und Pest.', 'Architektur'),
+(12, 'Thermalbad Széchenyi', 'Ungarn', 'Großes historisches Thermalbad.', 'Geschichte'),
 
 -- 13 Kopenhagen – Dänemark
-(13, 'Nyhavn', 'Hafen mit bunten Häusern.', 'Dänemark', 'Städtetrip'),
-(13, 'Kleine Meerjungfrau', 'Berühmte Bronzestatue am Wasser.', 'Dänemark', 'Statuen'),
-(13, 'Tivoli', 'Historischer Vergnügungspark.', 'Dänemark', 'Städtetrip'),
+(13, 'Nyhavn', 'Dänemark', 'Hafen mit bunten Häusern.', 'Städtetrip'),
+(13, 'Kleine Meerjungfrau', 'Dänemark', 'Berühmte Bronzestatue am Wasser.', 'Statuen'),
+(13, 'Tivoli', 'Dänemark', 'Historischer Vergnügungspark.', 'Städtetrip'),
 
 -- 14 Barcelona – Spanien
-(14, 'Sagrada Família', 'Unvollendete Basilika von Gaudí.', 'Spanien', 'Architektur'),
-(14, 'Park Güell', 'Bunter Park mit Mosaiken.', 'Spanien', 'Natur'),
-(14, 'La Rambla', 'Belebte Flaniermeile.', 'Spanien', 'Städtetrip'),
+(14, 'Sagrada Família', 'Spanien', 'Unvollendete Basilika von Gaudí.', 'Architektur'),
+(14, 'Park Güell', 'Spanien', 'Bunter Park mit Mosaiken.', 'Natur'),
+(14, 'La Rambla', 'Spanien', 'Belebte Flaniermeile.', 'Städtetrip'),
 
 -- 15 Tokio – Japan
-(15, 'Shibuya Crossing', 'Weltbekannte Kreuzung.', 'Japan', 'Städtetrip'),
-(15, 'Meiji-Schrein', 'Shinto-Schrein im Stadtzentrum.', 'Japan', 'Städtetrip'),
-(15, 'Tokyo Tower', 'Aussichtsturm mit Stadtblick.', 'Japan', 'Architektur'),
+(15, 'Shibuya Crossing', 'Japan', 'Weltbekannte Kreuzung.', 'Städtetrip'),
+(15, 'Meiji-Schrein', 'Japan', 'Shinto-Schrein im Stadtzentrum.', 'Städtetrip'),
+(15, 'Tokyo Tower', 'Japan', 'Aussichtsturm mit Stadtblick.', 'Architektur'),
 
 -- 16 New York – USA
-(16, 'Freiheitsstatue', 'Symbol für Freiheit und Einwanderung.', 'USA', 'Statuen'),
-(16, 'Central Park', 'Großer Stadtpark in Manhattan.', 'USA', 'Natur'),
-(16, 'Times Square', 'Belebter Platz mit Leuchtreklamen.', 'USA', 'Städtetrip'),
+(16, 'Freiheitsstatue', 'USA', 'Symbol für Freiheit und Einwanderung.', 'Statuen'),
+(16, 'Central Park', 'USA', 'Großer Stadtpark in Manhattan.', 'Natur'),
+(16, 'Times Square', 'USA', 'Belebter Platz mit Leuchtreklamen.', 'Städtetrip'),
 
 -- 17 Kapstadt – Südafrika
-(17, 'Tafelberg', 'Markanter Berg mit Seilbahn.', 'Südafrika', 'Natur'),
-(17, 'Kap der Guten Hoffnung', 'Berühmte Landspitze.', 'Südafrika', 'Natur'),
-(17, 'V&A Waterfront', 'Hafenviertel mit Shops und Restaurants.', 'Südafrika', 'Städtetrip'),
+(17, 'Tafelberg', 'Südafrika', 'Markanter Berg mit Seilbahn.', 'Natur'),
+(17, 'Kap der Guten Hoffnung', 'Südafrika', 'Berühmte Landspitze.', 'Natur'),
+(17, 'V&A Waterfront', 'Südafrika', 'Hafenviertel mit Shops und Restaurants.', 'Städtetrip'),
 
 -- 18 Sydney – Australien
-(18, 'Opera House', 'Ikonisches Opernhaus am Hafen.', 'Australien', 'Architektur'),
-(18, 'Harbour Bridge', 'Große Stahlbogenbrücke.', 'Australien', 'Architektur'),
-(18, 'Bondi Beach', 'Beliebter Stadtstrand.', 'Australien', 'Natur'),
+(18, 'Opera House', 'Australien', 'Ikonisches Opernhaus am Hafen.', 'Architektur'),
+(18, 'Harbour Bridge', 'Australien', 'Große Stahlbogenbrücke.', 'Architektur'),
+(18, 'Bondi Beach', 'Australien', 'Beliebter Stadtstrand.', 'Natur'),
 
 -- 19 Reykjavík – Island
-(19, 'Hallgrímskirkja', 'Moderne Kirche mit Aussichtsturm.', 'Island', 'Kirchen und Kathedralen'),
-(19, 'Harpa', 'Konzerthaus mit Glasfassade.', 'Island', 'Architektur'),
-(19, 'Sun Voyager', 'Skulptur am Meer.', 'Island', 'Statuen'),
+(19, 'Hallgrímskirkja', 'Island', 'Moderne Kirche mit Aussichtsturm.', 'Kirchen und Kathedralen'),
+(19, 'Harpa', 'Island', 'Konzerthaus mit Glasfassade.', 'Architektur'),
+(19, 'Sun Voyager', 'Island', 'Skulptur am Meer.', 'Statuen'),
 
 -- 20 Venedig – Italien
-(20, 'Markusplatz', 'Zentraler Platz von Venedig.', 'Italien', 'Städtetrip'),
-(20, 'Dogenpalast', 'Ehemaliger Regierungssitz.', 'Italien', 'Architektur'),
-(20, 'Canal Grande', 'Hauptwasserstraße der Stadt.', 'Italien', 'Städtetrip');
-
-
+(20, 'Markusplatz', 'Italien', 'Zentraler Platz von Venedig.', 'Städtetrip'),
+(20, 'Dogenpalast', 'Italien', 'Ehemaliger Regierungssitz.', 'Architektur'),
+(20, 'Canal Grande', 'Italien', 'Hauptwasserstraße der Stadt.', 'Städtetrip');
