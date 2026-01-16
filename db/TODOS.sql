@@ -35,7 +35,7 @@ CREATE TABLE user_reisen (
     enddatum DATE,
     transport VARCHAR(255),
     hotel_budget DECIMAL(10,2),
-    restaurant_budget DECIMAL(10,2);
+    restaurant_budget DECIMAL(10,2),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (reiseziel_id) REFERENCES reiseziele(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
