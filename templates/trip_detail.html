@@ -24,41 +24,7 @@
         }
     </style>
 </head>
-<body>
-    <h1>Meine Reisen</h1>
 
-    {% if reisen %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Reiseziel</th>
-                    <th>Startdatum</th>
-                    <th>Enddatum</th>
-                    <th>Transportmittel</th>
-                    <th>Hotelbudget</th>
-                    <th>Restaurantbudget</th>
-                    <th>Interesse</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for reise in reisen %}
-                    <tr>
-                        <td>{{ reise.reiseziel_id }}</td>
-                        <td>{{ reise.startdatum }}</td>
-                        <td>{{ reise.enddatum }}</td>
-                        <td>{{ reise.transport }}</td>
-                        <td>{{ reise.hotel_budget }}</td>
-                        <td>{{ reise.restaurant_budget }}</td>
-                        <td>{{ reise.interesse }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Es wurden keine Reisen gefunden.</p>
-    {% endif %}
-</body>
-</html>
 
 <h1>Meine Reisen</h1>
 
