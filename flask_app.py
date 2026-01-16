@@ -206,10 +206,29 @@ def add_trip():
     
 
 
-@app.route("/trip_detail", methods=["GET"])
+@app.route("/trip_detail", methods=["GET", "POST"])
 @login_required
 def trip_detail():
-    # Alle Reisen des aktuellen Benutzers abrufen
+    # 1. POST: ausgewählte Sehenswürdigkeiten speichern
+    if request.method == "POST":
+        reise_id = request.form.get("reise_id")
+        ausgewaehlte_s = request.form.getlist("sehenswuerdigkeiten")
+        
+        # alte Einträge löschen, falls vorhanden
+        db_write(
+            "DELETE FROM user_sehenswuerdigkeiten WHERE reise_id = %s",
+            (reise_id,)
+        )
+        
+        # neue Auswahl speichern
+        for s_id in ausgewaehlte_s:
+            db_write(
+                "INSERT INTO user_sehenswuerdigkeiten (reise_id, sehenswuerdigkeit_id) VALUES (%s, %s)",
+                (reise_id, s_id)
+            )
+        return redirect(url_for("trip_detail"))
+
+    # 2. GET: Alle Reisen des Benutzers abrufen
     reisen_des_benutzers = db_read(
         """SELECT user_reisen.id AS reise_id, reiseziele.name AS reiseziel_name, reiseziele.land,
                   user_reisen.startdatum, user_reisen.enddatum,
@@ -223,15 +242,20 @@ def trip_detail():
         (current_user.id,)
     )
 
-    # Für jede Reise passende Sehenswürdigkeiten abrufen
+    # 3. Für jede Reise alle Sehenswürdigkeiten abrufen und markierte vorbereiten
     for reise in reisen_des_benutzers:
-        sehenswuerdigkeiten = db_read(
-            """SELECT name, beschreibung, interessen
-               FROM sehenswuerdigkeiten
-               WHERE reiseziel_id = %s""",
+        # Alle Sehenswürdigkeiten für das Reiseziel
+        alle_s = db_read(
+            "SELECT id, name, beschreibung, interessen FROM sehenswuerdigkeiten WHERE reiseziel_id = %s",
             (reise['reiseziel_id'],)
         )
-        reise['sehenswuerdigkeiten'] = sehenswuerdigkeiten
+        # Bereits ausgewählte Sehenswürdigkeiten
+        ausgewaehlte_s = db_read(
+            "SELECT sehenswuerdigkeit_id FROM user_sehenswuerdigkeiten WHERE reise_id = %s",
+            (reise['reise_id'],)
+        )
+        reise['sehenswuerdigkeiten'] = alle_s
+        reise['ausgewaehlte_s'] = [s['sehenswuerdigkeit_id'] for s in ausgewaehlte_s]
 
     return render_template("trip_detail.html", reisen=reisen_des_benutzers)
 
