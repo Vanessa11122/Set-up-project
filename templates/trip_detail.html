@@ -60,6 +60,20 @@
   <p>Es wurden keine Reisen gefunden.</p>
 {% endfor %}
 
+<h3>Hotels passend zum Budget auswählen:</h3>
+{% if reise.hotels %}
+    {% for h in reise.hotels %}
+      <div>
+        <input type="checkbox" name="hotels" value="{{ h.id }}"
+               {% if h.id in reise.ausgewaehlte_h %}checked{% endif %}>
+        {{ h.name }} – {{ h.sterne }} Sterne – {{ h.preis_pro_nacht }} €
+      </div>
+    {% endfor %}
+{% else %}
+    <p>Keine Hotels in dieser Preiskategorie verfügbar.</p>
+{% endif %}
+
+
 
 
 
