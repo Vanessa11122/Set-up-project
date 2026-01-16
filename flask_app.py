@@ -178,20 +178,22 @@ def frankreich():
 @login_required
 def add_trip():
     if request.method == "POST":
-        land = request.form["ziel"]
+        # Daten aus dem Formular holen
+        land_id = request.form["ziel"] # Das ist die ID aus dem <select>
         start = request.form["startdatum"]
         end = request.form["enddatum"]
         transport = request.form["transport"]
         hotel_budget = request.form["hotel_budget"]
         restaurant_budget = request.form["restaurant_budget"]
 
+        # 1. Daten in die Datenbank schreiben
         db_write("""
             INSERT INTO user_reisen
             (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (
             current_user.id,
-            land,
+            land_id,
             start,
             end,
             transport,
@@ -199,14 +201,22 @@ def add_trip():
             restaurant_budget
         ))
 
-        result = db_read("SELECT MAX(id) FROM user_reisen WHERE user_id=%s", (current_user.id,))
-        # neue ID holen
-        trip_id = result[0][0]
+        # 2. Die ID der soeben erstellten Reise abrufen
+        # Wir sortieren nach ID absteigend, um die aktuellste zu bekommen
+        result = db_read("SELECT id FROM user_reisen WHERE user_id=%s ORDER BY id DESC LIMIT 1", (current_user.id,))
+        
+        # Sicherheits-Check: Hat die Datenbank ein Ergebnis geliefert?
+        if result and len(result) > 0:
+            trip_id = result[0][0]
+            # Weiterleiten zur Detailseite
+            return redirect(url_for("trip_detail", trip_id=trip_id))
+        else:
+            # Falls etwas schiefging, zurück zum Formular oder Fehlermeldung
+            return "Fehler beim Speichern der Reise", 500
 
-        # weiterleiten zur Detailseite
-        return redirect(url_for("trip_detail", trip_id=trip_id))
-
-    return render_template("add_trip.html")
+    # Falls GET-Anfrage: Reiseziele für das Dropdown-Menü laden
+    reiseziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
+    return render_template("add_trip.html", reiseziele=reiseziele)
 
 @app.route("/trip/<int:trip_id>")
 @login_required
@@ -222,13 +232,8 @@ def trip_detail(trip_id):
     if not trip:
         abort(404) 
 
+    # trip[0] enthält die erste Zeile der Ergebnisse
     return render_template("trip_detail.html", trip=trip[0])
-
-    
-
-        
-    # WICHTIG: Die success_message muss hier in die Klammer, damit das HTML sie kennt!
-    
     
 if __name__ == "__main__":
     app.run()
