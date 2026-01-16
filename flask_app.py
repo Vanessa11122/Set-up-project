@@ -199,7 +199,7 @@ def add_trip():
         "SELECT DISTINCT interessen FROM sehenswuerdigkeiten WHERE interessen IS NOT NULL ORDER BY interessen"
     )
     
-    return render_template("trip_detail.html", ziele=alle_ziele, interessen=interessen)
+    return render_template("add_trip.html", ziele=alle_ziele, interessen=interessen)
 
 
    
