@@ -206,9 +206,10 @@ def add_trip():
     
 
 
-@app.route("/trip_detail")
+@app.route("/trip_detail", methods=["GET", "POST"])
 @login_required
 def trip_detail():
+    
 
     return render_template("trip_detail.html")
 
