@@ -200,7 +200,7 @@ def add_trip():
             neue_reise_id = ergebnis[0][0]
             return redirect(url_for("trip_detail", trip_id=neue_reise_id))
         
-        return redirect(url_for("index"))
+        return redirect(url_for("/add_trip.html"))
 
     # Länder für das Dropdown-Menü laden
     alle_ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
