@@ -216,8 +216,7 @@ def trip_detail(trip_id):
         WHERE id = %s AND user_id = %s
     """, (trip_id, current_user.id))
 
-    if not trip:
-        abort(404)
+   
 
     return render_template("trip_detail.html", trip=trip[0])
 
