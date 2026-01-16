@@ -1,0 +1,12 @@
+<h1>Reise Details</h1>
+
+<ul>
+    <li>Reiseziel ID: {{ trip.reiseziel_id }}</li>
+    <li>Startdatum: {{ trip.startdatum }}</li>
+    <li>Enddatum: {{ trip.enddatum }}</li>
+    <li>Transport: {{ trip.transport }}</li>
+    <li>Hotel Budget: {{ trip.hotel_budget }}</li>
+    <li>Restaurant Budget: {{ trip.restaurant_budget }}</li>
+</ul>
+
+<a href="{{ url_for('index') }}">Zurück</a>
