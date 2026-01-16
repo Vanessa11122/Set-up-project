@@ -37,21 +37,28 @@
     <p>Restaurantbudget: {{ reise.restaurant_budget }} €</p>
     <p>Interesse: {{ reise.interesse or 'Keine Angabe' }}</p>
 
-    <h3>Vorgeschlagene Sehenswürdigkeiten:</h3>
-    {% if reise.sehenswuerdigkeiten %}
-      <ul>
+    <form method="POST">
+      <input type="hidden" name="reise_id" value="{{ reise.reise_id }}">
+      <h3>Sehenswürdigkeiten auswählen:</h3>
+      
+      {% if reise.sehenswuerdigkeiten %}
         {% for s in reise.sehenswuerdigkeiten %}
-          <li>{{ s.name }} – {{ s.beschreibung }} (Interesse: {{ s.interessen }})</li>
+          <div>
+            <input type="checkbox" name="sehenswuerdigkeiten" value="{{ s.id }}"
+                   {% if s.id in reise.ausgewaehlte_s %}checked{% endif %}>
+            {{ s.name }} – {{ s.beschreibung }} (Interesse: {{ s.interessen }})
+          </div>
         {% endfor %}
-      </ul>
-    {% else %}
-      <p>Keine Sehenswürdigkeiten gefunden.</p>
-    {% endif %}
+      {% else %}
+        <p>Keine Sehenswürdigkeiten vorhanden.</p>
+      {% endif %}
+
+      <button type="submit">Auswahl speichern</button>
+    </form>
   </div>
 {% else %}
   <p>Es wurden keine Reisen gefunden.</p>
 {% endfor %}
-
 
 
 
