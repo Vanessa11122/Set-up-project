@@ -178,62 +178,52 @@ def frankreich():
 @login_required
 def add_trip():
     if request.method == "POST":
-        # Daten aus dem Formular holen
-        land_id = request.form["ziel"] # Das ist die ID aus dem <select>
-        start = request.form["startdatum"]
-        end = request.form["enddatum"]
-        transport = request.form["transport"]
-        hotel_budget = request.form["hotel_budget"]
-        restaurant_budget = request.form["restaurant_budget"]
+        # Daten aus dem Formular abrufen
+        reiseziel_id = request.form.get("ziel")
+        startdatum = request.form.get("startdatum")
+        enddatum = request.form.get("enddatum")
+        transport = request.form.get("transport")
+        hotel_budget = request.form.get("hotel_budget")
+        restaurant_budget = request.form.get("restaurant_budget")
 
-        # 1. Daten in die Datenbank schreiben
+        # In die Datenbank schreiben
         db_write("""
-            INSERT INTO user_reisen
-            (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
+            INSERT INTO user_reisen 
+            (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget) 
             VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (
-            current_user.id,
-            land_id,
-            start,
-            end,
-            transport,
-            hotel_budget,
-            restaurant_budget
-        ))
+        """, (current_user.id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget))
 
-        # 2. Die ID der soeben erstellten Reise abrufen
-        # Wir sortieren nach ID absteigend, um die aktuellste zu bekommen
-        result = db_read("SELECT id FROM user_reisen WHERE user_id=%s ORDER BY id DESC LIMIT 1", (current_user.id,))
+        # Die ID der soeben erstellten Reise abrufen
+        ergebnis = db_read("SELECT id FROM user_reisen WHERE user_id=%s ORDER BY id DESC LIMIT 1", (current_user.id,))
         
-        # Sicherheits-Check: Hat die Datenbank ein Ergebnis geliefert?
-        if result and len(result) > 0:
-            trip_id = result[0][0]
-            # Weiterleiten zur Detailseite
-            return redirect(url_for("trip_detail", trip_id=trip_id))
-        else:
-            # Falls etwas schiefging, zurück zum Formular oder Fehlermeldung
-            return "Fehler beim Speichern der Reise", 500
+        if ergebnis:
+            neue_reise_id = ergebnis[0][0]
+            return redirect(url_for("trip_detail", trip_id=neue_reise_id))
+        
+        return redirect(url_for("index"))
 
-    # Falls GET-Anfrage: Reiseziele für das Dropdown-Menü laden
-    ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
-    return render_template("add_trip.html", ziele=ziele)
+    # Länder für das Dropdown-Menü laden
+    alle_ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
+    return render_template("add_trip.html", ziele=alle_ziele)
+
 
 @app.route("/trip/<int:trip_id>")
 @login_required
 def trip_detail(trip_id):
-    # Abfrage der Reise plus den Namen des Reiseziels über einen JOIN
-    trip = db_read("""
-        SELECT r.name, u.startdatum, u.enddatum, u.transport, u.hotel_budget, u.restaurant_budget
-        FROM user_reisen u
-        JOIN reiseziele r ON u.reiseziel_id = r.id
-        WHERE u.id = %s AND u.user_id = %s
+    # Abfrage ohne Abkürzungen (u. und r. wurden durch volle Namen ersetzt)
+    reise_daten = db_read("""
+        SELECT reiseziele.name, user_reisen.startdatum, user_reisen.enddatum, 
+               user_reisen.transport, user_reisen.hotel_budget, user_reisen.restaurant_budget
+        FROM user_reisen
+        JOIN reiseziele ON user_reisen.reiseziel_id = reiseziele.id
+        WHERE user_reisen.id = %s AND user_reisen.user_id = %s
     """, (trip_id, current_user.id))
 
-    if not trip:
+    if not reise_daten:
         abort(404) 
 
-    # trip[0] enthält die erste Zeile der Ergebnisse
-    return render_template("trip_detail.html", trip=trip[0])
+    # Wir übergeben die erste Zeile des Ergebnisses (Index 0) an das HTML
+    return render_template("trip_detail.html", trip=reise_daten[0])
     
 if __name__ == "__main__":
     app.run()
