@@ -193,7 +193,7 @@ def add_trip():
         return redirect(url_for("index"))
 
     # GET
-    alle_ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
+    alle_ziele = db_read("SELECT id, name, land FROM reiseziele ORDER BY name")
     return render_template("add_trip.html", ziele=alle_ziele)
 
 
