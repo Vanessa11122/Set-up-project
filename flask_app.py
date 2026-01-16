@@ -209,9 +209,22 @@ def add_trip():
 @app.route("/trip_detail", methods=["GET", "POST"])
 @login_required
 def trip_detail():
+    reisen_des_benutzers = db_read(
+        """SELECT id, reiseziel_id,  
+                  startdatum, enddatum, 
+                  transport, hotel_budget, 
+                  restaurant_budget, interesse
+           FROM user_reisen
+           JOIN reiseziele ON reiseziel_id = reiseziele.id
+           WHERE user_id = %s
+           ORDER BY startdatum""",
+        (current_user.id,)
+    )
+
+    return render_template("trip_detail.html", reisen=reisen_des_benutzers)
+
     
 
-    return render_template("trip_detail.html")
 
     
 if __name__ == "__main__":
