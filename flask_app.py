@@ -271,7 +271,7 @@ def trip_detail():
         reise['hotels'] = alle_h
         reise['ausgewaehlte_h'] = [h['hotel_id'] for h in ausgewaehlte_h]
 
-    return render_template("trip_detail.html", reisen=reisen_des_benutzers))
+    return render_template("trip_detail.html", reisen=reisen_des_benutzers)
 
 
     
