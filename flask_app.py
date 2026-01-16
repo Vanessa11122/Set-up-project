@@ -207,6 +207,20 @@ def add_trip():
 
     return render_template("add_trip.html")
 
+@app.route("/trip/<int:trip_id>")
+@login_required
+def trip_detail(trip_id):
+    trip = db_read("""
+        SELECT *
+        FROM user_reisen
+        WHERE id = %s AND user_id = %s
+    """, (trip_id, current_user.id))
+
+    if not trip:
+        abort(404)
+
+    return render_template("trip_detail.html", trip=trip[0])
+
     
 
         
