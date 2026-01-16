@@ -169,7 +169,6 @@ def frankreich():
 
     # GET: Daten aus DB holen
     reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
-
     return render_template("Frankreich.html", reiseziele=reiseziele)
 
 
@@ -179,6 +178,10 @@ def frankreich():
 def add_trip():
     if request.method == "POST":
         # Daten aus dem Formular abrufen
+        
+        alle_ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
+        return render_template("add_trip.html", ziele=alle_ziele)
+
         reiseziel_id = request.form.get("ziel")
         startdatum = request.form.get("startdatum")
         enddatum = request.form.get("enddatum")
@@ -192,21 +195,9 @@ def add_trip():
             (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget) 
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (current_user.id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget))
-
-        # Die ID der soeben erstellten Reise abrufen
-        ergebnis = db_read("SELECT id FROM user_reisen WHERE user_id=%s ORDER BY id DESC LIMIT 1", (current_user.id,))
-        
-        if ergebnis:
-            neue_reise_id = ergebnis[0][0]
-            return redirect(url_for("trip_detail", trip_id=neue_reise_id))
-        
         return redirect(url_for("index"))
 
-    # Länder für das Dropdown-Menü laden
-    alle_ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
-    return render_template("add_trip.html", ziele=alle_ziele)
-
-    # Länder für das Dropdown-Menü laden
+   
     
 
 
