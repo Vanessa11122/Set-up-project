@@ -259,12 +259,11 @@ def trip_detail():
         reise['sehenswuerdigkeiten'] = alle_s
         reise['ausgewaehlte_s'] = [s['sehenswuerdigkeit_id'] for s in ausgewaehlte_s]
 
-       # In der Route /trip_detail innerhalb der for-schleife:
+        # Hotels (ohne Budget-Filter)
         alle_h = db_read(
-            "SELECT hotel_id, name, sterne, preis_pro_nacht FROM hotels WHERE reiseziel_id = %s AND preis_pro_nacht <= %s",        
-            (reise['reiseziel_id'], reise['hotel_budget'])
+            "SELECT id, name, sterne, preis_pro_nacht FROM hotels WHERE reiseziel_id = %s",
+            (reise['reiseziel_id'],)
         )
-        
         ausgewaehlte_h = db_read(
             "SELECT hotel_id FROM user_hotels WHERE reise_id = %s",
             (reise['reise_id'],)
