@@ -210,16 +210,17 @@ def add_trip():
 @login_required
 def trip_detail():
     reisen_des_benutzers = db_read(
-        """SELECT id, reiseziel_id,  
-                  startdatum, enddatum, 
-                  transport, hotel_budget, 
-                  restaurant_budget, interesse
-           FROM user_reisen
-           JOIN reiseziele ON reiseziel_id = reiseziele.id
-           WHERE user_id = %s
-           ORDER BY startdatum""",
-        (current_user.id,)
-    )
+    """SELECT user_reisen.id AS reise_id, reiseziele.name AS reiseziel_name, reiseziele.land,
+              user_reisen.startdatum, user_reisen.enddatum,
+              user_reisen.transport, user_reisen.hotel_budget,
+              user_reisen.restaurant_budget, user_reisen.interesse
+       FROM user_reisen
+       JOIN reiseziele ON user_reisen.reiseziel_id = reiseziele.id
+       WHERE user_reisen.user_id = %s
+       ORDER BY user_reisen.startdatum""",
+    (current_user.id,)
+)
+
 
     return render_template("trip_detail.html", reisen=reisen_des_benutzers)
 
