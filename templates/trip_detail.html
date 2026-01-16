@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-
-
 {% block content %}
 <h1>Meine Reisen</h1>
 
@@ -15,44 +13,47 @@
     <form method="POST" action="{{ url_for('trip_detail') }}">
         <input type="hidden" name="reise_id" value="{{ reise.reise_id }}">
 
-        <!-- Sehenswürdigkeiten -->
         <h3>Sehenswürdigkeiten</h3>
         <div class="sehenswuerdigkeiten" style="margin-bottom:20px;">
             {% for s in reise.sehenswuerdigkeiten %}
             <div style="margin-bottom:10px; padding:10px; border:1px solid #eee; border-radius:5px;">
-                <label>
+                <label style="display: block; cursor: pointer;">
                     <input type="checkbox" name="sehenswuerdigkeiten" value="{{ s.id }}"
                         {% if s.id in reise.ausgewaehlte_s %}checked{% endif %}>
-                    <strong>{{ s.name }}</strong> (Interesse: {{ s.interessen }})
+                    <strong>{{ s.name }}</strong> ({{ s.interessen }})
                 </label>
                 <p style="margin:5px 0 0 25px; font-size:0.9em; color:#555;">{{ s.beschreibung }}</p>
             </div>
             {% endfor %}
         </div>
 
-        <!-- Hotels -->
-        <h3>Hotels</h3>
-        
-<div class="hotels" style="margin-bottom:20px;">
-    {% if reise.hotels %}
-        {% for h in reise.hotels %}
-        <div style="margin-bottom:10px; padding:10px; border:1px solid #eee; border-radius:5px;">
-            <label style="display: block; cursor: pointer;">
-                <input type="checkbox" name="hotels" value="{{ h.id }}"
-                    {% if h.id in reise.ausgewaehlte_h %}checked{% endif %}>
-                <strong>{{ h.name }}</strong> 
-                <span style="color: #f39c12; margin-left: 10px;">
-                    {{ "★" * h.sterne }}
-                </span>
-                <span style="float: right; color: #28a745; font-weight: bold;">
-                    {{ h.preis_pro_nacht }} € / Nacht
-                </span>
-            </label>
+        <h3>Passende Hotels für dieses Reiseziel</h3>
+        <div class="hotels" style="margin-bottom:20px;">
+            {% if reise.hotels %}
+                {% for h in reise.hotels %}
+                <div style="margin-bottom:10px; padding:10px; border:1px solid #eee; border-radius:5px;">
+                    <label style="display: block; cursor: pointer;">
+                        <input type="checkbox" name="hotels" value="{{ h.id }}"
+                            {% if h.id in reise.ausgewaehlte_h %}checked{% endif %}>
+                        <strong>{{ h.name }}</strong> 
+                        <span style="color: #f39c12; margin-left: 10px;">
+                            {{ "★" * h.sterne }}
+                        </span>
+                        <span style="float: right; color: #28a745; font-weight: bold;">
+                            {{ h.preis_pro_nacht }} € / Nacht
+                        </span>
+                    </label>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: #888; font-style: italic;">Keine Hotels für dieses Ziel verfügbar.</p>
+            {% endif %}
         </div>
-        {% endfor %}
-    {% else %}
-        <p style="color: #888; font-style: italic;">Keine Hotels für dieses Ziel verfügbar.</p>
-    {% endif %}
+
+        <button type="submit" style="margin-top:15px; padding:8px 16px; background-color:#007BFF; color:white; border:none; border-radius:5px; cursor:pointer;">
+            Änderungen speichern
+        </button>
+    </form>
 </div>
 {% else %}
 <p>Du hast noch keine Reisen geplant.</p>
