@@ -172,8 +172,7 @@ def frankreich():
 
     return render_template("Frankreich.html", reiseziele=reiseziele)
 
-from flask import flash, redirect, render_template, request
-from flask_login import login_required, current_user
+
 
 @app.route("/add_trip", methods=["GET", "POST"])
 @login_required
@@ -187,12 +186,24 @@ def add_trip():
         restaurant_budget = request.form["restaurant_budget"]
 
         db_write("""
-            INSERT INTO user_reisen 
+            INSERT INTO user_reisen
             (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (current_user.id, land, start, end, transport, hotel_budget, restaurant_budget))
+        """, (
+            current_user.id,
+            land,
+            start,
+            end,
+            transport,
+            hotel_budget,
+            restaurant_budget
+        ))
 
-        return redirect(url_for("index"))
+        # neue ID holen
+        trip_id = db_read("SELECT LAST_INSERT_ID()")[0][0]
+
+        # weiterleiten zur Detailseite
+        return redirect(url_for("trip_detail", trip_id=trip_id))
 
     return render_template("add_trip.html")
 
