@@ -228,7 +228,7 @@ INSERT INTO restaurants (reiseziel_id, name, kueche_typ, preis_niveau, bewertung
 
 INSERT INTO sehenswuerdigkeiten (reiseziel_id, name, beschreibung, land) VALUES
 -- 1 Paris – Frankreich
-(1, 'Eiffelturm', 'Wahrzeichen von Paris mit Aussichtsplattform.', 'Frankreich', 'Architektur')
+(1, 'Eiffelturm', 'Wahrzeichen von Paris mit Aussichtsplattform.', 'Frankreich', 'Architektur'),
 (1, 'Louvre', 'Berühmtes Kunstmuseum mit der Mona Lisa.', 'Frankreich', 'Museen'),
 (1, 'Notre-Dame', 'Gotische Kathedrale auf der Île de la Cité.', 'Frankreich', 'Kirchen und Kathedralen'),
 
@@ -310,7 +310,7 @@ INSERT INTO sehenswuerdigkeiten (reiseziel_id, name, beschreibung, land) VALUES
 
 -- 17 Kapstadt – Südafrika
 (17, 'Tafelberg', 'Markanter Berg mit Seilbahn.', 'Südafrika', 'Natur'),
-(17, 'Kap der Guten Hoffnung', 'Berühmte Landspitze.', 'Südafrika', ),
+(17, 'Kap der Guten Hoffnung', 'Berühmte Landspitze.', 'Südafrika', 'Natur'),
 (17, 'V&A Waterfront', 'Hafenviertel mit Shops und Restaurants.', 'Südafrika', 'Städtetrip'),
 
 -- 18 Sydney – Australien
