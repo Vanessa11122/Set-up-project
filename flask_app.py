@@ -210,22 +210,9 @@ def add_trip():
 
 
 
-@app.route("/reisen")
-@login_required
-def reisen():
-    cursor = mysql.connection.cursor(dictionary=True)
-    cursor.execute("""
-        SELECT ur.*, rz.name, rz.land
-        FROM user_reisen ur
-        JOIN reiseziele rz ON ur.reiseziel_id = rz.id
-        WHERE ur.user_id = %s
-    """, (current_user.id,))
-    trips = cursor.fetchall()
-    cursor.close()
 
-    return render_template("reisen.html", trips=trips)
 
-@app.route("/reisen")
+@app.route("Rreisen")
 @login_required
 def reisen():
     trips = db_read("""
@@ -239,20 +226,6 @@ def reisen():
     return render_template("reisen.html", trips=trips)
 
 
-@app.route("/reisen")
-@login_required
-def reisen():
-    cursor = mysql.connection.cursor(dictionary=True)
-    cursor.execute("""
-        SELECT ur.*, rz.name, rz.land
-        FROM user_reisen ur
-        JOIN reiseziele rz ON ur.reiseziel_id = rz.id
-        WHERE ur.user_id = %s
-    """, (current_user.id,))
-    trips = cursor.fetchall()
-    cursor.close()
-
-    return render_template("reisen.html", trips=trips)
 
 @app.route("/trip/<int:trip_id>")
 @login_required
@@ -281,45 +254,7 @@ def trip_detail(trip_id):
     cursor.close()
     return render_template("trip_detail.html", trip=trip, hotels=hotels)
 
-@app.route("/add_trip", methods=["GET", "POST"])
-@login_required
-def add_trip():
-    if request.method == "POST":
-        land = request.form["ziel"]
-        startdatum = request.form["startdatum"]
-        enddatum = request.form["enddatum"]
-        transport = request.form["transport"]
-        hotel_budget = request.form["hotel_budget"]
-        restaurant_budget = request.form["restaurant_budget"]
 
-        # Reiseziel-ID holen
-        ziel = db_read(
-            "SELECT id FROM reiseziele WHERE land=%s LIMIT 1",
-            (land,)
-        )
-
-        if not ziel:
-            return "Reiseziel nicht gefunden", 400
-
-        reiseziel_id = ziel[0]["id"]
-
-        db_write("""
-            INSERT INTO user_reisen
-            (user_id, reiseziel_id, startdatum, enddatum, transport, hotel_budget, restaurant_budget)
-            VALUES (%s,%s,%s,%s,%s,%s,%s)
-        """, (
-            current_user.id,
-            reiseziel_id,
-            startdatum,
-            enddatum,
-            transport,
-            hotel_budget,
-            restaurant_budget
-        ))
-
-        return redirect(url_for("reisen"))
-
-    return render_template("add_trip.html")
 
 if __name__ == "__main__":
     app.run()
