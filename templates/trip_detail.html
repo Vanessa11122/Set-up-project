@@ -3,25 +3,7 @@
 <h1>Reise Details</h1>
 
 
-<table>
-    <tr>
-        <th>Startdatum</th>
-        <th>Enddatum</th>
-        <th>Transport</th>
-        <th>Hotelbudget</th>
-        <th>Restaurantbudget</th>
-    </tr>
 
-    {% for reise in reisen %}
-    <tr>
-        <td>{{ reise.startdatum }}</td>
-        <td>{{ reise.enddatum }}</td>
-        <td>{{ reise.transport }}</td>
-        <td>{{ reise.hotel_budget }}</td>
-        <td>{{ reise.restaurant_budget }}</td>
-    </tr>
-    {% endfor %}
-</table>
 
 
 {% endblock %}
