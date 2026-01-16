@@ -21,12 +21,14 @@
   
   <!-- Reiseziel -->
  <label for="ziel">Reiseziel:</label>
-  <select name="ziel" id="ziel" required>
-    <option value="" disabled selected>Bitte auswählen</option>
-    {% for ziel in ziele %}
-      <option value="{{ ziel[0] }}">{{ ziel[1] }}</option>
-    {% endfor %}
-  </select>
+<select name="ziel" id="ziel" required>
+  <option value="" disabled selected>Bitte auswählen</option>
+  {% for ziel in ziele %}
+    <option value="{{ ziel[0] }}">
+      {{ ziel[1] }} ({{ ziel[2] }})
+    </option>
+  {% endfor %}
+</select>
 
   <!-- Budget Hotels -->
   <label for="hotel_budget">Budget Hotels (€):</label>
