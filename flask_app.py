@@ -212,7 +212,7 @@ def add_trip():
 
 
 
-@app.route("Rreisen")
+@app.route("Reisen")
 @login_required
 def reisen():
     trips = db_read("""
@@ -226,33 +226,8 @@ def reisen():
     return render_template("reisen.html", trips=trips)
 
 
-
-@app.route("/trip/<int:trip_id>")
-@login_required
-def trip_detail(trip_id):
-    cursor = mysql.connection.cursor(dictionary=True)
-
-    cursor.execute("""
-        SELECT * FROM user_reisen WHERE id=%s AND user_id=%s
-    """, (trip_id, current_user.id))
-    trip = cursor.fetchone()
-
-    if not trip:
-        return "Reise nicht gefunden", 404
-
-    cursor.execute("""
-        SELECT * FROM hotels
-        WHERE reiseziel_id=%s
-        AND preis_pro_nacht BETWEEN %s*0.8 AND %s*1.2
-    """, (
-        trip["reiseziel_id"],
-        trip["hotel_budget"],
-        trip["hotel_budget"]
-    ))
-    hotels = cursor.fetchall()
-
     cursor.close()
-    return render_template("trip_detail.html", trip=trip, hotels=hotels)
+    return render_template("Reisen.html", trip=trip, hotels=hotels)
 
 
 
