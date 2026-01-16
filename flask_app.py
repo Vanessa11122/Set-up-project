@@ -215,8 +215,8 @@ def add_trip():
             return "Fehler beim Speichern der Reise", 500
 
     # Falls GET-Anfrage: Reiseziele für das Dropdown-Menü laden
-    reiseziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
-    return render_template("add_trip.html", reiseziele=reiseziele)
+    ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
+    return render_template("add_trip.html", ziele=ziele)
 
 @app.route("/trip/<int:trip_id>")
 @login_required
