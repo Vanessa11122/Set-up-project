@@ -204,10 +204,19 @@ def add_trip():
 @app.route("/trip_detail")
 @login_required
 def trip_detail():
-    # Abfrage ohne Abkürzungen (u. und r. wurden durch volle Namen ersetzt)
-    
-    # Wir übergeben die erste Zeile des Ergebnisses (Index 0) an das HTML
-    return render_template("trip_detail.html")
+    reisen = db_read("""
+        SELECT
+            startdatum,
+            enddatum,
+            transport,
+            hotel_budget,
+            restaurant_budget
+        FROM user_reisen
+        ORDER BY startdatum
+    """, (current_user.id,))
+
+    return render_template("trip_detail.html", reisen=reisen)
+
     
 if __name__ == "__main__":
     app.run()
