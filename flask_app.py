@@ -164,17 +164,14 @@ def frankreich():
             (reiseziel,)
         )
 
+        # WICHTIG: Redirect nach POST
         return redirect("/Frankreich")
 
-    reiseziele = db_read(
-        "SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'"
-    )
+    # GET: Daten aus DB holen
+    reiseziele = db_read("SELECT name FROM reiseziele WHERE land LIKE '%Frankreich%'")
 
     return render_template("Frankreich.html", reiseziele=reiseziele)
 
-
-
-#ab hier neu
 @app.route("/add_trip", methods=["GET", "POST"])
 @login_required
 def add_trip():
@@ -207,33 +204,5 @@ def add_trip():
     return render_template("add_trip.html", success_message=success_message)
 
     
-
-
-
-
-
-@app.route("Reisen")
-@login_required
-def reisen():
-    trips = db_read("""
-        SELECT ur.id, rz.land, ur.startdatum, ur.enddatum,
-               ur.hotel_budget + ur.restaurant_budget AS total_budget
-        FROM user_reisen ur
-        JOIN reiseziele rz ON ur.reiseziel_id = rz.id
-        WHERE ur.user_id = %s
-    """, (current_user.id,))
-
-    return render_template("reisen.html", trips=trips)
-
-
-    cursor.close()
-    return render_template("Reisen.html", trip=trip, hotels=hotels)
-
-
-
 if __name__ == "__main__":
     app.run()
-
-
-
-
