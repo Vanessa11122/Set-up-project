@@ -186,6 +186,9 @@ def add_trip():
         hotel_budget = request.form.get("hotel_budget")
         restaurant_budget = request.form.get("restaurant_budget")
 
+        alle_ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
+    return render_template("add_trip.html", ziele=alle_ziele)
+
         # In die Datenbank schreiben
         db_write("""
             INSERT INTO user_reisen 
@@ -196,15 +199,11 @@ def add_trip():
         # Die ID der soeben erstellten Reise abrufen
         ergebnis = db_read("SELECT id FROM user_reisen WHERE user_id=%s ORDER BY id DESC LIMIT 1", (current_user.id,))
         
-        if ergebnis:
-            neue_reise_id = ergebnis[0][0]
-            return redirect(url_for("trip_detail", trip_id=neue_reise_id))
         
         return redirect(url_for("index"))
 
     # Länder für das Dropdown-Menü laden
-    alle_ziele = db_read("SELECT id, name FROM reiseziele ORDER BY name")
-    return render_template("add_trip.html", ziele=alle_ziele)
+    
 
 
 @app.route("/trip_detail")
